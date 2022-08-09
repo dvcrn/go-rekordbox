@@ -44,3 +44,7 @@ func NewClient(optionsFilePath string, asarFilePath string) (*Client, error) {
 func (c *Client) Close() {
 	c.db.Close()
 }
+
+func (c *Client) GetDB() *sqlx.DB {
+	return c.db
+}
