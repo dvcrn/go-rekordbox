@@ -144,17 +144,7 @@ func (c *Client) DeleteDjmdCategory(ctx context.Context, dc *DjmdCategory) error
 	return nil
 }
 
-func (c *Client) AllDjmdCategory(ctx context.Context) ([]*DjmdCategory, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdCategory`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdCategoryRows(rows *sql.Rows) ([]*DjmdCategory, error) {
 	var res []*DjmdCategory
 	for rows.Next() {
 		dc := DjmdCategory{
@@ -166,7 +156,25 @@ func (c *Client) AllDjmdCategory(ctx context.Context) ([]*DjmdCategory, error) {
 		}
 		res = append(res, &dc)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdCategory(ctx context.Context) ([]*DjmdCategory, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdCategory`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdCategoryRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -175,16 +183,6 @@ func (c *Client) AllDjmdCategory(ctx context.Context) ([]*DjmdCategory, error) {
 // DjmdCategoryByUUID retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category__u_u_i_d'.
-// func (dc *DjmdCategory) djmdCategory(db DB) (error)
-// func DjmdCategoryByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdCategory, error) {
-// DjmdCategoryByUUID {
-// func DjmdCategoryByUUID(db DB, uuid sql.NullString) ([]*DjmdCategory, error) {
-// true
-// uuid
-// DjmdCategory
-// DjmdCategoryByUUID
-// false
-// false
 func (c *Client) DjmdCategoryByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdCategory, error) {
 	// func DjmdCategoryByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdCategory, error) {
 	db := c.db
@@ -222,16 +220,6 @@ func (c *Client) DjmdCategoryByUUID(ctx context.Context, uuid sql.NullString) ([
 // DjmdCategoryByRbDataStatus retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_data_status'.
-// func (dc *DjmdCategory) djmdCategory(db DB) (error)
-// func DjmdCategoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
-// DjmdCategoryByRbDataStatus {
-// func DjmdCategoryByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
-// true
-// rbDataStatus
-// DjmdCategory
-// DjmdCategoryByRbDataStatus
-// false
-// false
 func (c *Client) DjmdCategoryByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
 	// func DjmdCategoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
@@ -269,16 +257,6 @@ func (c *Client) DjmdCategoryByRbDataStatus(ctx context.Context, rbDataStatus sq
 // DjmdCategoryByRbLocalDataStatus retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_local_data_status'.
-// func (dc *DjmdCategory) djmdCategory(db DB) (error)
-// func DjmdCategoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
-// DjmdCategoryByRbLocalDataStatus {
-// func DjmdCategoryByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
-// true
-// rbLocalDataStatus
-// DjmdCategory
-// DjmdCategoryByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdCategoryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
 	// func DjmdCategoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
@@ -316,16 +294,6 @@ func (c *Client) DjmdCategoryByRbLocalDataStatus(ctx context.Context, rbLocalDat
 // DjmdCategoryByRbLocalDeleted retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_local_deleted'.
-// func (dc *DjmdCategory) djmdCategory(db DB) (error)
-// func DjmdCategoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCategory, error) {
-// DjmdCategoryByRbLocalDeleted {
-// func DjmdCategoryByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCategory, error) {
-// true
-// rbLocalDeleted
-// DjmdCategory
-// DjmdCategoryByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdCategoryByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdCategory, error) {
 	// func DjmdCategoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
@@ -363,16 +331,6 @@ func (c *Client) DjmdCategoryByRbLocalDeleted(ctx context.Context, rbLocalDelete
 // DjmdCategoryByRbLocalUsnID retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_local_usn__i_d'.
-// func (dc *DjmdCategory) djmdCategory(db DB) (error)
-// func DjmdCategoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCategory, error) {
-// DjmdCategoryByRbLocalUsnID {
-// func DjmdCategoryByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCategory, error) {
-// true
-// rbLocalUsn, id
-// DjmdCategory
-// DjmdCategoryByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdCategoryByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCategory, error) {
 	// func DjmdCategoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCategory, error) {
 	db := c.db
@@ -410,16 +368,6 @@ func (c *Client) DjmdCategoryByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.
 // DjmdCategoryByID retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'sqlite_autoindex_djmdCategory_1'.
-// func (dc *DjmdCategory) djmdCategory(db DB) (error)
-// func DjmdCategoryByID(ctx context.Context, db DB, id sql.NullString) (*DjmdCategory, error) {
-// DjmdCategoryByID {
-// func DjmdCategoryByID(db DB, id sql.NullString) (*DjmdCategory, error) {
-// true
-// id
-// DjmdCategory
-// DjmdCategoryByID
-// true
-// true
 func (c *Client) DjmdCategoryByID(ctx context.Context, id sql.NullString) (*DjmdCategory, error) {
 	// func DjmdCategoryByID(ctx context.Context, db DB, id sql.NullString) (*DjmdCategory, error) {
 	db := c.db

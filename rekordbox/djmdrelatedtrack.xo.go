@@ -145,17 +145,7 @@ func (c *Client) DeleteDjmdRelatedTrack(ctx context.Context, drt *DjmdRelatedTra
 	return nil
 }
 
-func (c *Client) AllDjmdRelatedTrack(ctx context.Context) ([]*DjmdRelatedTrack, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdRelatedTrack`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdRelatedTrackRows(rows *sql.Rows) ([]*DjmdRelatedTrack, error) {
 	var res []*DjmdRelatedTrack
 	for rows.Next() {
 		drt := DjmdRelatedTrack{
@@ -167,7 +157,25 @@ func (c *Client) AllDjmdRelatedTrack(ctx context.Context) ([]*DjmdRelatedTrack, 
 		}
 		res = append(res, &drt)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdRelatedTrack(ctx context.Context) ([]*DjmdRelatedTrack, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdRelatedTrack`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdRelatedTrackRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -176,16 +184,6 @@ func (c *Client) AllDjmdRelatedTrack(ctx context.Context) ([]*DjmdRelatedTrack, 
 // DjmdRelatedTracksByName retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks__name'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksByName {
-// func DjmdRelatedTracksByName(db DB, name sql.NullString) ([]*DjmdRelatedTrack, error) {
-// true
-// name
-// DjmdRelatedTrack
-// DjmdRelatedTracksByName
-// false
-// false
 func (c *Client) DjmdRelatedTracksByName(ctx context.Context, name sql.NullString) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -223,16 +221,6 @@ func (c *Client) DjmdRelatedTracksByName(ctx context.Context, name sql.NullStrin
 // DjmdRelatedTracksByParentID retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks__parent_i_d'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksByParentID(ctx context.Context, db DB, parentID sql.NullString) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksByParentID {
-// func DjmdRelatedTracksByParentID(db DB, parentID sql.NullString) ([]*DjmdRelatedTrack, error) {
-// true
-// parentID
-// DjmdRelatedTrack
-// DjmdRelatedTracksByParentID
-// false
-// false
 func (c *Client) DjmdRelatedTracksByParentID(ctx context.Context, parentID sql.NullString) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksByParentID(ctx context.Context, db DB, parentID sql.NullString) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -270,16 +258,6 @@ func (c *Client) DjmdRelatedTracksByParentID(ctx context.Context, parentID sql.N
 // DjmdRelatedTracksBySeq retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks__seq'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksBySeq(ctx context.Context, db DB, seq sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksBySeq {
-// func DjmdRelatedTracksBySeq(db DB, seq sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// true
-// seq
-// DjmdRelatedTrack
-// DjmdRelatedTracksBySeq
-// false
-// false
 func (c *Client) DjmdRelatedTracksBySeq(ctx context.Context, seq sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksBySeq(ctx context.Context, db DB, seq sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -317,16 +295,6 @@ func (c *Client) DjmdRelatedTracksBySeq(ctx context.Context, seq sql.NullInt64) 
 // DjmdRelatedTracksByUUID retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks__u_u_i_d'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksByUUID {
-// func DjmdRelatedTracksByUUID(db DB, uuid sql.NullString) ([]*DjmdRelatedTrack, error) {
-// true
-// uuid
-// DjmdRelatedTrack
-// DjmdRelatedTracksByUUID
-// false
-// false
 func (c *Client) DjmdRelatedTracksByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -364,16 +332,6 @@ func (c *Client) DjmdRelatedTracksByUUID(ctx context.Context, uuid sql.NullStrin
 // DjmdRelatedTracksByRbDataStatus retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks_rb_data_status'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksByRbDataStatus {
-// func DjmdRelatedTracksByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// true
-// rbDataStatus
-// DjmdRelatedTrack
-// DjmdRelatedTracksByRbDataStatus
-// false
-// false
 func (c *Client) DjmdRelatedTracksByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -411,16 +369,6 @@ func (c *Client) DjmdRelatedTracksByRbDataStatus(ctx context.Context, rbDataStat
 // DjmdRelatedTracksByRbLocalDataStatus retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks_rb_local_data_status'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksByRbLocalDataStatus {
-// func DjmdRelatedTracksByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// true
-// rbLocalDataStatus
-// DjmdRelatedTrack
-// DjmdRelatedTracksByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdRelatedTracksByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -458,16 +406,6 @@ func (c *Client) DjmdRelatedTracksByRbLocalDataStatus(ctx context.Context, rbLoc
 // DjmdRelatedTracksByRbLocalDeleted retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks_rb_local_deleted'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksByRbLocalDeleted {
-// func DjmdRelatedTracksByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdRelatedTrack, error) {
-// true
-// rbLocalDeleted
-// DjmdRelatedTrack
-// DjmdRelatedTracksByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdRelatedTracksByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -505,16 +443,6 @@ func (c *Client) DjmdRelatedTracksByRbLocalDeleted(ctx context.Context, rbLocalD
 // DjmdRelatedTracksByRbLocalUsnID retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'djmd_related_tracks_rb_local_usn__i_d'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTracksByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdRelatedTrack, error) {
-// DjmdRelatedTracksByRbLocalUsnID {
-// func DjmdRelatedTracksByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdRelatedTrack, error) {
-// true
-// rbLocalUsn, id
-// DjmdRelatedTrack
-// DjmdRelatedTracksByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdRelatedTracksByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTracksByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdRelatedTrack, error) {
 	db := c.db
@@ -552,16 +480,6 @@ func (c *Client) DjmdRelatedTracksByRbLocalUsnID(ctx context.Context, rbLocalUsn
 // DjmdRelatedTrackByID retrieves a row from 'djmdRelatedTracks' as a DjmdRelatedTrack.
 //
 // Generated from index 'sqlite_autoindex_djmdRelatedTracks_1'.
-// func (drt *DjmdRelatedTrack) djmdRelatedTracks(db DB) (error)
-// func DjmdRelatedTrackByID(ctx context.Context, db DB, id sql.NullString) (*DjmdRelatedTrack, error) {
-// DjmdRelatedTrackByID {
-// func DjmdRelatedTrackByID(db DB, id sql.NullString) (*DjmdRelatedTrack, error) {
-// true
-// id
-// DjmdRelatedTrack
-// DjmdRelatedTrackByID
-// true
-// true
 func (c *Client) DjmdRelatedTrackByID(ctx context.Context, id sql.NullString) (*DjmdRelatedTrack, error) {
 	// func DjmdRelatedTrackByID(ctx context.Context, db DB, id sql.NullString) (*DjmdRelatedTrack, error) {
 	db := c.db

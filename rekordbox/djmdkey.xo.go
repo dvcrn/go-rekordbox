@@ -142,17 +142,7 @@ func (c *Client) DeleteDjmdKey(ctx context.Context, dk *DjmdKey) error {
 	return nil
 }
 
-func (c *Client) AllDjmdKey(ctx context.Context) ([]*DjmdKey, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdKey`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdKeyRows(rows *sql.Rows) ([]*DjmdKey, error) {
 	var res []*DjmdKey
 	for rows.Next() {
 		dk := DjmdKey{
@@ -164,7 +154,25 @@ func (c *Client) AllDjmdKey(ctx context.Context) ([]*DjmdKey, error) {
 		}
 		res = append(res, &dk)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdKey(ctx context.Context) ([]*DjmdKey, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdKey`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdKeyRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -173,16 +181,6 @@ func (c *Client) AllDjmdKey(ctx context.Context) ([]*DjmdKey, error) {
 // DjmdKeyByScaleName retrieves a row from 'djmdKey' as a DjmdKey.
 //
 // Generated from index 'djmd_key__scale_name'.
-// func (dk *DjmdKey) djmdKey(db DB) (error)
-// func DjmdKeyByScaleName(ctx context.Context, db DB, scaleName sql.NullString) ([]*DjmdKey, error) {
-// DjmdKeyByScaleName {
-// func DjmdKeyByScaleName(db DB, scaleName sql.NullString) ([]*DjmdKey, error) {
-// true
-// scaleName
-// DjmdKey
-// DjmdKeyByScaleName
-// false
-// false
 func (c *Client) DjmdKeyByScaleName(ctx context.Context, scaleName sql.NullString) ([]*DjmdKey, error) {
 	// func DjmdKeyByScaleName(ctx context.Context, db DB, scaleName sql.NullString) ([]*DjmdKey, error) {
 	db := c.db
@@ -220,16 +218,6 @@ func (c *Client) DjmdKeyByScaleName(ctx context.Context, scaleName sql.NullStrin
 // DjmdKeyByUUID retrieves a row from 'djmdKey' as a DjmdKey.
 //
 // Generated from index 'djmd_key__u_u_i_d'.
-// func (dk *DjmdKey) djmdKey(db DB) (error)
-// func DjmdKeyByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdKey, error) {
-// DjmdKeyByUUID {
-// func DjmdKeyByUUID(db DB, uuid sql.NullString) ([]*DjmdKey, error) {
-// true
-// uuid
-// DjmdKey
-// DjmdKeyByUUID
-// false
-// false
 func (c *Client) DjmdKeyByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdKey, error) {
 	// func DjmdKeyByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdKey, error) {
 	db := c.db
@@ -267,16 +255,6 @@ func (c *Client) DjmdKeyByUUID(ctx context.Context, uuid sql.NullString) ([]*Djm
 // DjmdKeyByRbDataStatus retrieves a row from 'djmdKey' as a DjmdKey.
 //
 // Generated from index 'djmd_key_rb_data_status'.
-// func (dk *DjmdKey) djmdKey(db DB) (error)
-// func DjmdKeyByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdKey, error) {
-// DjmdKeyByRbDataStatus {
-// func DjmdKeyByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdKey, error) {
-// true
-// rbDataStatus
-// DjmdKey
-// DjmdKeyByRbDataStatus
-// false
-// false
 func (c *Client) DjmdKeyByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdKey, error) {
 	// func DjmdKeyByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdKey, error) {
 	db := c.db
@@ -314,16 +292,6 @@ func (c *Client) DjmdKeyByRbDataStatus(ctx context.Context, rbDataStatus sql.Nul
 // DjmdKeyByRbLocalDataStatus retrieves a row from 'djmdKey' as a DjmdKey.
 //
 // Generated from index 'djmd_key_rb_local_data_status'.
-// func (dk *DjmdKey) djmdKey(db DB) (error)
-// func DjmdKeyByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdKey, error) {
-// DjmdKeyByRbLocalDataStatus {
-// func DjmdKeyByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdKey, error) {
-// true
-// rbLocalDataStatus
-// DjmdKey
-// DjmdKeyByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdKeyByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdKey, error) {
 	// func DjmdKeyByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdKey, error) {
 	db := c.db
@@ -361,16 +329,6 @@ func (c *Client) DjmdKeyByRbLocalDataStatus(ctx context.Context, rbLocalDataStat
 // DjmdKeyByRbLocalDeleted retrieves a row from 'djmdKey' as a DjmdKey.
 //
 // Generated from index 'djmd_key_rb_local_deleted'.
-// func (dk *DjmdKey) djmdKey(db DB) (error)
-// func DjmdKeyByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdKey, error) {
-// DjmdKeyByRbLocalDeleted {
-// func DjmdKeyByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdKey, error) {
-// true
-// rbLocalDeleted
-// DjmdKey
-// DjmdKeyByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdKeyByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdKey, error) {
 	// func DjmdKeyByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdKey, error) {
 	db := c.db
@@ -408,16 +366,6 @@ func (c *Client) DjmdKeyByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql
 // DjmdKeyByRbLocalUsnID retrieves a row from 'djmdKey' as a DjmdKey.
 //
 // Generated from index 'djmd_key_rb_local_usn__i_d'.
-// func (dk *DjmdKey) djmdKey(db DB) (error)
-// func DjmdKeyByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdKey, error) {
-// DjmdKeyByRbLocalUsnID {
-// func DjmdKeyByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdKey, error) {
-// true
-// rbLocalUsn, id
-// DjmdKey
-// DjmdKeyByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdKeyByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdKey, error) {
 	// func DjmdKeyByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdKey, error) {
 	db := c.db
@@ -455,16 +403,6 @@ func (c *Client) DjmdKeyByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullI
 // DjmdKeyByID retrieves a row from 'djmdKey' as a DjmdKey.
 //
 // Generated from index 'sqlite_autoindex_djmdKey_1'.
-// func (dk *DjmdKey) djmdKey(db DB) (error)
-// func DjmdKeyByID(ctx context.Context, db DB, id sql.NullString) (*DjmdKey, error) {
-// DjmdKeyByID {
-// func DjmdKeyByID(db DB, id sql.NullString) (*DjmdKey, error) {
-// true
-// id
-// DjmdKey
-// DjmdKeyByID
-// true
-// true
 func (c *Client) DjmdKeyByID(ctx context.Context, id sql.NullString) (*DjmdKey, error) {
 	// func DjmdKeyByID(ctx context.Context, db DB, id sql.NullString) (*DjmdKey, error) {
 	db := c.db

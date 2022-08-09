@@ -148,17 +148,7 @@ func (c *Client) DeleteSettingFile(ctx context.Context, sf *SettingFile) error {
 	return nil
 }
 
-func (c *Client) AllSettingFile(ctx context.Context) ([]*SettingFile, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM SettingFile`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanSettingFileRows(rows *sql.Rows) ([]*SettingFile, error) {
 	var res []*SettingFile
 	for rows.Next() {
 		sf := SettingFile{
@@ -170,7 +160,25 @@ func (c *Client) AllSettingFile(ctx context.Context) ([]*SettingFile, error) {
 		}
 		res = append(res, &sf)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllSettingFile(ctx context.Context) ([]*SettingFile, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM SettingFile`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanSettingFileRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -179,16 +187,6 @@ func (c *Client) AllSettingFile(ctx context.Context) ([]*SettingFile, error) {
 // SettingFileByUUID retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file__u_u_i_d'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*SettingFile, error) {
-// SettingFileByUUID {
-// func SettingFileByUUID(db DB, uuid sql.NullString) ([]*SettingFile, error) {
-// true
-// uuid
-// SettingFile
-// SettingFileByUUID
-// false
-// false
 func (c *Client) SettingFileByUUID(ctx context.Context, uuid sql.NullString) ([]*SettingFile, error) {
 	// func SettingFileByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*SettingFile, error) {
 	db := c.db
@@ -226,16 +224,6 @@ func (c *Client) SettingFileByUUID(ctx context.Context, uuid sql.NullString) ([]
 // SettingFileByRbDataStatus retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_data_status'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*SettingFile, error) {
-// SettingFileByRbDataStatus {
-// func SettingFileByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*SettingFile, error) {
-// true
-// rbDataStatus
-// SettingFile
-// SettingFileByRbDataStatus
-// false
-// false
 func (c *Client) SettingFileByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*SettingFile, error) {
 	// func SettingFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*SettingFile, error) {
 	db := c.db
@@ -273,16 +261,6 @@ func (c *Client) SettingFileByRbDataStatus(ctx context.Context, rbDataStatus sql
 // SettingFileByRbFileHashDirty retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_file_hash_dirty'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty sql.NullInt64) ([]*SettingFile, error) {
-// SettingFileByRbFileHashDirty {
-// func SettingFileByRbFileHashDirty(db DB, rbFileHashDirty sql.NullInt64) ([]*SettingFile, error) {
-// true
-// rbFileHashDirty
-// SettingFile
-// SettingFileByRbFileHashDirty
-// false
-// false
 func (c *Client) SettingFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty sql.NullInt64) ([]*SettingFile, error) {
 	// func SettingFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty sql.NullInt64) ([]*SettingFile, error) {
 	db := c.db
@@ -320,16 +298,6 @@ func (c *Client) SettingFileByRbFileHashDirty(ctx context.Context, rbFileHashDir
 // SettingFileByRbFileSizeDirty retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_file_size_dirty'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty sql.NullInt64) ([]*SettingFile, error) {
-// SettingFileByRbFileSizeDirty {
-// func SettingFileByRbFileSizeDirty(db DB, rbFileSizeDirty sql.NullInt64) ([]*SettingFile, error) {
-// true
-// rbFileSizeDirty
-// SettingFile
-// SettingFileByRbFileSizeDirty
-// false
-// false
 func (c *Client) SettingFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty sql.NullInt64) ([]*SettingFile, error) {
 	// func SettingFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty sql.NullInt64) ([]*SettingFile, error) {
 	db := c.db
@@ -367,16 +335,6 @@ func (c *Client) SettingFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDir
 // SettingFileByRbLocalDataStatus retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_local_data_status'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*SettingFile, error) {
-// SettingFileByRbLocalDataStatus {
-// func SettingFileByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*SettingFile, error) {
-// true
-// rbLocalDataStatus
-// SettingFile
-// SettingFileByRbLocalDataStatus
-// false
-// false
 func (c *Client) SettingFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*SettingFile, error) {
 	// func SettingFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*SettingFile, error) {
 	db := c.db
@@ -414,16 +372,6 @@ func (c *Client) SettingFileByRbLocalDataStatus(ctx context.Context, rbLocalData
 // SettingFileByRbLocalDeleted retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_local_deleted'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*SettingFile, error) {
-// SettingFileByRbLocalDeleted {
-// func SettingFileByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*SettingFile, error) {
-// true
-// rbLocalDeleted
-// SettingFile
-// SettingFileByRbLocalDeleted
-// false
-// false
 func (c *Client) SettingFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*SettingFile, error) {
 	// func SettingFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*SettingFile, error) {
 	db := c.db
@@ -461,16 +409,6 @@ func (c *Client) SettingFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 // SettingFileByRbLocalUsnID retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_local_usn__i_d'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*SettingFile, error) {
-// SettingFileByRbLocalUsnID {
-// func SettingFileByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*SettingFile, error) {
-// true
-// rbLocalUsn, id
-// SettingFile
-// SettingFileByRbLocalUsnID
-// false
-// false
 func (c *Client) SettingFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*SettingFile, error) {
 	// func SettingFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*SettingFile, error) {
 	db := c.db
@@ -508,16 +446,6 @@ func (c *Client) SettingFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.N
 // SettingFileByID retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'sqlite_autoindex_settingFile_1'.
-// func (sf *SettingFile) settingFile(db DB) (error)
-// func SettingFileByID(ctx context.Context, db DB, id sql.NullString) (*SettingFile, error) {
-// SettingFileByID {
-// func SettingFileByID(db DB, id sql.NullString) (*SettingFile, error) {
-// true
-// id
-// SettingFile
-// SettingFileByID
-// true
-// true
 func (c *Client) SettingFileByID(ctx context.Context, id sql.NullString) (*SettingFile, error) {
 	// func SettingFileByID(ctx context.Context, db DB, id sql.NullString) (*SettingFile, error) {
 	db := c.db

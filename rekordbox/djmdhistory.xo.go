@@ -145,17 +145,7 @@ func (c *Client) DeleteDjmdHistory(ctx context.Context, dh *DjmdHistory) error {
 	return nil
 }
 
-func (c *Client) AllDjmdHistory(ctx context.Context) ([]*DjmdHistory, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdHistory`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdHistoryRows(rows *sql.Rows) ([]*DjmdHistory, error) {
 	var res []*DjmdHistory
 	for rows.Next() {
 		dh := DjmdHistory{
@@ -167,7 +157,25 @@ func (c *Client) AllDjmdHistory(ctx context.Context) ([]*DjmdHistory, error) {
 		}
 		res = append(res, &dh)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdHistory(ctx context.Context) ([]*DjmdHistory, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdHistory`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdHistoryRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -176,16 +184,6 @@ func (c *Client) AllDjmdHistory(ctx context.Context) ([]*DjmdHistory, error) {
 // DjmdHistoryByName retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'djmd_history__name'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdHistory, error) {
-// DjmdHistoryByName {
-// func DjmdHistoryByName(db DB, name sql.NullString) ([]*DjmdHistory, error) {
-// true
-// name
-// DjmdHistory
-// DjmdHistoryByName
-// false
-// false
 func (c *Client) DjmdHistoryByName(ctx context.Context, name sql.NullString) ([]*DjmdHistory, error) {
 	// func DjmdHistoryByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdHistory, error) {
 	db := c.db
@@ -223,16 +221,6 @@ func (c *Client) DjmdHistoryByName(ctx context.Context, name sql.NullString) ([]
 // DjmdHistoryByParentID retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'djmd_history__parent_i_d'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByParentID(ctx context.Context, db DB, parentID sql.NullString) ([]*DjmdHistory, error) {
-// DjmdHistoryByParentID {
-// func DjmdHistoryByParentID(db DB, parentID sql.NullString) ([]*DjmdHistory, error) {
-// true
-// parentID
-// DjmdHistory
-// DjmdHistoryByParentID
-// false
-// false
 func (c *Client) DjmdHistoryByParentID(ctx context.Context, parentID sql.NullString) ([]*DjmdHistory, error) {
 	// func DjmdHistoryByParentID(ctx context.Context, db DB, parentID sql.NullString) ([]*DjmdHistory, error) {
 	db := c.db
@@ -270,16 +258,6 @@ func (c *Client) DjmdHistoryByParentID(ctx context.Context, parentID sql.NullStr
 // DjmdHistoryByUUID retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'djmd_history__u_u_i_d'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdHistory, error) {
-// DjmdHistoryByUUID {
-// func DjmdHistoryByUUID(db DB, uuid sql.NullString) ([]*DjmdHistory, error) {
-// true
-// uuid
-// DjmdHistory
-// DjmdHistoryByUUID
-// false
-// false
 func (c *Client) DjmdHistoryByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdHistory, error) {
 	// func DjmdHistoryByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdHistory, error) {
 	db := c.db
@@ -317,16 +295,6 @@ func (c *Client) DjmdHistoryByUUID(ctx context.Context, uuid sql.NullString) ([]
 // DjmdHistoryByRbDataStatus retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'djmd_history_rb_data_status'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
-// DjmdHistoryByRbDataStatus {
-// func DjmdHistoryByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
-// true
-// rbDataStatus
-// DjmdHistory
-// DjmdHistoryByRbDataStatus
-// false
-// false
 func (c *Client) DjmdHistoryByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
 	// func DjmdHistoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
 	db := c.db
@@ -364,16 +332,6 @@ func (c *Client) DjmdHistoryByRbDataStatus(ctx context.Context, rbDataStatus sql
 // DjmdHistoryByRbLocalDataStatus retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'djmd_history_rb_local_data_status'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
-// DjmdHistoryByRbLocalDataStatus {
-// func DjmdHistoryByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
-// true
-// rbLocalDataStatus
-// DjmdHistory
-// DjmdHistoryByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdHistoryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
 	// func DjmdHistoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdHistory, error) {
 	db := c.db
@@ -411,16 +369,6 @@ func (c *Client) DjmdHistoryByRbLocalDataStatus(ctx context.Context, rbLocalData
 // DjmdHistoryByRbLocalDeleted retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'djmd_history_rb_local_deleted'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdHistory, error) {
-// DjmdHistoryByRbLocalDeleted {
-// func DjmdHistoryByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdHistory, error) {
-// true
-// rbLocalDeleted
-// DjmdHistory
-// DjmdHistoryByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdHistoryByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdHistory, error) {
 	// func DjmdHistoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdHistory, error) {
 	db := c.db
@@ -458,16 +406,6 @@ func (c *Client) DjmdHistoryByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 // DjmdHistoryByRbLocalUsnID retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'djmd_history_rb_local_usn__i_d'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdHistory, error) {
-// DjmdHistoryByRbLocalUsnID {
-// func DjmdHistoryByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdHistory, error) {
-// true
-// rbLocalUsn, id
-// DjmdHistory
-// DjmdHistoryByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdHistoryByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdHistory, error) {
 	// func DjmdHistoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdHistory, error) {
 	db := c.db
@@ -505,16 +443,6 @@ func (c *Client) DjmdHistoryByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.N
 // DjmdHistoryByID retrieves a row from 'djmdHistory' as a DjmdHistory.
 //
 // Generated from index 'sqlite_autoindex_djmdHistory_1'.
-// func (dh *DjmdHistory) djmdHistory(db DB) (error)
-// func DjmdHistoryByID(ctx context.Context, db DB, id sql.NullString) (*DjmdHistory, error) {
-// DjmdHistoryByID {
-// func DjmdHistoryByID(db DB, id sql.NullString) (*DjmdHistory, error) {
-// true
-// id
-// DjmdHistory
-// DjmdHistoryByID
-// true
-// true
 func (c *Client) DjmdHistoryByID(ctx context.Context, id sql.NullString) (*DjmdHistory, error) {
 	// func DjmdHistoryByID(ctx context.Context, db DB, id sql.NullString) (*DjmdHistory, error) {
 	db := c.db

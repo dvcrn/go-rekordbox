@@ -154,17 +154,7 @@ func (c *Client) DeleteContentFile(ctx context.Context, cf *ContentFile) error {
 	return nil
 }
 
-func (c *Client) AllContentFile(ctx context.Context) ([]*ContentFile, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM ContentFile`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanContentFileRows(rows *sql.Rows) ([]*ContentFile, error) {
 	var res []*ContentFile
 	for rows.Next() {
 		cf := ContentFile{
@@ -176,7 +166,25 @@ func (c *Client) AllContentFile(ctx context.Context) ([]*ContentFile, error) {
 		}
 		res = append(res, &cf)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllContentFile(ctx context.Context) ([]*ContentFile, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM ContentFile`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanContentFileRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -185,16 +193,6 @@ func (c *Client) AllContentFile(ctx context.Context) ([]*ContentFile, error) {
 // ContentFileByContentID retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file__content_i_d'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*ContentFile, error) {
-// ContentFileByContentID {
-// func ContentFileByContentID(db DB, contentID sql.NullString) ([]*ContentFile, error) {
-// true
-// contentID
-// ContentFile
-// ContentFileByContentID
-// false
-// false
 func (c *Client) ContentFileByContentID(ctx context.Context, contentID sql.NullString) ([]*ContentFile, error) {
 	// func ContentFileByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*ContentFile, error) {
 	db := c.db
@@ -232,16 +230,6 @@ func (c *Client) ContentFileByContentID(ctx context.Context, contentID sql.NullS
 // ContentFileByUUID retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file__u_u_i_d'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*ContentFile, error) {
-// ContentFileByUUID {
-// func ContentFileByUUID(db DB, uuid sql.NullString) ([]*ContentFile, error) {
-// true
-// uuid
-// ContentFile
-// ContentFileByUUID
-// false
-// false
 func (c *Client) ContentFileByUUID(ctx context.Context, uuid sql.NullString) ([]*ContentFile, error) {
 	// func ContentFileByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*ContentFile, error) {
 	db := c.db
@@ -279,16 +267,6 @@ func (c *Client) ContentFileByUUID(ctx context.Context, uuid sql.NullString) ([]
 // ContentFileByRbDataStatus retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file_rb_data_status'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*ContentFile, error) {
-// ContentFileByRbDataStatus {
-// func ContentFileByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*ContentFile, error) {
-// true
-// rbDataStatus
-// ContentFile
-// ContentFileByRbDataStatus
-// false
-// false
 func (c *Client) ContentFileByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*ContentFile, error) {
 	// func ContentFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*ContentFile, error) {
 	db := c.db
@@ -326,16 +304,6 @@ func (c *Client) ContentFileByRbDataStatus(ctx context.Context, rbDataStatus sql
 // ContentFileByRbFileHashDirty retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file_rb_file_hash_dirty'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty sql.NullInt64) ([]*ContentFile, error) {
-// ContentFileByRbFileHashDirty {
-// func ContentFileByRbFileHashDirty(db DB, rbFileHashDirty sql.NullInt64) ([]*ContentFile, error) {
-// true
-// rbFileHashDirty
-// ContentFile
-// ContentFileByRbFileHashDirty
-// false
-// false
 func (c *Client) ContentFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty sql.NullInt64) ([]*ContentFile, error) {
 	// func ContentFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty sql.NullInt64) ([]*ContentFile, error) {
 	db := c.db
@@ -373,16 +341,6 @@ func (c *Client) ContentFileByRbFileHashDirty(ctx context.Context, rbFileHashDir
 // ContentFileByRbFileSizeDirty retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file_rb_file_size_dirty'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty sql.NullInt64) ([]*ContentFile, error) {
-// ContentFileByRbFileSizeDirty {
-// func ContentFileByRbFileSizeDirty(db DB, rbFileSizeDirty sql.NullInt64) ([]*ContentFile, error) {
-// true
-// rbFileSizeDirty
-// ContentFile
-// ContentFileByRbFileSizeDirty
-// false
-// false
 func (c *Client) ContentFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty sql.NullInt64) ([]*ContentFile, error) {
 	// func ContentFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty sql.NullInt64) ([]*ContentFile, error) {
 	db := c.db
@@ -420,16 +378,6 @@ func (c *Client) ContentFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDir
 // ContentFileByRbLocalDataStatus retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file_rb_local_data_status'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentFile, error) {
-// ContentFileByRbLocalDataStatus {
-// func ContentFileByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentFile, error) {
-// true
-// rbLocalDataStatus
-// ContentFile
-// ContentFileByRbLocalDataStatus
-// false
-// false
 func (c *Client) ContentFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*ContentFile, error) {
 	// func ContentFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentFile, error) {
 	db := c.db
@@ -467,16 +415,6 @@ func (c *Client) ContentFileByRbLocalDataStatus(ctx context.Context, rbLocalData
 // ContentFileByRbLocalDeleted retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file_rb_local_deleted'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*ContentFile, error) {
-// ContentFileByRbLocalDeleted {
-// func ContentFileByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*ContentFile, error) {
-// true
-// rbLocalDeleted
-// ContentFile
-// ContentFileByRbLocalDeleted
-// false
-// false
 func (c *Client) ContentFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*ContentFile, error) {
 	// func ContentFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*ContentFile, error) {
 	db := c.db
@@ -514,16 +452,6 @@ func (c *Client) ContentFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 // ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file_rb_local_deleted_rb_in_progress_rb_local_file_status_rb_process_type_rb_priority'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, rbInProgress sql.NullInt64, rbLocalFileStatus sql.NullInt64, rbProcessType sql.NullInt64, rbPriority sql.NullInt64) ([]*ContentFile, error) {
-// ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority {
-// func ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(db DB, rbLocalDeleted sql.NullInt64, rbInProgress sql.NullInt64, rbLocalFileStatus sql.NullInt64, rbProcessType sql.NullInt64, rbPriority sql.NullInt64) ([]*ContentFile, error) {
-// true
-// rbLocalDeleted, rbInProgress, rbLocalFileStatus, rbProcessType, rbPriority
-// ContentFile
-// ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority
-// false
-// false
 func (c *Client) ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, rbLocalDeleted, rbInProgress, rbLocalFileStatus, rbProcessType, rbPriority sql.NullInt64) ([]*ContentFile, error) {
 	// func ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, rbInProgress sql.NullInt64, rbLocalFileStatus sql.NullInt64, rbProcessType sql.NullInt64, rbPriority sql.NullInt64) ([]*ContentFile, error) {
 	db := c.db
@@ -561,16 +489,6 @@ func (c *Client) ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProce
 // ContentFileByRbLocalUsnID retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'content_file_rb_local_usn__i_d'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentFile, error) {
-// ContentFileByRbLocalUsnID {
-// func ContentFileByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentFile, error) {
-// true
-// rbLocalUsn, id
-// ContentFile
-// ContentFileByRbLocalUsnID
-// false
-// false
 func (c *Client) ContentFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentFile, error) {
 	// func ContentFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentFile, error) {
 	db := c.db
@@ -608,16 +526,6 @@ func (c *Client) ContentFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.N
 // ContentFileByID retrieves a row from 'contentFile' as a ContentFile.
 //
 // Generated from index 'sqlite_autoindex_contentFile_1'.
-// func (cf *ContentFile) contentFile(db DB) (error)
-// func ContentFileByID(ctx context.Context, db DB, id sql.NullString) (*ContentFile, error) {
-// ContentFileByID {
-// func ContentFileByID(db DB, id sql.NullString) (*ContentFile, error) {
-// true
-// id
-// ContentFile
-// ContentFileByID
-// true
-// true
 func (c *Client) ContentFileByID(ctx context.Context, id sql.NullString) (*ContentFile, error) {
 	// func ContentFileByID(ctx context.Context, db DB, id sql.NullString) (*ContentFile, error) {
 	db := c.db

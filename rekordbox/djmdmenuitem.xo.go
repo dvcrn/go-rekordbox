@@ -142,17 +142,7 @@ func (c *Client) DeleteDjmdMenuItem(ctx context.Context, dmi *DjmdMenuItem) erro
 	return nil
 }
 
-func (c *Client) AllDjmdMenuItem(ctx context.Context) ([]*DjmdMenuItem, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdMenuItem`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdMenuItemRows(rows *sql.Rows) ([]*DjmdMenuItem, error) {
 	var res []*DjmdMenuItem
 	for rows.Next() {
 		dmi := DjmdMenuItem{
@@ -164,7 +154,25 @@ func (c *Client) AllDjmdMenuItem(ctx context.Context) ([]*DjmdMenuItem, error) {
 		}
 		res = append(res, &dmi)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdMenuItem(ctx context.Context) ([]*DjmdMenuItem, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdMenuItem`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdMenuItemRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -173,16 +181,6 @@ func (c *Client) AllDjmdMenuItem(ctx context.Context) ([]*DjmdMenuItem, error) {
 // DjmdMenuItemsByUUID retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items__u_u_i_d'.
-// func (dmi *DjmdMenuItem) djmdMenuItems(db DB) (error)
-// func DjmdMenuItemsByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMenuItem, error) {
-// DjmdMenuItemsByUUID {
-// func DjmdMenuItemsByUUID(db DB, uuid sql.NullString) ([]*DjmdMenuItem, error) {
-// true
-// uuid
-// DjmdMenuItem
-// DjmdMenuItemsByUUID
-// false
-// false
 func (c *Client) DjmdMenuItemsByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdMenuItem, error) {
 	// func DjmdMenuItemsByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMenuItem, error) {
 	db := c.db
@@ -220,16 +218,6 @@ func (c *Client) DjmdMenuItemsByUUID(ctx context.Context, uuid sql.NullString) (
 // DjmdMenuItemsByRbDataStatus retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_data_status'.
-// func (dmi *DjmdMenuItem) djmdMenuItems(db DB) (error)
-// func DjmdMenuItemsByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
-// DjmdMenuItemsByRbDataStatus {
-// func DjmdMenuItemsByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
-// true
-// rbDataStatus
-// DjmdMenuItem
-// DjmdMenuItemsByRbDataStatus
-// false
-// false
 func (c *Client) DjmdMenuItemsByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
 	// func DjmdMenuItemsByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
 	db := c.db
@@ -267,16 +255,6 @@ func (c *Client) DjmdMenuItemsByRbDataStatus(ctx context.Context, rbDataStatus s
 // DjmdMenuItemsByRbLocalDataStatus retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_local_data_status'.
-// func (dmi *DjmdMenuItem) djmdMenuItems(db DB) (error)
-// func DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
-// DjmdMenuItemsByRbLocalDataStatus {
-// func DjmdMenuItemsByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
-// true
-// rbLocalDataStatus
-// DjmdMenuItem
-// DjmdMenuItemsByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
 	// func DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
 	db := c.db
@@ -314,16 +292,6 @@ func (c *Client) DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, rbLocalDa
 // DjmdMenuItemsByRbLocalDeleted retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_local_deleted'.
-// func (dmi *DjmdMenuItem) djmdMenuItems(db DB) (error)
-// func DjmdMenuItemsByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMenuItem, error) {
-// DjmdMenuItemsByRbLocalDeleted {
-// func DjmdMenuItemsByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMenuItem, error) {
-// true
-// rbLocalDeleted
-// DjmdMenuItem
-// DjmdMenuItemsByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdMenuItemsByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdMenuItem, error) {
 	// func DjmdMenuItemsByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMenuItem, error) {
 	db := c.db
@@ -361,16 +329,6 @@ func (c *Client) DjmdMenuItemsByRbLocalDeleted(ctx context.Context, rbLocalDelet
 // DjmdMenuItemsByRbLocalUsnID retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_local_usn__i_d'.
-// func (dmi *DjmdMenuItem) djmdMenuItems(db DB) (error)
-// func DjmdMenuItemsByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMenuItem, error) {
-// DjmdMenuItemsByRbLocalUsnID {
-// func DjmdMenuItemsByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMenuItem, error) {
-// true
-// rbLocalUsn, id
-// DjmdMenuItem
-// DjmdMenuItemsByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdMenuItemsByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMenuItem, error) {
 	// func DjmdMenuItemsByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMenuItem, error) {
 	db := c.db
@@ -408,16 +366,6 @@ func (c *Client) DjmdMenuItemsByRbLocalUsnID(ctx context.Context, rbLocalUsn sql
 // DjmdMenuItemByID retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'sqlite_autoindex_djmdMenuItems_1'.
-// func (dmi *DjmdMenuItem) djmdMenuItems(db DB) (error)
-// func DjmdMenuItemByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMenuItem, error) {
-// DjmdMenuItemByID {
-// func DjmdMenuItemByID(db DB, id sql.NullString) (*DjmdMenuItem, error) {
-// true
-// id
-// DjmdMenuItem
-// DjmdMenuItemByID
-// true
-// true
 func (c *Client) DjmdMenuItemByID(ctx context.Context, id sql.NullString) (*DjmdMenuItem, error) {
 	// func DjmdMenuItemByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMenuItem, error) {
 	db := c.db

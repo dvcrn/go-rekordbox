@@ -143,17 +143,7 @@ func (c *Client) DeleteDjmdSongSampler(ctx context.Context, dss *DjmdSongSampler
 	return nil
 }
 
-func (c *Client) AllDjmdSongSampler(ctx context.Context) ([]*DjmdSongSampler, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdSongSampler`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdSongSamplerRows(rows *sql.Rows) ([]*DjmdSongSampler, error) {
 	var res []*DjmdSongSampler
 	for rows.Next() {
 		dss := DjmdSongSampler{
@@ -165,7 +155,25 @@ func (c *Client) AllDjmdSongSampler(ctx context.Context) ([]*DjmdSongSampler, er
 		}
 		res = append(res, &dss)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdSongSampler(ctx context.Context) ([]*DjmdSongSampler, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdSongSampler`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdSongSamplerRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -174,16 +182,6 @@ func (c *Client) AllDjmdSongSampler(ctx context.Context) ([]*DjmdSongSampler, er
 // DjmdSongSamplerByContentID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler__content_i_d'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongSampler, error) {
-// DjmdSongSamplerByContentID {
-// func DjmdSongSamplerByContentID(db DB, contentID sql.NullString) ([]*DjmdSongSampler, error) {
-// true
-// contentID
-// DjmdSongSampler
-// DjmdSongSamplerByContentID
-// false
-// false
 func (c *Client) DjmdSongSamplerByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdSongSampler, error) {
 	// func DjmdSongSamplerByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
@@ -221,16 +219,6 @@ func (c *Client) DjmdSongSamplerByContentID(ctx context.Context, contentID sql.N
 // DjmdSongSamplerBySamplerID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler__sampler_i_d'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerBySamplerID(ctx context.Context, db DB, samplerID sql.NullString) ([]*DjmdSongSampler, error) {
-// DjmdSongSamplerBySamplerID {
-// func DjmdSongSamplerBySamplerID(db DB, samplerID sql.NullString) ([]*DjmdSongSampler, error) {
-// true
-// samplerID
-// DjmdSongSampler
-// DjmdSongSamplerBySamplerID
-// false
-// false
 func (c *Client) DjmdSongSamplerBySamplerID(ctx context.Context, samplerID sql.NullString) ([]*DjmdSongSampler, error) {
 	// func DjmdSongSamplerBySamplerID(ctx context.Context, db DB, samplerID sql.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
@@ -268,16 +256,6 @@ func (c *Client) DjmdSongSamplerBySamplerID(ctx context.Context, samplerID sql.N
 // DjmdSongSamplerByUUID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler__u_u_i_d'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongSampler, error) {
-// DjmdSongSamplerByUUID {
-// func DjmdSongSamplerByUUID(db DB, uuid sql.NullString) ([]*DjmdSongSampler, error) {
-// true
-// uuid
-// DjmdSongSampler
-// DjmdSongSamplerByUUID
-// false
-// false
 func (c *Client) DjmdSongSamplerByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSongSampler, error) {
 	// func DjmdSongSamplerByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
@@ -315,16 +293,6 @@ func (c *Client) DjmdSongSamplerByUUID(ctx context.Context, uuid sql.NullString)
 // DjmdSongSamplerByRbDataStatus retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_data_status'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
-// DjmdSongSamplerByRbDataStatus {
-// func DjmdSongSamplerByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
-// true
-// rbDataStatus
-// DjmdSongSampler
-// DjmdSongSamplerByRbDataStatus
-// false
-// false
 func (c *Client) DjmdSongSamplerByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
 	// func DjmdSongSamplerByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
 	db := c.db
@@ -362,16 +330,6 @@ func (c *Client) DjmdSongSamplerByRbDataStatus(ctx context.Context, rbDataStatus
 // DjmdSongSamplerByRbLocalDataStatus retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_local_data_status'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
-// DjmdSongSamplerByRbLocalDataStatus {
-// func DjmdSongSamplerByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
-// true
-// rbLocalDataStatus
-// DjmdSongSampler
-// DjmdSongSamplerByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
 	// func DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
 	db := c.db
@@ -409,16 +367,6 @@ func (c *Client) DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, rbLocal
 // DjmdSongSamplerByRbLocalDeleted retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_local_deleted'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongSampler, error) {
-// DjmdSongSamplerByRbLocalDeleted {
-// func DjmdSongSamplerByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongSampler, error) {
-// true
-// rbLocalDeleted
-// DjmdSongSampler
-// DjmdSongSamplerByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdSongSamplerByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSongSampler, error) {
 	// func DjmdSongSamplerByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongSampler, error) {
 	db := c.db
@@ -456,16 +404,6 @@ func (c *Client) DjmdSongSamplerByRbLocalDeleted(ctx context.Context, rbLocalDel
 // DjmdSongSamplerByRbLocalUsnID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_local_usn__i_d'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongSampler, error) {
-// DjmdSongSamplerByRbLocalUsnID {
-// func DjmdSongSamplerByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongSampler, error) {
-// true
-// rbLocalUsn, id
-// DjmdSongSampler
-// DjmdSongSamplerByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdSongSamplerByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongSampler, error) {
 	// func DjmdSongSamplerByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
@@ -503,16 +441,6 @@ func (c *Client) DjmdSongSamplerByRbLocalUsnID(ctx context.Context, rbLocalUsn s
 // DjmdSongSamplerByID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'sqlite_autoindex_djmdSongSampler_1'.
-// func (dss *DjmdSongSampler) djmdSongSampler(db DB) (error)
-// func DjmdSongSamplerByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongSampler, error) {
-// DjmdSongSamplerByID {
-// func DjmdSongSamplerByID(db DB, id sql.NullString) (*DjmdSongSampler, error) {
-// true
-// id
-// DjmdSongSampler
-// DjmdSongSamplerByID
-// true
-// true
 func (c *Client) DjmdSongSamplerByID(ctx context.Context, id sql.NullString) (*DjmdSongSampler, error) {
 	// func DjmdSongSamplerByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongSampler, error) {
 	db := c.db

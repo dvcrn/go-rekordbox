@@ -143,17 +143,7 @@ func (c *Client) DeleteUUIDIDMap(ctx context.Context, um *UUIDIDMap) error {
 	return nil
 }
 
-func (c *Client) AllUUIDIDMap(ctx context.Context) ([]*UUIDIDMap, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM UUIDIDMap`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanUUIDIDMapRows(rows *sql.Rows) ([]*UUIDIDMap, error) {
 	var res []*UUIDIDMap
 	for rows.Next() {
 		um := UUIDIDMap{
@@ -165,7 +155,25 @@ func (c *Client) AllUUIDIDMap(ctx context.Context) ([]*UUIDIDMap, error) {
 		}
 		res = append(res, &um)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllUUIDIDMap(ctx context.Context) ([]*UUIDIDMap, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM UUIDIDMap`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanUUIDIDMapRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -174,16 +182,6 @@ func (c *Client) AllUUIDIDMap(ctx context.Context) ([]*UUIDIDMap, error) {
 // UUIDIDMapByID retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'sqlite_autoindex_uuidIDMap_1'.
-// func (um *UUIDIDMap) uuidIDMap(db DB) (error)
-// func UUIDIDMapByID(ctx context.Context, db DB, id sql.NullString) (*UUIDIDMap, error) {
-// UUIDIDMapByID {
-// func UUIDIDMapByID(db DB, id sql.NullString) (*UUIDIDMap, error) {
-// true
-// id
-// UUIDIDMap
-// UUIDIDMapByID
-// true
-// true
 func (c *Client) UUIDIDMapByID(ctx context.Context, id sql.NullString) (*UUIDIDMap, error) {
 	// func UUIDIDMapByID(ctx context.Context, db DB, id sql.NullString) (*UUIDIDMap, error) {
 	db := c.db
@@ -207,16 +205,6 @@ func (c *Client) UUIDIDMapByID(ctx context.Context, id sql.NullString) (*UUIDIDM
 // UUIDIDMapByUUID retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map__u_u_i_d'.
-// func (um *UUIDIDMap) uuidIDMap(db DB) (error)
-// func UUIDIDMapByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*UUIDIDMap, error) {
-// UUIDIDMapByUUID {
-// func UUIDIDMapByUUID(db DB, uuid sql.NullString) ([]*UUIDIDMap, error) {
-// true
-// uuid
-// UUIDIDMap
-// UUIDIDMapByUUID
-// false
-// false
 func (c *Client) UUIDIDMapByUUID(ctx context.Context, uuid sql.NullString) ([]*UUIDIDMap, error) {
 	// func UUIDIDMapByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*UUIDIDMap, error) {
 	db := c.db
@@ -254,16 +242,6 @@ func (c *Client) UUIDIDMapByUUID(ctx context.Context, uuid sql.NullString) ([]*U
 // UUIDIDMapByRbDataStatus retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_data_status'.
-// func (um *UUIDIDMap) uuidIDMap(db DB) (error)
-// func UUIDIDMapByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
-// UUIDIDMapByRbDataStatus {
-// func UUIDIDMapByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
-// true
-// rbDataStatus
-// UUIDIDMap
-// UUIDIDMapByRbDataStatus
-// false
-// false
 func (c *Client) UUIDIDMapByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
 	// func UUIDIDMapByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
@@ -301,16 +279,6 @@ func (c *Client) UUIDIDMapByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // UUIDIDMapByRbLocalDataStatus retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_local_data_status'.
-// func (um *UUIDIDMap) uuidIDMap(db DB) (error)
-// func UUIDIDMapByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
-// UUIDIDMapByRbLocalDataStatus {
-// func UUIDIDMapByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
-// true
-// rbLocalDataStatus
-// UUIDIDMap
-// UUIDIDMapByRbLocalDataStatus
-// false
-// false
 func (c *Client) UUIDIDMapByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
 	// func UUIDIDMapByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
@@ -348,16 +316,6 @@ func (c *Client) UUIDIDMapByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // UUIDIDMapByRbLocalDeleted retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_local_deleted'.
-// func (um *UUIDIDMap) uuidIDMap(db DB) (error)
-// func UUIDIDMapByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*UUIDIDMap, error) {
-// UUIDIDMapByRbLocalDeleted {
-// func UUIDIDMapByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*UUIDIDMap, error) {
-// true
-// rbLocalDeleted
-// UUIDIDMap
-// UUIDIDMapByRbLocalDeleted
-// false
-// false
 func (c *Client) UUIDIDMapByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*UUIDIDMap, error) {
 	// func UUIDIDMapByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
@@ -395,16 +353,6 @@ func (c *Client) UUIDIDMapByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // UUIDIDMapByRbLocalUsnID retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_local_usn__i_d'.
-// func (um *UUIDIDMap) uuidIDMap(db DB) (error)
-// func UUIDIDMapByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*UUIDIDMap, error) {
-// UUIDIDMapByRbLocalUsnID {
-// func UUIDIDMapByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*UUIDIDMap, error) {
-// true
-// rbLocalUsn, id
-// UUIDIDMap
-// UUIDIDMapByRbLocalUsnID
-// false
-// false
 func (c *Client) UUIDIDMapByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*UUIDIDMap, error) {
 	// func UUIDIDMapByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*UUIDIDMap, error) {
 	db := c.db

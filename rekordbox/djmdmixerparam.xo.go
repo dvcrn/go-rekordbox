@@ -145,17 +145,7 @@ func (c *Client) DeleteDjmdMixerParam(ctx context.Context, dmp *DjmdMixerParam) 
 	return nil
 }
 
-func (c *Client) AllDjmdMixerParam(ctx context.Context) ([]*DjmdMixerParam, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdMixerParam`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdMixerParamRows(rows *sql.Rows) ([]*DjmdMixerParam, error) {
 	var res []*DjmdMixerParam
 	for rows.Next() {
 		dmp := DjmdMixerParam{
@@ -167,7 +157,25 @@ func (c *Client) AllDjmdMixerParam(ctx context.Context) ([]*DjmdMixerParam, erro
 		}
 		res = append(res, &dmp)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdMixerParam(ctx context.Context) ([]*DjmdMixerParam, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdMixerParam`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdMixerParamRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -176,16 +184,6 @@ func (c *Client) AllDjmdMixerParam(ctx context.Context) ([]*DjmdMixerParam, erro
 // DjmdMixerParamByContentID retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'djmd_mixer_param__content_i_d'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdMixerParam, error) {
-// DjmdMixerParamByContentID {
-// func DjmdMixerParamByContentID(db DB, contentID sql.NullString) ([]*DjmdMixerParam, error) {
-// true
-// contentID
-// DjmdMixerParam
-// DjmdMixerParamByContentID
-// false
-// false
 func (c *Client) DjmdMixerParamByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdMixerParam, error) {
 	// func DjmdMixerParamByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdMixerParam, error) {
 	db := c.db
@@ -223,16 +221,6 @@ func (c *Client) DjmdMixerParamByContentID(ctx context.Context, contentID sql.Nu
 // DjmdMixerParamByContentIDRbLocalDeleted retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'djmd_mixer_param__content_i_d_rb_local_deleted'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByContentIDRbLocalDeleted(ctx context.Context, db DB, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
-// DjmdMixerParamByContentIDRbLocalDeleted {
-// func DjmdMixerParamByContentIDRbLocalDeleted(db DB, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
-// true
-// contentID, rbLocalDeleted
-// DjmdMixerParam
-// DjmdMixerParamByContentIDRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdMixerParamByContentIDRbLocalDeleted(ctx context.Context, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
 	// func DjmdMixerParamByContentIDRbLocalDeleted(ctx context.Context, db DB, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
 	db := c.db
@@ -270,16 +258,6 @@ func (c *Client) DjmdMixerParamByContentIDRbLocalDeleted(ctx context.Context, co
 // DjmdMixerParamByUUID retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'djmd_mixer_param__u_u_i_d'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMixerParam, error) {
-// DjmdMixerParamByUUID {
-// func DjmdMixerParamByUUID(db DB, uuid sql.NullString) ([]*DjmdMixerParam, error) {
-// true
-// uuid
-// DjmdMixerParam
-// DjmdMixerParamByUUID
-// false
-// false
 func (c *Client) DjmdMixerParamByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdMixerParam, error) {
 	// func DjmdMixerParamByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMixerParam, error) {
 	db := c.db
@@ -317,16 +295,6 @@ func (c *Client) DjmdMixerParamByUUID(ctx context.Context, uuid sql.NullString) 
 // DjmdMixerParamByRbDataStatus retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'djmd_mixer_param_rb_data_status'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
-// DjmdMixerParamByRbDataStatus {
-// func DjmdMixerParamByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
-// true
-// rbDataStatus
-// DjmdMixerParam
-// DjmdMixerParamByRbDataStatus
-// false
-// false
 func (c *Client) DjmdMixerParamByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
 	// func DjmdMixerParamByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
 	db := c.db
@@ -364,16 +332,6 @@ func (c *Client) DjmdMixerParamByRbDataStatus(ctx context.Context, rbDataStatus 
 // DjmdMixerParamByRbLocalDataStatus retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'djmd_mixer_param_rb_local_data_status'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
-// DjmdMixerParamByRbLocalDataStatus {
-// func DjmdMixerParamByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
-// true
-// rbLocalDataStatus
-// DjmdMixerParam
-// DjmdMixerParamByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdMixerParamByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
 	// func DjmdMixerParamByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMixerParam, error) {
 	db := c.db
@@ -411,16 +369,6 @@ func (c *Client) DjmdMixerParamByRbLocalDataStatus(ctx context.Context, rbLocalD
 // DjmdMixerParamByRbLocalDeleted retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'djmd_mixer_param_rb_local_deleted'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
-// DjmdMixerParamByRbLocalDeleted {
-// func DjmdMixerParamByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
-// true
-// rbLocalDeleted
-// DjmdMixerParam
-// DjmdMixerParamByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdMixerParamByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
 	// func DjmdMixerParamByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMixerParam, error) {
 	db := c.db
@@ -458,16 +406,6 @@ func (c *Client) DjmdMixerParamByRbLocalDeleted(ctx context.Context, rbLocalDele
 // DjmdMixerParamByRbLocalUsnID retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'djmd_mixer_param_rb_local_usn__i_d'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMixerParam, error) {
-// DjmdMixerParamByRbLocalUsnID {
-// func DjmdMixerParamByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMixerParam, error) {
-// true
-// rbLocalUsn, id
-// DjmdMixerParam
-// DjmdMixerParamByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdMixerParamByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMixerParam, error) {
 	// func DjmdMixerParamByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMixerParam, error) {
 	db := c.db
@@ -505,16 +443,6 @@ func (c *Client) DjmdMixerParamByRbLocalUsnID(ctx context.Context, rbLocalUsn sq
 // DjmdMixerParamByID retrieves a row from 'djmdMixerParam' as a DjmdMixerParam.
 //
 // Generated from index 'sqlite_autoindex_djmdMixerParam_1'.
-// func (dmp *DjmdMixerParam) djmdMixerParam(db DB) (error)
-// func DjmdMixerParamByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMixerParam, error) {
-// DjmdMixerParamByID {
-// func DjmdMixerParamByID(db DB, id sql.NullString) (*DjmdMixerParam, error) {
-// true
-// id
-// DjmdMixerParam
-// DjmdMixerParamByID
-// true
-// true
 func (c *Client) DjmdMixerParamByID(ctx context.Context, id sql.NullString) (*DjmdMixerParam, error) {
 	// func DjmdMixerParamByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMixerParam, error) {
 	db := c.db

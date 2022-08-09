@@ -12,19 +12,9 @@ func (c *Client) RecentDjmdSongHistory(ctx context.Context, limit int) ([]*DjmdS
 	}
 
 	defer rows.Close()
-	// process
-	var res []*DjmdSongHistory
-	for rows.Next() {
-		dsh := DjmdSongHistory{
-			_exists: true,
-		}
-		// scan
-		if err := rows.Scan(&dsh.ID, &dsh.HistoryID, &dsh.ContentID, &dsh.TrackNo, &dsh.UUID, &dsh.RbDataStatus, &dsh.RbLocalDataStatus, &dsh.RbLocalDeleted, &dsh.RbLocalSynced, &dsh.Usn, &dsh.RbLocalUsn, &dsh.CreatedAt, &dsh.UpdatedAt); err != nil {
-			return nil, logerror(err)
-		}
-		res = append(res, &dsh)
-	}
-	if err := rows.Err(); err != nil {
+
+	res, err := scanDjmdSongHistoryRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil

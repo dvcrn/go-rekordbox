@@ -143,17 +143,7 @@ func (c *Client) DeleteDjmdSongRelatedTrack(ctx context.Context, dsrt *DjmdSongR
 	return nil
 }
 
-func (c *Client) AllDjmdSongRelatedTrack(ctx context.Context) ([]*DjmdSongRelatedTrack, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdSongRelatedTrack`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdSongRelatedTrackRows(rows *sql.Rows) ([]*DjmdSongRelatedTrack, error) {
 	var res []*DjmdSongRelatedTrack
 	for rows.Next() {
 		dsrt := DjmdSongRelatedTrack{
@@ -165,7 +155,25 @@ func (c *Client) AllDjmdSongRelatedTrack(ctx context.Context) ([]*DjmdSongRelate
 		}
 		res = append(res, &dsrt)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdSongRelatedTrack(ctx context.Context) ([]*DjmdSongRelatedTrack, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdSongRelatedTrack`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdSongRelatedTrackRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -174,16 +182,6 @@ func (c *Client) AllDjmdSongRelatedTrack(ctx context.Context) ([]*DjmdSongRelate
 // DjmdSongRelatedTracksByContentID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks__content_i_d'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTracksByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTracksByContentID {
-// func DjmdSongRelatedTracksByContentID(db DB, contentID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// true
-// contentID
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTracksByContentID
-// false
-// false
 func (c *Client) DjmdSongRelatedTracksByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTracksByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
@@ -221,16 +219,6 @@ func (c *Client) DjmdSongRelatedTracksByContentID(ctx context.Context, contentID
 // DjmdSongRelatedTracksByRelatedTracksID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks__related_tracks_i_d'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, db DB, relatedTracksID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTracksByRelatedTracksID {
-// func DjmdSongRelatedTracksByRelatedTracksID(db DB, relatedTracksID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// true
-// relatedTracksID
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTracksByRelatedTracksID
-// false
-// false
 func (c *Client) DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, relatedTracksID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, db DB, relatedTracksID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
@@ -268,16 +256,6 @@ func (c *Client) DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, rel
 // DjmdSongRelatedTracksByUUID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks__u_u_i_d'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTracksByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTracksByUUID {
-// func DjmdSongRelatedTracksByUUID(db DB, uuid sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// true
-// uuid
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTracksByUUID
-// false
-// false
 func (c *Client) DjmdSongRelatedTracksByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTracksByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
@@ -315,16 +293,6 @@ func (c *Client) DjmdSongRelatedTracksByUUID(ctx context.Context, uuid sql.NullS
 // DjmdSongRelatedTracksByRbDataStatus retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_data_status'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTracksByRbDataStatus {
-// func DjmdSongRelatedTracksByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-// true
-// rbDataStatus
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTracksByRbDataStatus
-// false
-// false
 func (c *Client) DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
@@ -362,16 +330,6 @@ func (c *Client) DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, rbData
 // DjmdSongRelatedTracksByRbLocalDataStatus retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_local_data_status'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTracksByRbLocalDataStatus {
-// func DjmdSongRelatedTracksByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-// true
-// rbLocalDataStatus
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTracksByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
@@ -409,16 +367,6 @@ func (c *Client) DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, r
 // DjmdSongRelatedTracksByRbLocalDeleted retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_local_deleted'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTracksByRbLocalDeleted {
-// func DjmdSongRelatedTracksByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-// true
-// rbLocalDeleted
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTracksByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
@@ -456,16 +404,6 @@ func (c *Client) DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, rbLo
 // DjmdSongRelatedTracksByRbLocalUsnID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_local_usn__i_d'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTracksByRbLocalUsnID {
-// func DjmdSongRelatedTracksByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-// true
-// rbLocalUsn, id
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTracksByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
@@ -503,16 +441,6 @@ func (c *Client) DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, rbLoca
 // DjmdSongRelatedTrackByID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'sqlite_autoindex_djmdSongRelatedTracks_1'.
-// func (dsrt *DjmdSongRelatedTrack) djmdSongRelatedTracks(db DB) (error)
-// func DjmdSongRelatedTrackByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongRelatedTrack, error) {
-// DjmdSongRelatedTrackByID {
-// func DjmdSongRelatedTrackByID(db DB, id sql.NullString) (*DjmdSongRelatedTrack, error) {
-// true
-// id
-// DjmdSongRelatedTrack
-// DjmdSongRelatedTrackByID
-// true
-// true
 func (c *Client) DjmdSongRelatedTrackByID(ctx context.Context, id sql.NullString) (*DjmdSongRelatedTrack, error) {
 	// func DjmdSongRelatedTrackByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongRelatedTrack, error) {
 	db := c.db

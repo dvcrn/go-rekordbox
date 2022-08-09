@@ -142,17 +142,7 @@ func (c *Client) DeleteDjmdProperty(ctx context.Context, dp *DjmdProperty) error
 	return nil
 }
 
-func (c *Client) AllDjmdProperty(ctx context.Context) ([]*DjmdProperty, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdProperty`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdPropertyRows(rows *sql.Rows) ([]*DjmdProperty, error) {
 	var res []*DjmdProperty
 	for rows.Next() {
 		dp := DjmdProperty{
@@ -164,7 +154,25 @@ func (c *Client) AllDjmdProperty(ctx context.Context) ([]*DjmdProperty, error) {
 		}
 		res = append(res, &dp)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdProperty(ctx context.Context) ([]*DjmdProperty, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdProperty`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdPropertyRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -173,16 +181,6 @@ func (c *Client) AllDjmdProperty(ctx context.Context) ([]*DjmdProperty, error) {
 // DjmdPropertyByDBID retrieves a row from 'djmdProperty' as a DjmdProperty.
 //
 // Generated from index 'sqlite_autoindex_djmdProperty_1'.
-// func (dp *DjmdProperty) djmdProperty(db DB) (error)
-// func DjmdPropertyByDBID(ctx context.Context, db DB, dBID sql.NullString) (*DjmdProperty, error) {
-// DjmdPropertyByDBID {
-// func DjmdPropertyByDBID(db DB, dBID sql.NullString) (*DjmdProperty, error) {
-// true
-// dBID
-// DjmdProperty
-// DjmdPropertyByDBID
-// true
-// true
 func (c *Client) DjmdPropertyByDBID(ctx context.Context, dBID sql.NullString) (*DjmdProperty, error) {
 	// func DjmdPropertyByDBID(ctx context.Context, db DB, dBID sql.NullString) (*DjmdProperty, error) {
 	db := c.db

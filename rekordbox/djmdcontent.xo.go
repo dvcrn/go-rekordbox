@@ -208,17 +208,7 @@ func (c *Client) DeleteDjmdContent(ctx context.Context, dc *DjmdContent) error {
 	return nil
 }
 
-func (c *Client) AllDjmdContent(ctx context.Context) ([]*DjmdContent, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdContent`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdContentRows(rows *sql.Rows) ([]*DjmdContent, error) {
 	var res []*DjmdContent
 	for rows.Next() {
 		dc := DjmdContent{
@@ -230,7 +220,25 @@ func (c *Client) AllDjmdContent(ctx context.Context) ([]*DjmdContent, error) {
 		}
 		res = append(res, &dc)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdContent(ctx context.Context) ([]*DjmdContent, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdContent`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdContentRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -239,16 +247,6 @@ func (c *Client) AllDjmdContent(ctx context.Context) ([]*DjmdContent, error) {
 // DjmdContentByAlbumID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__album_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByAlbumID(ctx context.Context, db DB, albumID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByAlbumID {
-// func DjmdContentByAlbumID(db DB, albumID sql.NullString) ([]*DjmdContent, error) {
-// true
-// albumID
-// DjmdContent
-// DjmdContentByAlbumID
-// false
-// false
 func (c *Client) DjmdContentByAlbumID(ctx context.Context, albumID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByAlbumID(ctx context.Context, db DB, albumID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -286,16 +284,6 @@ func (c *Client) DjmdContentByAlbumID(ctx context.Context, albumID sql.NullStrin
 // DjmdContentByArtistID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__artist_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByArtistID(ctx context.Context, db DB, artistID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByArtistID {
-// func DjmdContentByArtistID(db DB, artistID sql.NullString) ([]*DjmdContent, error) {
-// true
-// artistID
-// DjmdContent
-// DjmdContentByArtistID
-// false
-// false
 func (c *Client) DjmdContentByArtistID(ctx context.Context, artistID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByArtistID(ctx context.Context, db DB, artistID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -333,16 +321,6 @@ func (c *Client) DjmdContentByArtistID(ctx context.Context, artistID sql.NullStr
 // DjmdContentByComposerID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__composer_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByComposerID(ctx context.Context, db DB, composerID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByComposerID {
-// func DjmdContentByComposerID(db DB, composerID sql.NullString) ([]*DjmdContent, error) {
-// true
-// composerID
-// DjmdContent
-// DjmdContentByComposerID
-// false
-// false
 func (c *Client) DjmdContentByComposerID(ctx context.Context, composerID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByComposerID(ctx context.Context, db DB, composerID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -380,16 +358,6 @@ func (c *Client) DjmdContentByComposerID(ctx context.Context, composerID sql.Nul
 // DjmdContentByGenreID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__genre_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByGenreID(ctx context.Context, db DB, genreID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByGenreID {
-// func DjmdContentByGenreID(db DB, genreID sql.NullString) ([]*DjmdContent, error) {
-// true
-// genreID
-// DjmdContent
-// DjmdContentByGenreID
-// false
-// false
 func (c *Client) DjmdContentByGenreID(ctx context.Context, genreID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByGenreID(ctx context.Context, db DB, genreID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -427,16 +395,6 @@ func (c *Client) DjmdContentByGenreID(ctx context.Context, genreID sql.NullStrin
 // DjmdContentByKeyID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__key_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByKeyID(ctx context.Context, db DB, keyID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByKeyID {
-// func DjmdContentByKeyID(db DB, keyID sql.NullString) ([]*DjmdContent, error) {
-// true
-// keyID
-// DjmdContent
-// DjmdContentByKeyID
-// false
-// false
 func (c *Client) DjmdContentByKeyID(ctx context.Context, keyID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByKeyID(ctx context.Context, db DB, keyID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -474,16 +432,6 @@ func (c *Client) DjmdContentByKeyID(ctx context.Context, keyID sql.NullString) (
 // DjmdContentByLabelID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__label_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByLabelID(ctx context.Context, db DB, labelID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByLabelID {
-// func DjmdContentByLabelID(db DB, labelID sql.NullString) ([]*DjmdContent, error) {
-// true
-// labelID
-// DjmdContent
-// DjmdContentByLabelID
-// false
-// false
 func (c *Client) DjmdContentByLabelID(ctx context.Context, labelID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByLabelID(ctx context.Context, db DB, labelID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -521,16 +469,6 @@ func (c *Client) DjmdContentByLabelID(ctx context.Context, labelID sql.NullStrin
 // DjmdContentByMasterDBIDMasterSongID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__master_d_b_i_d__master_song_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByMasterDBIDMasterSongID(ctx context.Context, db DB, masterDBID sql.NullString, masterSongID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByMasterDBIDMasterSongID {
-// func DjmdContentByMasterDBIDMasterSongID(db DB, masterDBID sql.NullString, masterSongID sql.NullString) ([]*DjmdContent, error) {
-// true
-// masterDBID, masterSongID
-// DjmdContent
-// DjmdContentByMasterDBIDMasterSongID
-// false
-// false
 func (c *Client) DjmdContentByMasterDBIDMasterSongID(ctx context.Context, masterDBID, masterSongID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByMasterDBIDMasterSongID(ctx context.Context, db DB, masterDBID sql.NullString, masterSongID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -568,16 +506,6 @@ func (c *Client) DjmdContentByMasterDBIDMasterSongID(ctx context.Context, master
 // DjmdContentByOrgArtistID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__org_artist_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByOrgArtistID(ctx context.Context, db DB, orgArtistID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByOrgArtistID {
-// func DjmdContentByOrgArtistID(db DB, orgArtistID sql.NullString) ([]*DjmdContent, error) {
-// true
-// orgArtistID
-// DjmdContent
-// DjmdContentByOrgArtistID
-// false
-// false
 func (c *Client) DjmdContentByOrgArtistID(ctx context.Context, orgArtistID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByOrgArtistID(ctx context.Context, db DB, orgArtistID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -615,16 +543,6 @@ func (c *Client) DjmdContentByOrgArtistID(ctx context.Context, orgArtistID sql.N
 // DjmdContentByRemixerID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__remixer_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRemixerID(ctx context.Context, db DB, remixerID sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByRemixerID {
-// func DjmdContentByRemixerID(db DB, remixerID sql.NullString) ([]*DjmdContent, error) {
-// true
-// remixerID
-// DjmdContent
-// DjmdContentByRemixerID
-// false
-// false
 func (c *Client) DjmdContentByRemixerID(ctx context.Context, remixerID sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByRemixerID(ctx context.Context, db DB, remixerID sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -662,16 +580,6 @@ func (c *Client) DjmdContentByRemixerID(ctx context.Context, remixerID sql.NullS
 // DjmdContentByUUID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__u_u_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByUUID {
-// func DjmdContentByUUID(db DB, uuid sql.NullString) ([]*DjmdContent, error) {
-// true
-// uuid
-// DjmdContent
-// DjmdContentByUUID
-// false
-// false
 func (c *Client) DjmdContentByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -709,16 +617,6 @@ func (c *Client) DjmdContentByUUID(ctx context.Context, uuid sql.NullString) ([]
 // DjmdContentByRbDataStatus retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_data_status'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdContent, error) {
-// DjmdContentByRbDataStatus {
-// func DjmdContentByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdContent, error) {
-// true
-// rbDataStatus
-// DjmdContent
-// DjmdContentByRbDataStatus
-// false
-// false
 func (c *Client) DjmdContentByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdContent, error) {
 	// func DjmdContentByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
@@ -756,16 +654,6 @@ func (c *Client) DjmdContentByRbDataStatus(ctx context.Context, rbDataStatus sql
 // DjmdContentByRbLocalDataStatus retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_data_status'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdContent, error) {
-// DjmdContentByRbLocalDataStatus {
-// func DjmdContentByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdContent, error) {
-// true
-// rbLocalDataStatus
-// DjmdContent
-// DjmdContentByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdContentByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdContent, error) {
 	// func DjmdContentByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
@@ -803,16 +691,6 @@ func (c *Client) DjmdContentByRbLocalDataStatus(ctx context.Context, rbLocalData
 // DjmdContentByRbLocalDeleted retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdContent, error) {
-// DjmdContentByRbLocalDeleted {
-// func DjmdContentByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdContent, error) {
-// true
-// rbLocalDeleted
-// DjmdContent
-// DjmdContentByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdContentByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdContent, error) {
 	// func DjmdContentByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
@@ -850,16 +728,6 @@ func (c *Client) DjmdContentByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 // DjmdContentByRbLocalDeletedBitDepth retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__bit_depth'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, bitDepth sql.NullInt64) ([]*DjmdContent, error) {
-// DjmdContentByRbLocalDeletedBitDepth {
-// func DjmdContentByRbLocalDeletedBitDepth(db DB, rbLocalDeleted sql.NullInt64, bitDepth sql.NullInt64) ([]*DjmdContent, error) {
-// true
-// rbLocalDeleted, bitDepth
-// DjmdContent
-// DjmdContentByRbLocalDeletedBitDepth
-// false
-// false
 func (c *Client) DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, rbLocalDeleted, bitDepth sql.NullInt64) ([]*DjmdContent, error) {
 	// func DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, bitDepth sql.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
@@ -897,16 +765,6 @@ func (c *Client) DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, rbLoca
 // DjmdContentByRbLocalDeletedBitRate retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__bit_rate'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbLocalDeletedBitRate(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, bitRate sql.NullInt64) ([]*DjmdContent, error) {
-// DjmdContentByRbLocalDeletedBitRate {
-// func DjmdContentByRbLocalDeletedBitRate(db DB, rbLocalDeleted sql.NullInt64, bitRate sql.NullInt64) ([]*DjmdContent, error) {
-// true
-// rbLocalDeleted, bitRate
-// DjmdContent
-// DjmdContentByRbLocalDeletedBitRate
-// false
-// false
 func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocalDeleted, bitRate sql.NullInt64) ([]*DjmdContent, error) {
 	// func DjmdContentByRbLocalDeletedBitRate(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, bitRate sql.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
@@ -944,16 +802,6 @@ func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocal
 // DjmdContentByRbLocalDeletedFileType retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__file_type'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbLocalDeletedFileType(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, fileType sql.NullInt64) ([]*DjmdContent, error) {
-// DjmdContentByRbLocalDeletedFileType {
-// func DjmdContentByRbLocalDeletedFileType(db DB, rbLocalDeleted sql.NullInt64, fileType sql.NullInt64) ([]*DjmdContent, error) {
-// true
-// rbLocalDeleted, fileType
-// DjmdContent
-// DjmdContentByRbLocalDeletedFileType
-// false
-// false
 func (c *Client) DjmdContentByRbLocalDeletedFileType(ctx context.Context, rbLocalDeleted, fileType sql.NullInt64) ([]*DjmdContent, error) {
 	// func DjmdContentByRbLocalDeletedFileType(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, fileType sql.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
@@ -991,16 +839,6 @@ func (c *Client) DjmdContentByRbLocalDeletedFileType(ctx context.Context, rbLoca
 // DjmdContentByRbLocalDeletedServiceID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__service_i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbLocalDeletedServiceID(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, serviceID sql.NullInt64) ([]*DjmdContent, error) {
-// DjmdContentByRbLocalDeletedServiceID {
-// func DjmdContentByRbLocalDeletedServiceID(db DB, rbLocalDeleted sql.NullInt64, serviceID sql.NullInt64) ([]*DjmdContent, error) {
-// true
-// rbLocalDeleted, serviceID
-// DjmdContent
-// DjmdContentByRbLocalDeletedServiceID
-// false
-// false
 func (c *Client) DjmdContentByRbLocalDeletedServiceID(ctx context.Context, rbLocalDeleted, serviceID sql.NullInt64) ([]*DjmdContent, error) {
 	// func DjmdContentByRbLocalDeletedServiceID(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, serviceID sql.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
@@ -1038,16 +876,6 @@ func (c *Client) DjmdContentByRbLocalDeletedServiceID(ctx context.Context, rbLoc
 // DjmdContentByRbLocalUsnID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_usn__i_d'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdContent, error) {
-// DjmdContentByRbLocalUsnID {
-// func DjmdContentByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdContent, error) {
-// true
-// rbLocalUsn, id
-// DjmdContent
-// DjmdContentByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdContentByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdContent, error) {
 	// func DjmdContentByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdContent, error) {
 	db := c.db
@@ -1085,16 +913,6 @@ func (c *Client) DjmdContentByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.N
 // DjmdContentByID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'sqlite_autoindex_djmdContent_1'.
-// func (dc *DjmdContent) djmdContent(db DB) (error)
-// func DjmdContentByID(ctx context.Context, db DB, id sql.NullString) (*DjmdContent, error) {
-// DjmdContentByID {
-// func DjmdContentByID(db DB, id sql.NullString) (*DjmdContent, error) {
-// true
-// id
-// DjmdContent
-// DjmdContentByID
-// true
-// true
 func (c *Client) DjmdContentByID(ctx context.Context, id sql.NullString) (*DjmdContent, error) {
 	// func DjmdContentByID(ctx context.Context, db DB, id sql.NullString) (*DjmdContent, error) {
 	db := c.db

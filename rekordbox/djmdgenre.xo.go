@@ -141,17 +141,7 @@ func (c *Client) DeleteDjmdGenre(ctx context.Context, dg *DjmdGenre) error {
 	return nil
 }
 
-func (c *Client) AllDjmdGenre(ctx context.Context) ([]*DjmdGenre, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdGenre`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdGenreRows(rows *sql.Rows) ([]*DjmdGenre, error) {
 	var res []*DjmdGenre
 	for rows.Next() {
 		dg := DjmdGenre{
@@ -163,7 +153,25 @@ func (c *Client) AllDjmdGenre(ctx context.Context) ([]*DjmdGenre, error) {
 		}
 		res = append(res, &dg)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdGenre(ctx context.Context) ([]*DjmdGenre, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdGenre`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdGenreRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -172,16 +180,6 @@ func (c *Client) AllDjmdGenre(ctx context.Context) ([]*DjmdGenre, error) {
 // DjmdGenreByName retrieves a row from 'djmdGenre' as a DjmdGenre.
 //
 // Generated from index 'djmd_genre__name'.
-// func (dg *DjmdGenre) djmdGenre(db DB) (error)
-// func DjmdGenreByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdGenre, error) {
-// DjmdGenreByName {
-// func DjmdGenreByName(db DB, name sql.NullString) ([]*DjmdGenre, error) {
-// true
-// name
-// DjmdGenre
-// DjmdGenreByName
-// false
-// false
 func (c *Client) DjmdGenreByName(ctx context.Context, name sql.NullString) ([]*DjmdGenre, error) {
 	// func DjmdGenreByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdGenre, error) {
 	db := c.db
@@ -219,16 +217,6 @@ func (c *Client) DjmdGenreByName(ctx context.Context, name sql.NullString) ([]*D
 // DjmdGenreByUUID retrieves a row from 'djmdGenre' as a DjmdGenre.
 //
 // Generated from index 'djmd_genre__u_u_i_d'.
-// func (dg *DjmdGenre) djmdGenre(db DB) (error)
-// func DjmdGenreByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdGenre, error) {
-// DjmdGenreByUUID {
-// func DjmdGenreByUUID(db DB, uuid sql.NullString) ([]*DjmdGenre, error) {
-// true
-// uuid
-// DjmdGenre
-// DjmdGenreByUUID
-// false
-// false
 func (c *Client) DjmdGenreByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdGenre, error) {
 	// func DjmdGenreByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdGenre, error) {
 	db := c.db
@@ -266,16 +254,6 @@ func (c *Client) DjmdGenreByUUID(ctx context.Context, uuid sql.NullString) ([]*D
 // DjmdGenreByRbDataStatus retrieves a row from 'djmdGenre' as a DjmdGenre.
 //
 // Generated from index 'djmd_genre_rb_data_status'.
-// func (dg *DjmdGenre) djmdGenre(db DB) (error)
-// func DjmdGenreByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
-// DjmdGenreByRbDataStatus {
-// func DjmdGenreByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
-// true
-// rbDataStatus
-// DjmdGenre
-// DjmdGenreByRbDataStatus
-// false
-// false
 func (c *Client) DjmdGenreByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
 	// func DjmdGenreByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
 	db := c.db
@@ -313,16 +291,6 @@ func (c *Client) DjmdGenreByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // DjmdGenreByRbLocalDataStatus retrieves a row from 'djmdGenre' as a DjmdGenre.
 //
 // Generated from index 'djmd_genre_rb_local_data_status'.
-// func (dg *DjmdGenre) djmdGenre(db DB) (error)
-// func DjmdGenreByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
-// DjmdGenreByRbLocalDataStatus {
-// func DjmdGenreByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
-// true
-// rbLocalDataStatus
-// DjmdGenre
-// DjmdGenreByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdGenreByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
 	// func DjmdGenreByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdGenre, error) {
 	db := c.db
@@ -360,16 +328,6 @@ func (c *Client) DjmdGenreByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // DjmdGenreByRbLocalDeleted retrieves a row from 'djmdGenre' as a DjmdGenre.
 //
 // Generated from index 'djmd_genre_rb_local_deleted'.
-// func (dg *DjmdGenre) djmdGenre(db DB) (error)
-// func DjmdGenreByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdGenre, error) {
-// DjmdGenreByRbLocalDeleted {
-// func DjmdGenreByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdGenre, error) {
-// true
-// rbLocalDeleted
-// DjmdGenre
-// DjmdGenreByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdGenreByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdGenre, error) {
 	// func DjmdGenreByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdGenre, error) {
 	db := c.db
@@ -407,16 +365,6 @@ func (c *Client) DjmdGenreByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // DjmdGenreByRbLocalUsnID retrieves a row from 'djmdGenre' as a DjmdGenre.
 //
 // Generated from index 'djmd_genre_rb_local_usn__i_d'.
-// func (dg *DjmdGenre) djmdGenre(db DB) (error)
-// func DjmdGenreByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdGenre, error) {
-// DjmdGenreByRbLocalUsnID {
-// func DjmdGenreByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdGenre, error) {
-// true
-// rbLocalUsn, id
-// DjmdGenre
-// DjmdGenreByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdGenreByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdGenre, error) {
 	// func DjmdGenreByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdGenre, error) {
 	db := c.db
@@ -454,16 +402,6 @@ func (c *Client) DjmdGenreByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nul
 // DjmdGenreByID retrieves a row from 'djmdGenre' as a DjmdGenre.
 //
 // Generated from index 'sqlite_autoindex_djmdGenre_1'.
-// func (dg *DjmdGenre) djmdGenre(db DB) (error)
-// func DjmdGenreByID(ctx context.Context, db DB, id sql.NullString) (*DjmdGenre, error) {
-// DjmdGenreByID {
-// func DjmdGenreByID(db DB, id sql.NullString) (*DjmdGenre, error) {
-// true
-// id
-// DjmdGenre
-// DjmdGenreByID
-// true
-// true
 func (c *Client) DjmdGenreByID(ctx context.Context, id sql.NullString) (*DjmdGenre, error) {
 	// func DjmdGenreByID(ctx context.Context, db DB, id sql.NullString) (*DjmdGenre, error) {
 	db := c.db

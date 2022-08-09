@@ -143,17 +143,7 @@ func (c *Client) DeleteDjmdSort(ctx context.Context, ds *DjmdSort) error {
 	return nil
 }
 
-func (c *Client) AllDjmdSort(ctx context.Context) ([]*DjmdSort, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdSort`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdSortRows(rows *sql.Rows) ([]*DjmdSort, error) {
 	var res []*DjmdSort
 	for rows.Next() {
 		ds := DjmdSort{
@@ -165,7 +155,25 @@ func (c *Client) AllDjmdSort(ctx context.Context) ([]*DjmdSort, error) {
 		}
 		res = append(res, &ds)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdSort(ctx context.Context) ([]*DjmdSort, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdSort`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdSortRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -174,16 +182,6 @@ func (c *Client) AllDjmdSort(ctx context.Context) ([]*DjmdSort, error) {
 // DjmdSortByUUID retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort__u_u_i_d'.
-// func (ds *DjmdSort) djmdSort(db DB) (error)
-// func DjmdSortByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSort, error) {
-// DjmdSortByUUID {
-// func DjmdSortByUUID(db DB, uuid sql.NullString) ([]*DjmdSort, error) {
-// true
-// uuid
-// DjmdSort
-// DjmdSortByUUID
-// false
-// false
 func (c *Client) DjmdSortByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSort, error) {
 	// func DjmdSortByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSort, error) {
 	db := c.db
@@ -221,16 +219,6 @@ func (c *Client) DjmdSortByUUID(ctx context.Context, uuid sql.NullString) ([]*Dj
 // DjmdSortByRbDataStatus retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_data_status'.
-// func (ds *DjmdSort) djmdSort(db DB) (error)
-// func DjmdSortByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSort, error) {
-// DjmdSortByRbDataStatus {
-// func DjmdSortByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdSort, error) {
-// true
-// rbDataStatus
-// DjmdSort
-// DjmdSortByRbDataStatus
-// false
-// false
 func (c *Client) DjmdSortByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSort, error) {
 	// func DjmdSortByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSort, error) {
 	db := c.db
@@ -268,16 +256,6 @@ func (c *Client) DjmdSortByRbDataStatus(ctx context.Context, rbDataStatus sql.Nu
 // DjmdSortByRbLocalDataStatus retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_local_data_status'.
-// func (ds *DjmdSort) djmdSort(db DB) (error)
-// func DjmdSortByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSort, error) {
-// DjmdSortByRbLocalDataStatus {
-// func DjmdSortByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSort, error) {
-// true
-// rbLocalDataStatus
-// DjmdSort
-// DjmdSortByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdSortByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSort, error) {
 	// func DjmdSortByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSort, error) {
 	db := c.db
@@ -315,16 +293,6 @@ func (c *Client) DjmdSortByRbLocalDataStatus(ctx context.Context, rbLocalDataSta
 // DjmdSortByRbLocalDeleted retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_local_deleted'.
-// func (ds *DjmdSort) djmdSort(db DB) (error)
-// func DjmdSortByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSort, error) {
-// DjmdSortByRbLocalDeleted {
-// func DjmdSortByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSort, error) {
-// true
-// rbLocalDeleted
-// DjmdSort
-// DjmdSortByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdSortByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSort, error) {
 	// func DjmdSortByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSort, error) {
 	db := c.db
@@ -362,16 +330,6 @@ func (c *Client) DjmdSortByRbLocalDeleted(ctx context.Context, rbLocalDeleted sq
 // DjmdSortByRbLocalUsnID retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_local_usn__i_d'.
-// func (ds *DjmdSort) djmdSort(db DB) (error)
-// func DjmdSortByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSort, error) {
-// DjmdSortByRbLocalUsnID {
-// func DjmdSortByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSort, error) {
-// true
-// rbLocalUsn, id
-// DjmdSort
-// DjmdSortByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdSortByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSort, error) {
 	// func DjmdSortByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSort, error) {
 	db := c.db
@@ -409,16 +367,6 @@ func (c *Client) DjmdSortByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Null
 // DjmdSortByID retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'sqlite_autoindex_djmdSort_1'.
-// func (ds *DjmdSort) djmdSort(db DB) (error)
-// func DjmdSortByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSort, error) {
-// DjmdSortByID {
-// func DjmdSortByID(db DB, id sql.NullString) (*DjmdSort, error) {
-// true
-// id
-// DjmdSort
-// DjmdSortByID
-// true
-// true
 func (c *Client) DjmdSortByID(ctx context.Context, id sql.NullString) (*DjmdSort, error) {
 	// func DjmdSortByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSort, error) {
 	db := c.db

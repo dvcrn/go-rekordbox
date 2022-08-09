@@ -143,17 +143,7 @@ func (c *Client) DeleteHotCueBanklistCue(ctx context.Context, hcbc *HotCueBankli
 	return nil
 }
 
-func (c *Client) AllHotCueBanklistCue(ctx context.Context) ([]*HotCueBanklistCue, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM HotCueBanklistCue`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanHotCueBanklistCueRows(rows *sql.Rows) ([]*HotCueBanklistCue, error) {
 	var res []*HotCueBanklistCue
 	for rows.Next() {
 		hcbc := HotCueBanklistCue{
@@ -165,7 +155,25 @@ func (c *Client) AllHotCueBanklistCue(ctx context.Context) ([]*HotCueBanklistCue
 		}
 		res = append(res, &hcbc)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllHotCueBanklistCue(ctx context.Context) ([]*HotCueBanklistCue, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM HotCueBanklistCue`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanHotCueBanklistCueRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -174,16 +182,6 @@ func (c *Client) AllHotCueBanklistCue(ctx context.Context) ([]*HotCueBanklistCue
 // HotCueBanklistCueByHotCueBanklistID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue__hot_cue_banklist_i_d'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByHotCueBanklistID(ctx context.Context, db DB, hotCueBanklistID sql.NullString) ([]*HotCueBanklistCue, error) {
-// HotCueBanklistCueByHotCueBanklistID {
-// func HotCueBanklistCueByHotCueBanklistID(db DB, hotCueBanklistID sql.NullString) ([]*HotCueBanklistCue, error) {
-// true
-// hotCueBanklistID
-// HotCueBanklistCue
-// HotCueBanklistCueByHotCueBanklistID
-// false
-// false
 func (c *Client) HotCueBanklistCueByHotCueBanklistID(ctx context.Context, hotCueBanklistID sql.NullString) ([]*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByHotCueBanklistID(ctx context.Context, db DB, hotCueBanklistID sql.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
@@ -221,16 +219,6 @@ func (c *Client) HotCueBanklistCueByHotCueBanklistID(ctx context.Context, hotCue
 // HotCueBanklistCueByUUID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue__u_u_i_d'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*HotCueBanklistCue, error) {
-// HotCueBanklistCueByUUID {
-// func HotCueBanklistCueByUUID(db DB, uuid sql.NullString) ([]*HotCueBanklistCue, error) {
-// true
-// uuid
-// HotCueBanklistCue
-// HotCueBanklistCueByUUID
-// false
-// false
 func (c *Client) HotCueBanklistCueByUUID(ctx context.Context, uuid sql.NullString) ([]*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
@@ -268,16 +256,6 @@ func (c *Client) HotCueBanklistCueByUUID(ctx context.Context, uuid sql.NullStrin
 // HotCueBanklistCueByRbCueCount retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_cue_count'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByRbCueCount(ctx context.Context, db DB, rbCueCount sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// HotCueBanklistCueByRbCueCount {
-// func HotCueBanklistCueByRbCueCount(db DB, rbCueCount sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// true
-// rbCueCount
-// HotCueBanklistCue
-// HotCueBanklistCueByRbCueCount
-// false
-// false
 func (c *Client) HotCueBanklistCueByRbCueCount(ctx context.Context, rbCueCount sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByRbCueCount(ctx context.Context, db DB, rbCueCount sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
@@ -315,16 +293,6 @@ func (c *Client) HotCueBanklistCueByRbCueCount(ctx context.Context, rbCueCount s
 // HotCueBanklistCueByRbDataStatus retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_data_status'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// HotCueBanklistCueByRbDataStatus {
-// func HotCueBanklistCueByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// true
-// rbDataStatus
-// HotCueBanklistCue
-// HotCueBanklistCueByRbDataStatus
-// false
-// false
 func (c *Client) HotCueBanklistCueByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
@@ -362,16 +330,6 @@ func (c *Client) HotCueBanklistCueByRbDataStatus(ctx context.Context, rbDataStat
 // HotCueBanklistCueByRbLocalDataStatus retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_data_status'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// HotCueBanklistCueByRbLocalDataStatus {
-// func HotCueBanklistCueByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// true
-// rbLocalDataStatus
-// HotCueBanklistCue
-// HotCueBanklistCueByRbLocalDataStatus
-// false
-// false
 func (c *Client) HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
@@ -409,16 +367,6 @@ func (c *Client) HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, rbLoc
 // HotCueBanklistCueByRbLocalDeleted retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_deleted'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// HotCueBanklistCueByRbLocalDeleted {
-// func HotCueBanklistCueByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*HotCueBanklistCue, error) {
-// true
-// rbLocalDeleted
-// HotCueBanklistCue
-// HotCueBanklistCueByRbLocalDeleted
-// false
-// false
 func (c *Client) HotCueBanklistCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
@@ -456,16 +404,6 @@ func (c *Client) HotCueBanklistCueByRbLocalDeleted(ctx context.Context, rbLocalD
 // HotCueBanklistCueByRbLocalUsnID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_usn__i_d'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*HotCueBanklistCue, error) {
-// HotCueBanklistCueByRbLocalUsnID {
-// func HotCueBanklistCueByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*HotCueBanklistCue, error) {
-// true
-// rbLocalUsn, id
-// HotCueBanklistCue
-// HotCueBanklistCueByRbLocalUsnID
-// false
-// false
 func (c *Client) HotCueBanklistCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
@@ -503,16 +441,6 @@ func (c *Client) HotCueBanklistCueByRbLocalUsnID(ctx context.Context, rbLocalUsn
 // HotCueBanklistCueByID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'sqlite_autoindex_hotCueBanklistCue_1'.
-// func (hcbc *HotCueBanklistCue) hotCueBanklistCue(db DB) (error)
-// func HotCueBanklistCueByID(ctx context.Context, db DB, id sql.NullString) (*HotCueBanklistCue, error) {
-// HotCueBanklistCueByID {
-// func HotCueBanklistCueByID(db DB, id sql.NullString) (*HotCueBanklistCue, error) {
-// true
-// id
-// HotCueBanklistCue
-// HotCueBanklistCueByID
-// true
-// true
 func (c *Client) HotCueBanklistCueByID(ctx context.Context, id sql.NullString) (*HotCueBanklistCue, error) {
 	// func HotCueBanklistCueByID(ctx context.Context, db DB, id sql.NullString) (*HotCueBanklistCue, error) {
 	db := c.db

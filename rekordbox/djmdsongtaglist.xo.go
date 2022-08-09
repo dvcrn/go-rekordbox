@@ -142,17 +142,7 @@ func (c *Client) DeleteDjmdSongTagList(ctx context.Context, dstl *DjmdSongTagLis
 	return nil
 }
 
-func (c *Client) AllDjmdSongTagList(ctx context.Context) ([]*DjmdSongTagList, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdSongTagList`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdSongTagListRows(rows *sql.Rows) ([]*DjmdSongTagList, error) {
 	var res []*DjmdSongTagList
 	for rows.Next() {
 		dstl := DjmdSongTagList{
@@ -164,7 +154,25 @@ func (c *Client) AllDjmdSongTagList(ctx context.Context) ([]*DjmdSongTagList, er
 		}
 		res = append(res, &dstl)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdSongTagList(ctx context.Context) ([]*DjmdSongTagList, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdSongTagList`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdSongTagListRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -173,16 +181,6 @@ func (c *Client) AllDjmdSongTagList(ctx context.Context) ([]*DjmdSongTagList, er
 // DjmdSongTagListByContentID retrieves a row from 'djmdSongTagList' as a DjmdSongTagList.
 //
 // Generated from index 'djmd_song_tag_list__content_i_d'.
-// func (dstl *DjmdSongTagList) djmdSongTagList(db DB) (error)
-// func DjmdSongTagListByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongTagList, error) {
-// DjmdSongTagListByContentID {
-// func DjmdSongTagListByContentID(db DB, contentID sql.NullString) ([]*DjmdSongTagList, error) {
-// true
-// contentID
-// DjmdSongTagList
-// DjmdSongTagListByContentID
-// false
-// false
 func (c *Client) DjmdSongTagListByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdSongTagList, error) {
 	// func DjmdSongTagListByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongTagList, error) {
 	db := c.db
@@ -220,16 +218,6 @@ func (c *Client) DjmdSongTagListByContentID(ctx context.Context, contentID sql.N
 // DjmdSongTagListByUUID retrieves a row from 'djmdSongTagList' as a DjmdSongTagList.
 //
 // Generated from index 'djmd_song_tag_list__u_u_i_d'.
-// func (dstl *DjmdSongTagList) djmdSongTagList(db DB) (error)
-// func DjmdSongTagListByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongTagList, error) {
-// DjmdSongTagListByUUID {
-// func DjmdSongTagListByUUID(db DB, uuid sql.NullString) ([]*DjmdSongTagList, error) {
-// true
-// uuid
-// DjmdSongTagList
-// DjmdSongTagListByUUID
-// false
-// false
 func (c *Client) DjmdSongTagListByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSongTagList, error) {
 	// func DjmdSongTagListByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongTagList, error) {
 	db := c.db
@@ -267,16 +255,6 @@ func (c *Client) DjmdSongTagListByUUID(ctx context.Context, uuid sql.NullString)
 // DjmdSongTagListByRbDataStatus retrieves a row from 'djmdSongTagList' as a DjmdSongTagList.
 //
 // Generated from index 'djmd_song_tag_list_rb_data_status'.
-// func (dstl *DjmdSongTagList) djmdSongTagList(db DB) (error)
-// func DjmdSongTagListByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
-// DjmdSongTagListByRbDataStatus {
-// func DjmdSongTagListByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
-// true
-// rbDataStatus
-// DjmdSongTagList
-// DjmdSongTagListByRbDataStatus
-// false
-// false
 func (c *Client) DjmdSongTagListByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
 	// func DjmdSongTagListByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
 	db := c.db
@@ -314,16 +292,6 @@ func (c *Client) DjmdSongTagListByRbDataStatus(ctx context.Context, rbDataStatus
 // DjmdSongTagListByRbLocalDataStatus retrieves a row from 'djmdSongTagList' as a DjmdSongTagList.
 //
 // Generated from index 'djmd_song_tag_list_rb_local_data_status'.
-// func (dstl *DjmdSongTagList) djmdSongTagList(db DB) (error)
-// func DjmdSongTagListByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
-// DjmdSongTagListByRbLocalDataStatus {
-// func DjmdSongTagListByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
-// true
-// rbLocalDataStatus
-// DjmdSongTagList
-// DjmdSongTagListByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdSongTagListByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
 	// func DjmdSongTagListByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongTagList, error) {
 	db := c.db
@@ -361,16 +329,6 @@ func (c *Client) DjmdSongTagListByRbLocalDataStatus(ctx context.Context, rbLocal
 // DjmdSongTagListByRbLocalDeleted retrieves a row from 'djmdSongTagList' as a DjmdSongTagList.
 //
 // Generated from index 'djmd_song_tag_list_rb_local_deleted'.
-// func (dstl *DjmdSongTagList) djmdSongTagList(db DB) (error)
-// func DjmdSongTagListByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongTagList, error) {
-// DjmdSongTagListByRbLocalDeleted {
-// func DjmdSongTagListByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongTagList, error) {
-// true
-// rbLocalDeleted
-// DjmdSongTagList
-// DjmdSongTagListByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdSongTagListByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSongTagList, error) {
 	// func DjmdSongTagListByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongTagList, error) {
 	db := c.db
@@ -408,16 +366,6 @@ func (c *Client) DjmdSongTagListByRbLocalDeleted(ctx context.Context, rbLocalDel
 // DjmdSongTagListByRbLocalUsnID retrieves a row from 'djmdSongTagList' as a DjmdSongTagList.
 //
 // Generated from index 'djmd_song_tag_list_rb_local_usn__i_d'.
-// func (dstl *DjmdSongTagList) djmdSongTagList(db DB) (error)
-// func DjmdSongTagListByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongTagList, error) {
-// DjmdSongTagListByRbLocalUsnID {
-// func DjmdSongTagListByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongTagList, error) {
-// true
-// rbLocalUsn, id
-// DjmdSongTagList
-// DjmdSongTagListByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdSongTagListByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongTagList, error) {
 	// func DjmdSongTagListByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongTagList, error) {
 	db := c.db
@@ -455,16 +403,6 @@ func (c *Client) DjmdSongTagListByRbLocalUsnID(ctx context.Context, rbLocalUsn s
 // DjmdSongTagListByID retrieves a row from 'djmdSongTagList' as a DjmdSongTagList.
 //
 // Generated from index 'sqlite_autoindex_djmdSongTagList_1'.
-// func (dstl *DjmdSongTagList) djmdSongTagList(db DB) (error)
-// func DjmdSongTagListByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongTagList, error) {
-// DjmdSongTagListByID {
-// func DjmdSongTagListByID(db DB, id sql.NullString) (*DjmdSongTagList, error) {
-// true
-// id
-// DjmdSongTagList
-// DjmdSongTagListByID
-// true
-// true
 func (c *Client) DjmdSongTagListByID(ctx context.Context, id sql.NullString) (*DjmdSongTagList, error) {
 	// func DjmdSongTagListByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongTagList, error) {
 	db := c.db

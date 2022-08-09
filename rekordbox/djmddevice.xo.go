@@ -142,17 +142,7 @@ func (c *Client) DeleteDjmdDevice(ctx context.Context, dd *DjmdDevice) error {
 	return nil
 }
 
-func (c *Client) AllDjmdDevice(ctx context.Context) ([]*DjmdDevice, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdDevice`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdDeviceRows(rows *sql.Rows) ([]*DjmdDevice, error) {
 	var res []*DjmdDevice
 	for rows.Next() {
 		dd := DjmdDevice{
@@ -164,7 +154,25 @@ func (c *Client) AllDjmdDevice(ctx context.Context) ([]*DjmdDevice, error) {
 		}
 		res = append(res, &dd)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdDevice(ctx context.Context) ([]*DjmdDevice, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdDevice`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdDeviceRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -173,16 +181,6 @@ func (c *Client) AllDjmdDevice(ctx context.Context) ([]*DjmdDevice, error) {
 // DjmdDeviceByUUID retrieves a row from 'djmdDevice' as a DjmdDevice.
 //
 // Generated from index 'djmd_device__u_u_i_d'.
-// func (dd *DjmdDevice) djmdDevice(db DB) (error)
-// func DjmdDeviceByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdDevice, error) {
-// DjmdDeviceByUUID {
-// func DjmdDeviceByUUID(db DB, uuid sql.NullString) ([]*DjmdDevice, error) {
-// true
-// uuid
-// DjmdDevice
-// DjmdDeviceByUUID
-// false
-// false
 func (c *Client) DjmdDeviceByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdDevice, error) {
 	// func DjmdDeviceByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdDevice, error) {
 	db := c.db
@@ -220,16 +218,6 @@ func (c *Client) DjmdDeviceByUUID(ctx context.Context, uuid sql.NullString) ([]*
 // DjmdDeviceByRbDataStatus retrieves a row from 'djmdDevice' as a DjmdDevice.
 //
 // Generated from index 'djmd_device_rb_data_status'.
-// func (dd *DjmdDevice) djmdDevice(db DB) (error)
-// func DjmdDeviceByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
-// DjmdDeviceByRbDataStatus {
-// func DjmdDeviceByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
-// true
-// rbDataStatus
-// DjmdDevice
-// DjmdDeviceByRbDataStatus
-// false
-// false
 func (c *Client) DjmdDeviceByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
 	// func DjmdDeviceByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
 	db := c.db
@@ -267,16 +255,6 @@ func (c *Client) DjmdDeviceByRbDataStatus(ctx context.Context, rbDataStatus sql.
 // DjmdDeviceByRbLocalDataStatus retrieves a row from 'djmdDevice' as a DjmdDevice.
 //
 // Generated from index 'djmd_device_rb_local_data_status'.
-// func (dd *DjmdDevice) djmdDevice(db DB) (error)
-// func DjmdDeviceByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
-// DjmdDeviceByRbLocalDataStatus {
-// func DjmdDeviceByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
-// true
-// rbLocalDataStatus
-// DjmdDevice
-// DjmdDeviceByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdDeviceByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
 	// func DjmdDeviceByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdDevice, error) {
 	db := c.db
@@ -314,16 +292,6 @@ func (c *Client) DjmdDeviceByRbLocalDataStatus(ctx context.Context, rbLocalDataS
 // DjmdDeviceByRbLocalDeleted retrieves a row from 'djmdDevice' as a DjmdDevice.
 //
 // Generated from index 'djmd_device_rb_local_deleted'.
-// func (dd *DjmdDevice) djmdDevice(db DB) (error)
-// func DjmdDeviceByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdDevice, error) {
-// DjmdDeviceByRbLocalDeleted {
-// func DjmdDeviceByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdDevice, error) {
-// true
-// rbLocalDeleted
-// DjmdDevice
-// DjmdDeviceByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdDeviceByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdDevice, error) {
 	// func DjmdDeviceByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdDevice, error) {
 	db := c.db
@@ -361,16 +329,6 @@ func (c *Client) DjmdDeviceByRbLocalDeleted(ctx context.Context, rbLocalDeleted 
 // DjmdDeviceByRbLocalUsnID retrieves a row from 'djmdDevice' as a DjmdDevice.
 //
 // Generated from index 'djmd_device_rb_local_usn__i_d'.
-// func (dd *DjmdDevice) djmdDevice(db DB) (error)
-// func DjmdDeviceByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdDevice, error) {
-// DjmdDeviceByRbLocalUsnID {
-// func DjmdDeviceByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdDevice, error) {
-// true
-// rbLocalUsn, id
-// DjmdDevice
-// DjmdDeviceByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdDeviceByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdDevice, error) {
 	// func DjmdDeviceByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdDevice, error) {
 	db := c.db
@@ -408,16 +366,6 @@ func (c *Client) DjmdDeviceByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nu
 // DjmdDeviceByID retrieves a row from 'djmdDevice' as a DjmdDevice.
 //
 // Generated from index 'sqlite_autoindex_djmdDevice_1'.
-// func (dd *DjmdDevice) djmdDevice(db DB) (error)
-// func DjmdDeviceByID(ctx context.Context, db DB, id sql.NullString) (*DjmdDevice, error) {
-// DjmdDeviceByID {
-// func DjmdDeviceByID(db DB, id sql.NullString) (*DjmdDevice, error) {
-// true
-// id
-// DjmdDevice
-// DjmdDeviceByID
-// true
-// true
 func (c *Client) DjmdDeviceByID(ctx context.Context, id sql.NullString) (*DjmdDevice, error) {
 	// func DjmdDeviceByID(ctx context.Context, db DB, id sql.NullString) (*DjmdDevice, error) {
 	db := c.db

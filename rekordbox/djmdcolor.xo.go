@@ -143,17 +143,7 @@ func (c *Client) DeleteDjmdColor(ctx context.Context, dc *DjmdColor) error {
 	return nil
 }
 
-func (c *Client) AllDjmdColor(ctx context.Context) ([]*DjmdColor, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdColor`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdColorRows(rows *sql.Rows) ([]*DjmdColor, error) {
 	var res []*DjmdColor
 	for rows.Next() {
 		dc := DjmdColor{
@@ -165,7 +155,25 @@ func (c *Client) AllDjmdColor(ctx context.Context) ([]*DjmdColor, error) {
 		}
 		res = append(res, &dc)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdColor(ctx context.Context) ([]*DjmdColor, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdColor`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdColorRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -174,16 +182,6 @@ func (c *Client) AllDjmdColor(ctx context.Context) ([]*DjmdColor, error) {
 // DjmdColorByUUID retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color__u_u_i_d'.
-// func (dc *DjmdColor) djmdColor(db DB) (error)
-// func DjmdColorByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdColor, error) {
-// DjmdColorByUUID {
-// func DjmdColorByUUID(db DB, uuid sql.NullString) ([]*DjmdColor, error) {
-// true
-// uuid
-// DjmdColor
-// DjmdColorByUUID
-// false
-// false
 func (c *Client) DjmdColorByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdColor, error) {
 	// func DjmdColorByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdColor, error) {
 	db := c.db
@@ -221,16 +219,6 @@ func (c *Client) DjmdColorByUUID(ctx context.Context, uuid sql.NullString) ([]*D
 // DjmdColorByRbDataStatus retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_data_status'.
-// func (dc *DjmdColor) djmdColor(db DB) (error)
-// func DjmdColorByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdColor, error) {
-// DjmdColorByRbDataStatus {
-// func DjmdColorByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdColor, error) {
-// true
-// rbDataStatus
-// DjmdColor
-// DjmdColorByRbDataStatus
-// false
-// false
 func (c *Client) DjmdColorByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdColor, error) {
 	// func DjmdColorByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
@@ -268,16 +256,6 @@ func (c *Client) DjmdColorByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // DjmdColorByRbLocalDataStatus retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_local_data_status'.
-// func (dc *DjmdColor) djmdColor(db DB) (error)
-// func DjmdColorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdColor, error) {
-// DjmdColorByRbLocalDataStatus {
-// func DjmdColorByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdColor, error) {
-// true
-// rbLocalDataStatus
-// DjmdColor
-// DjmdColorByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdColorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdColor, error) {
 	// func DjmdColorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
@@ -315,16 +293,6 @@ func (c *Client) DjmdColorByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // DjmdColorByRbLocalDeleted retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_local_deleted'.
-// func (dc *DjmdColor) djmdColor(db DB) (error)
-// func DjmdColorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdColor, error) {
-// DjmdColorByRbLocalDeleted {
-// func DjmdColorByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdColor, error) {
-// true
-// rbLocalDeleted
-// DjmdColor
-// DjmdColorByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdColorByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdColor, error) {
 	// func DjmdColorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
@@ -362,16 +330,6 @@ func (c *Client) DjmdColorByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // DjmdColorByRbLocalUsnID retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_local_usn__i_d'.
-// func (dc *DjmdColor) djmdColor(db DB) (error)
-// func DjmdColorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdColor, error) {
-// DjmdColorByRbLocalUsnID {
-// func DjmdColorByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdColor, error) {
-// true
-// rbLocalUsn, id
-// DjmdColor
-// DjmdColorByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdColorByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdColor, error) {
 	// func DjmdColorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdColor, error) {
 	db := c.db
@@ -409,16 +367,6 @@ func (c *Client) DjmdColorByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nul
 // DjmdColorByID retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'sqlite_autoindex_djmdColor_1'.
-// func (dc *DjmdColor) djmdColor(db DB) (error)
-// func DjmdColorByID(ctx context.Context, db DB, id sql.NullString) (*DjmdColor, error) {
-// DjmdColorByID {
-// func DjmdColorByID(db DB, id sql.NullString) (*DjmdColor, error) {
-// true
-// id
-// DjmdColor
-// DjmdColorByID
-// true
-// true
 func (c *Client) DjmdColorByID(ctx context.Context, id sql.NullString) (*DjmdColor, error) {
 	// func DjmdColorByID(ctx context.Context, db DB, id sql.NullString) (*DjmdColor, error) {
 	db := c.db

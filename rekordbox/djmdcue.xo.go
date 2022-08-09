@@ -159,17 +159,7 @@ func (c *Client) DeleteDjmdCue(ctx context.Context, dc *DjmdCue) error {
 	return nil
 }
 
-func (c *Client) AllDjmdCue(ctx context.Context) ([]*DjmdCue, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdCue`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdCueRows(rows *sql.Rows) ([]*DjmdCue, error) {
 	var res []*DjmdCue
 	for rows.Next() {
 		dc := DjmdCue{
@@ -181,7 +171,25 @@ func (c *Client) AllDjmdCue(ctx context.Context) ([]*DjmdCue, error) {
 		}
 		res = append(res, &dc)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdCue(ctx context.Context) ([]*DjmdCue, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdCue`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdCueRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -190,16 +198,6 @@ func (c *Client) AllDjmdCue(ctx context.Context) ([]*DjmdCue, error) {
 // DjmdCueByContentID retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue__content_i_d'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdCue, error) {
-// DjmdCueByContentID {
-// func DjmdCueByContentID(db DB, contentID sql.NullString) ([]*DjmdCue, error) {
-// true
-// contentID
-// DjmdCue
-// DjmdCueByContentID
-// false
-// false
 func (c *Client) DjmdCueByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdCue, error) {
 	// func DjmdCueByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdCue, error) {
 	db := c.db
@@ -237,16 +235,6 @@ func (c *Client) DjmdCueByContentID(ctx context.Context, contentID sql.NullStrin
 // DjmdCueByContentIDRbLocalDeleted retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue__content_i_d_rb_local_deleted'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByContentIDRbLocalDeleted(ctx context.Context, db DB, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
-// DjmdCueByContentIDRbLocalDeleted {
-// func DjmdCueByContentIDRbLocalDeleted(db DB, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
-// true
-// contentID, rbLocalDeleted
-// DjmdCue
-// DjmdCueByContentIDRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdCueByContentIDRbLocalDeleted(ctx context.Context, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
 	// func DjmdCueByContentIDRbLocalDeleted(ctx context.Context, db DB, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
 	db := c.db
@@ -284,16 +272,6 @@ func (c *Client) DjmdCueByContentIDRbLocalDeleted(ctx context.Context, contentID
 // DjmdCueByContentUUID retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue__content_u_u_i_d'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByContentUUID(ctx context.Context, db DB, contentUUID sql.NullString) ([]*DjmdCue, error) {
-// DjmdCueByContentUUID {
-// func DjmdCueByContentUUID(db DB, contentUUID sql.NullString) ([]*DjmdCue, error) {
-// true
-// contentUUID
-// DjmdCue
-// DjmdCueByContentUUID
-// false
-// false
 func (c *Client) DjmdCueByContentUUID(ctx context.Context, contentUUID sql.NullString) ([]*DjmdCue, error) {
 	// func DjmdCueByContentUUID(ctx context.Context, db DB, contentUUID sql.NullString) ([]*DjmdCue, error) {
 	db := c.db
@@ -331,16 +309,6 @@ func (c *Client) DjmdCueByContentUUID(ctx context.Context, contentUUID sql.NullS
 // DjmdCueByUUID retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue__u_u_i_d'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdCue, error) {
-// DjmdCueByUUID {
-// func DjmdCueByUUID(db DB, uuid sql.NullString) ([]*DjmdCue, error) {
-// true
-// uuid
-// DjmdCue
-// DjmdCueByUUID
-// false
-// false
 func (c *Client) DjmdCueByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdCue, error) {
 	// func DjmdCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdCue, error) {
 	db := c.db
@@ -378,16 +346,6 @@ func (c *Client) DjmdCueByUUID(ctx context.Context, uuid sql.NullString) ([]*Djm
 // DjmdCueByRbDataStatus retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue_rb_data_status'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdCue, error) {
-// DjmdCueByRbDataStatus {
-// func DjmdCueByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdCue, error) {
-// true
-// rbDataStatus
-// DjmdCue
-// DjmdCueByRbDataStatus
-// false
-// false
 func (c *Client) DjmdCueByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdCue, error) {
 	// func DjmdCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdCue, error) {
 	db := c.db
@@ -425,16 +383,6 @@ func (c *Client) DjmdCueByRbDataStatus(ctx context.Context, rbDataStatus sql.Nul
 // DjmdCueByRbLocalDataStatus retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue_rb_local_data_status'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCue, error) {
-// DjmdCueByRbLocalDataStatus {
-// func DjmdCueByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCue, error) {
-// true
-// rbLocalDataStatus
-// DjmdCue
-// DjmdCueByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdCue, error) {
 	// func DjmdCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCue, error) {
 	db := c.db
@@ -472,16 +420,6 @@ func (c *Client) DjmdCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStat
 // DjmdCueByRbLocalDeleted retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue_rb_local_deleted'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
-// DjmdCueByRbLocalDeleted {
-// func DjmdCueByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
-// true
-// rbLocalDeleted
-// DjmdCue
-// DjmdCueByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
 	// func DjmdCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCue, error) {
 	db := c.db
@@ -519,16 +457,6 @@ func (c *Client) DjmdCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql
 // DjmdCueByRbLocalUsnID retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'djmd_cue_rb_local_usn__i_d'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCue, error) {
-// DjmdCueByRbLocalUsnID {
-// func DjmdCueByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCue, error) {
-// true
-// rbLocalUsn, id
-// DjmdCue
-// DjmdCueByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCue, error) {
 	// func DjmdCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCue, error) {
 	db := c.db
@@ -566,16 +494,6 @@ func (c *Client) DjmdCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullI
 // DjmdCueByID retrieves a row from 'djmdCue' as a DjmdCue.
 //
 // Generated from index 'sqlite_autoindex_djmdCue_1'.
-// func (dc *DjmdCue) djmdCue(db DB) (error)
-// func DjmdCueByID(ctx context.Context, db DB, id sql.NullString) (*DjmdCue, error) {
-// DjmdCueByID {
-// func DjmdCueByID(db DB, id sql.NullString) (*DjmdCue, error) {
-// true
-// id
-// DjmdCue
-// DjmdCueByID
-// true
-// true
 func (c *Client) DjmdCueByID(ctx context.Context, id sql.NullString) (*DjmdCue, error) {
 	// func DjmdCueByID(ctx context.Context, db DB, id sql.NullString) (*DjmdCue, error) {
 	db := c.db

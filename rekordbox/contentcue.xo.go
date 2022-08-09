@@ -143,17 +143,7 @@ func (c *Client) DeleteContentCue(ctx context.Context, cc *ContentCue) error {
 	return nil
 }
 
-func (c *Client) AllContentCue(ctx context.Context) ([]*ContentCue, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM ContentCue`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanContentCueRows(rows *sql.Rows) ([]*ContentCue, error) {
 	var res []*ContentCue
 	for rows.Next() {
 		cc := ContentCue{
@@ -165,7 +155,25 @@ func (c *Client) AllContentCue(ctx context.Context) ([]*ContentCue, error) {
 		}
 		res = append(res, &cc)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllContentCue(ctx context.Context) ([]*ContentCue, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM ContentCue`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanContentCueRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -174,16 +182,6 @@ func (c *Client) AllContentCue(ctx context.Context) ([]*ContentCue, error) {
 // ContentCueByContentID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue__content_i_d'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*ContentCue, error) {
-// ContentCueByContentID {
-// func ContentCueByContentID(db DB, contentID sql.NullString) ([]*ContentCue, error) {
-// true
-// contentID
-// ContentCue
-// ContentCueByContentID
-// false
-// false
 func (c *Client) ContentCueByContentID(ctx context.Context, contentID sql.NullString) ([]*ContentCue, error) {
 	// func ContentCueByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*ContentCue, error) {
 	db := c.db
@@ -221,16 +219,6 @@ func (c *Client) ContentCueByContentID(ctx context.Context, contentID sql.NullSt
 // ContentCueByUUID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue__u_u_i_d'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*ContentCue, error) {
-// ContentCueByUUID {
-// func ContentCueByUUID(db DB, uuid sql.NullString) ([]*ContentCue, error) {
-// true
-// uuid
-// ContentCue
-// ContentCueByUUID
-// false
-// false
 func (c *Client) ContentCueByUUID(ctx context.Context, uuid sql.NullString) ([]*ContentCue, error) {
 	// func ContentCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*ContentCue, error) {
 	db := c.db
@@ -268,16 +256,6 @@ func (c *Client) ContentCueByUUID(ctx context.Context, uuid sql.NullString) ([]*
 // ContentCueByRbCueCount retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_cue_count'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByRbCueCount(ctx context.Context, db DB, rbCueCount sql.NullInt64) ([]*ContentCue, error) {
-// ContentCueByRbCueCount {
-// func ContentCueByRbCueCount(db DB, rbCueCount sql.NullInt64) ([]*ContentCue, error) {
-// true
-// rbCueCount
-// ContentCue
-// ContentCueByRbCueCount
-// false
-// false
 func (c *Client) ContentCueByRbCueCount(ctx context.Context, rbCueCount sql.NullInt64) ([]*ContentCue, error) {
 	// func ContentCueByRbCueCount(ctx context.Context, db DB, rbCueCount sql.NullInt64) ([]*ContentCue, error) {
 	db := c.db
@@ -315,16 +293,6 @@ func (c *Client) ContentCueByRbCueCount(ctx context.Context, rbCueCount sql.Null
 // ContentCueByRbDataStatus retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_data_status'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*ContentCue, error) {
-// ContentCueByRbDataStatus {
-// func ContentCueByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*ContentCue, error) {
-// true
-// rbDataStatus
-// ContentCue
-// ContentCueByRbDataStatus
-// false
-// false
 func (c *Client) ContentCueByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*ContentCue, error) {
 	// func ContentCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*ContentCue, error) {
 	db := c.db
@@ -362,16 +330,6 @@ func (c *Client) ContentCueByRbDataStatus(ctx context.Context, rbDataStatus sql.
 // ContentCueByRbLocalDataStatus retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_local_data_status'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentCue, error) {
-// ContentCueByRbLocalDataStatus {
-// func ContentCueByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentCue, error) {
-// true
-// rbLocalDataStatus
-// ContentCue
-// ContentCueByRbLocalDataStatus
-// false
-// false
 func (c *Client) ContentCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*ContentCue, error) {
 	// func ContentCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentCue, error) {
 	db := c.db
@@ -409,16 +367,6 @@ func (c *Client) ContentCueByRbLocalDataStatus(ctx context.Context, rbLocalDataS
 // ContentCueByRbLocalDeleted retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_local_deleted'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*ContentCue, error) {
-// ContentCueByRbLocalDeleted {
-// func ContentCueByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*ContentCue, error) {
-// true
-// rbLocalDeleted
-// ContentCue
-// ContentCueByRbLocalDeleted
-// false
-// false
 func (c *Client) ContentCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*ContentCue, error) {
 	// func ContentCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*ContentCue, error) {
 	db := c.db
@@ -456,16 +404,6 @@ func (c *Client) ContentCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted 
 // ContentCueByRbLocalUsnID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_local_usn__i_d'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentCue, error) {
-// ContentCueByRbLocalUsnID {
-// func ContentCueByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentCue, error) {
-// true
-// rbLocalUsn, id
-// ContentCue
-// ContentCueByRbLocalUsnID
-// false
-// false
 func (c *Client) ContentCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentCue, error) {
 	// func ContentCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentCue, error) {
 	db := c.db
@@ -503,16 +441,6 @@ func (c *Client) ContentCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nu
 // ContentCueByID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'sqlite_autoindex_contentCue_1'.
-// func (cc *ContentCue) contentCue(db DB) (error)
-// func ContentCueByID(ctx context.Context, db DB, id sql.NullString) (*ContentCue, error) {
-// ContentCueByID {
-// func ContentCueByID(db DB, id sql.NullString) (*ContentCue, error) {
-// true
-// id
-// ContentCue
-// ContentCueByID
-// true
-// true
 func (c *Client) ContentCueByID(ctx context.Context, id sql.NullString) (*ContentCue, error) {
 	// func ContentCueByID(ctx context.Context, db DB, id sql.NullString) (*ContentCue, error) {
 	db := c.db

@@ -144,17 +144,7 @@ func (c *Client) DeleteDjmdMyTag(ctx context.Context, dmt *DjmdMyTag) error {
 	return nil
 }
 
-func (c *Client) AllDjmdMyTag(ctx context.Context) ([]*DjmdMyTag, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdMyTag`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdMyTagRows(rows *sql.Rows) ([]*DjmdMyTag, error) {
 	var res []*DjmdMyTag
 	for rows.Next() {
 		dmt := DjmdMyTag{
@@ -166,7 +156,25 @@ func (c *Client) AllDjmdMyTag(ctx context.Context) ([]*DjmdMyTag, error) {
 		}
 		res = append(res, &dmt)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdMyTag(ctx context.Context) ([]*DjmdMyTag, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdMyTag`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdMyTagRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -175,16 +183,6 @@ func (c *Client) AllDjmdMyTag(ctx context.Context) ([]*DjmdMyTag, error) {
 // DjmdMyTagByParentID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag__parent_i_d'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagByParentID(ctx context.Context, db DB, parentID sql.NullString) ([]*DjmdMyTag, error) {
-// DjmdMyTagByParentID {
-// func DjmdMyTagByParentID(db DB, parentID sql.NullString) ([]*DjmdMyTag, error) {
-// true
-// parentID
-// DjmdMyTag
-// DjmdMyTagByParentID
-// false
-// false
 func (c *Client) DjmdMyTagByParentID(ctx context.Context, parentID sql.NullString) ([]*DjmdMyTag, error) {
 	// func DjmdMyTagByParentID(ctx context.Context, db DB, parentID sql.NullString) ([]*DjmdMyTag, error) {
 	db := c.db
@@ -222,16 +220,6 @@ func (c *Client) DjmdMyTagByParentID(ctx context.Context, parentID sql.NullStrin
 // DjmdMyTagBySeq retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag__seq'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagBySeq(ctx context.Context, db DB, seq sql.NullInt64) ([]*DjmdMyTag, error) {
-// DjmdMyTagBySeq {
-// func DjmdMyTagBySeq(db DB, seq sql.NullInt64) ([]*DjmdMyTag, error) {
-// true
-// seq
-// DjmdMyTag
-// DjmdMyTagBySeq
-// false
-// false
 func (c *Client) DjmdMyTagBySeq(ctx context.Context, seq sql.NullInt64) ([]*DjmdMyTag, error) {
 	// func DjmdMyTagBySeq(ctx context.Context, db DB, seq sql.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
@@ -269,16 +257,6 @@ func (c *Client) DjmdMyTagBySeq(ctx context.Context, seq sql.NullInt64) ([]*Djmd
 // DjmdMyTagByUUID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag__u_u_i_d'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMyTag, error) {
-// DjmdMyTagByUUID {
-// func DjmdMyTagByUUID(db DB, uuid sql.NullString) ([]*DjmdMyTag, error) {
-// true
-// uuid
-// DjmdMyTag
-// DjmdMyTagByUUID
-// false
-// false
 func (c *Client) DjmdMyTagByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdMyTag, error) {
 	// func DjmdMyTagByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMyTag, error) {
 	db := c.db
@@ -316,16 +294,6 @@ func (c *Client) DjmdMyTagByUUID(ctx context.Context, uuid sql.NullString) ([]*D
 // DjmdMyTagByRbDataStatus retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_data_status'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
-// DjmdMyTagByRbDataStatus {
-// func DjmdMyTagByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
-// true
-// rbDataStatus
-// DjmdMyTag
-// DjmdMyTagByRbDataStatus
-// false
-// false
 func (c *Client) DjmdMyTagByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
 	// func DjmdMyTagByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
@@ -363,16 +331,6 @@ func (c *Client) DjmdMyTagByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // DjmdMyTagByRbLocalDataStatus retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_local_data_status'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
-// DjmdMyTagByRbLocalDataStatus {
-// func DjmdMyTagByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
-// true
-// rbLocalDataStatus
-// DjmdMyTag
-// DjmdMyTagByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
 	// func DjmdMyTagByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
@@ -410,16 +368,6 @@ func (c *Client) DjmdMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // DjmdMyTagByRbLocalDeleted retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_local_deleted'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMyTag, error) {
-// DjmdMyTagByRbLocalDeleted {
-// func DjmdMyTagByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMyTag, error) {
-// true
-// rbLocalDeleted
-// DjmdMyTag
-// DjmdMyTagByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdMyTagByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdMyTag, error) {
 	// func DjmdMyTagByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
@@ -457,16 +405,6 @@ func (c *Client) DjmdMyTagByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // DjmdMyTagByRbLocalUsnID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_local_usn__i_d'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMyTag, error) {
-// DjmdMyTagByRbLocalUsnID {
-// func DjmdMyTagByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMyTag, error) {
-// true
-// rbLocalUsn, id
-// DjmdMyTag
-// DjmdMyTagByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMyTag, error) {
 	// func DjmdMyTagByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMyTag, error) {
 	db := c.db
@@ -504,16 +442,6 @@ func (c *Client) DjmdMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nul
 // DjmdMyTagByID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'sqlite_autoindex_djmdMyTag_1'.
-// func (dmt *DjmdMyTag) djmdMyTag(db DB) (error)
-// func DjmdMyTagByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMyTag, error) {
-// DjmdMyTagByID {
-// func DjmdMyTagByID(db DB, id sql.NullString) (*DjmdMyTag, error) {
-// true
-// id
-// DjmdMyTag
-// DjmdMyTagByID
-// true
-// true
 func (c *Client) DjmdMyTagByID(ctx context.Context, id sql.NullString) (*DjmdMyTag, error) {
 	// func DjmdMyTagByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMyTag, error) {
 	db := c.db

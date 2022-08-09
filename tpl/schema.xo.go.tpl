@@ -114,16 +114,6 @@ func (err ErrInvalid{{ $e.GoName }}) Error() string {
 // {{ func_name_context $i }} retrieves a row from '{{ schema $i.Table.SQLName }}' as a {{ $i.Table.GoName }}.
 //
 // Generated from index '{{ $i.SQLName }}'.
-// {{ recv $i.Table $i.Table.SQLName }}
-// {{ func_context $i }} {
-// {{ func_name_context $i }} {
-// {{ func $i }} {
-// {{ context }} 
-// {{ params $i.Fields false }} 
-// {{ type $i.Table.GoName }}
-// {{ $i.Func }}
-// {{ $i.IsUnique }}
-// {{ $i.IsPrimary }}
 {{- if $i.IsUnique }}
 func (c *Client) {{ func_name $i }} (ctx context.Context, {{ params $i.Fields true }}) (*{{ $i.Table.GoName }}, error) {
 {{- else }}
@@ -456,17 +446,7 @@ func (c *Client) Delete{{ $t.GoName }}(ctx context.Context, {{ short $t}} *{{ $t
 {{- end -}}
 {{- end }}
 
-func (c *Client) All{{ $t.GoName }}(ctx context.Context) ([]*{{ $t.GoName }}, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM {{ $t.GoName }}`
-	rows, err := {{ db_prefix "Query" false }}
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scan{{ $t.GoName }}Rows(rows *sql.Rows) ([]*{{ $t.GoName }}, error) {
 	var res []*{{ $t.GoName }}
 	for rows.Next() {
 		{{ short $t }} := {{ $t.GoName }}{
@@ -480,7 +460,26 @@ func (c *Client) All{{ $t.GoName }}(ctx context.Context) ([]*{{ $t.GoName }}, er
 		}
 		res = append(res, &{{ short $t }})
 	}
+	
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) All{{ $t.GoName }}(ctx context.Context) ([]*{{ $t.GoName }}, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM {{ $t.GoName }}`
+	rows, err := {{ db_prefix "Query" false }}
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scan{{ $t.GoName }}Rows(rows)
+
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil

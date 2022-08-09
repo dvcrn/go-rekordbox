@@ -144,17 +144,7 @@ func (c *Client) DeleteAgentRegistry(ctx context.Context, ar *AgentRegistry) err
 	return nil
 }
 
-func (c *Client) AllAgentRegistry(ctx context.Context) ([]*AgentRegistry, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM AgentRegistry`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanAgentRegistryRows(rows *sql.Rows) ([]*AgentRegistry, error) {
 	var res []*AgentRegistry
 	for rows.Next() {
 		ar := AgentRegistry{
@@ -166,7 +156,25 @@ func (c *Client) AllAgentRegistry(ctx context.Context) ([]*AgentRegistry, error)
 		}
 		res = append(res, &ar)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllAgentRegistry(ctx context.Context) ([]*AgentRegistry, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM AgentRegistry`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanAgentRegistryRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -175,16 +183,6 @@ func (c *Client) AllAgentRegistry(ctx context.Context) ([]*AgentRegistry, error)
 // AgentRegistryByID1ID2 retrieves a row from 'agentRegistry' as a AgentRegistry.
 //
 // Generated from index 'agent_registry_id_1_id_2'.
-// func (ar *AgentRegistry) agentRegistry(db DB) (error)
-// func AgentRegistryByID1ID2(ctx context.Context, db DB, id1 sql.NullString, id2 sql.NullString) ([]*AgentRegistry, error) {
-// AgentRegistryByID1ID2 {
-// func AgentRegistryByID1ID2(db DB, id1 sql.NullString, id2 sql.NullString) ([]*AgentRegistry, error) {
-// true
-// id1, id2
-// AgentRegistry
-// AgentRegistryByID1ID2
-// false
-// false
 func (c *Client) AgentRegistryByID1ID2(ctx context.Context, id1, id2 sql.NullString) ([]*AgentRegistry, error) {
 	// func AgentRegistryByID1ID2(ctx context.Context, db DB, id1 sql.NullString, id2 sql.NullString) ([]*AgentRegistry, error) {
 	db := c.db
@@ -222,16 +220,6 @@ func (c *Client) AgentRegistryByID1ID2(ctx context.Context, id1, id2 sql.NullStr
 // AgentRegistryByRegistryID retrieves a row from 'agentRegistry' as a AgentRegistry.
 //
 // Generated from index 'sqlite_autoindex_agentRegistry_1'.
-// func (ar *AgentRegistry) agentRegistry(db DB) (error)
-// func AgentRegistryByRegistryID(ctx context.Context, db DB, registryID sql.NullString) (*AgentRegistry, error) {
-// AgentRegistryByRegistryID {
-// func AgentRegistryByRegistryID(db DB, registryID sql.NullString) (*AgentRegistry, error) {
-// true
-// registryID
-// AgentRegistry
-// AgentRegistryByRegistryID
-// true
-// true
 func (c *Client) AgentRegistryByRegistryID(ctx context.Context, registryID sql.NullString) (*AgentRegistry, error) {
 	// func AgentRegistryByRegistryID(ctx context.Context, db DB, registryID sql.NullString) (*AgentRegistry, error) {
 	db := c.db

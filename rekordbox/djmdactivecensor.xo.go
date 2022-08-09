@@ -146,17 +146,7 @@ func (c *Client) DeleteDjmdActiveCensor(ctx context.Context, dac *DjmdActiveCens
 	return nil
 }
 
-func (c *Client) AllDjmdActiveCensor(ctx context.Context) ([]*DjmdActiveCensor, error) {
-	db := c.db
-
-	const sqlstr = `SELECT * FROM DjmdActiveCensor`
-	rows, err := db.QueryContext(ctx, sqlstr)
-	if err != nil {
-		return nil, logerror(err)
-	}
-
-	defer rows.Close()
-	// process
+func scanDjmdActiveCensorRows(rows *sql.Rows) ([]*DjmdActiveCensor, error) {
 	var res []*DjmdActiveCensor
 	for rows.Next() {
 		dac := DjmdActiveCensor{
@@ -168,7 +158,25 @@ func (c *Client) AllDjmdActiveCensor(ctx context.Context) ([]*DjmdActiveCensor, 
 		}
 		res = append(res, &dac)
 	}
+
 	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+func (c *Client) AllDjmdActiveCensor(ctx context.Context) ([]*DjmdActiveCensor, error) {
+	db := c.db
+
+	const sqlstr = `SELECT * FROM DjmdActiveCensor`
+	rows, err := db.QueryContext(ctx, sqlstr)
+	if err != nil {
+		return nil, logerror(err)
+	}
+
+	defer rows.Close()
+	res, err := scanDjmdActiveCensorRows(rows)
+	if err != nil {
 		return nil, logerror(err)
 	}
 	return res, nil
@@ -177,16 +185,6 @@ func (c *Client) AllDjmdActiveCensor(ctx context.Context) ([]*DjmdActiveCensor, 
 // DjmdActiveCensorByContentID retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'djmd_active_censor__content_i_d'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdActiveCensor, error) {
-// DjmdActiveCensorByContentID {
-// func DjmdActiveCensorByContentID(db DB, contentID sql.NullString) ([]*DjmdActiveCensor, error) {
-// true
-// contentID
-// DjmdActiveCensor
-// DjmdActiveCensorByContentID
-// false
-// false
 func (c *Client) DjmdActiveCensorByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
@@ -224,16 +222,6 @@ func (c *Client) DjmdActiveCensorByContentID(ctx context.Context, contentID sql.
 // DjmdActiveCensorByContentUUID retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'djmd_active_censor__content_u_u_i_d'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByContentUUID(ctx context.Context, db DB, contentUUID sql.NullString) ([]*DjmdActiveCensor, error) {
-// DjmdActiveCensorByContentUUID {
-// func DjmdActiveCensorByContentUUID(db DB, contentUUID sql.NullString) ([]*DjmdActiveCensor, error) {
-// true
-// contentUUID
-// DjmdActiveCensor
-// DjmdActiveCensorByContentUUID
-// false
-// false
 func (c *Client) DjmdActiveCensorByContentUUID(ctx context.Context, contentUUID sql.NullString) ([]*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByContentUUID(ctx context.Context, db DB, contentUUID sql.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
@@ -271,16 +259,6 @@ func (c *Client) DjmdActiveCensorByContentUUID(ctx context.Context, contentUUID 
 // DjmdActiveCensorByUUID retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'djmd_active_censor__u_u_i_d'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdActiveCensor, error) {
-// DjmdActiveCensorByUUID {
-// func DjmdActiveCensorByUUID(db DB, uuid sql.NullString) ([]*DjmdActiveCensor, error) {
-// true
-// uuid
-// DjmdActiveCensor
-// DjmdActiveCensorByUUID
-// false
-// false
 func (c *Client) DjmdActiveCensorByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
@@ -318,16 +296,6 @@ func (c *Client) DjmdActiveCensorByUUID(ctx context.Context, uuid sql.NullString
 // DjmdActiveCensorByRbDataStatus retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'djmd_active_censor_rb_data_status'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
-// DjmdActiveCensorByRbDataStatus {
-// func DjmdActiveCensorByRbDataStatus(db DB, rbDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
-// true
-// rbDataStatus
-// DjmdActiveCensor
-// DjmdActiveCensorByRbDataStatus
-// false
-// false
 func (c *Client) DjmdActiveCensorByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
 	db := c.db
@@ -365,16 +333,6 @@ func (c *Client) DjmdActiveCensorByRbDataStatus(ctx context.Context, rbDataStatu
 // DjmdActiveCensorByRbLocalDataStatus retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'djmd_active_censor_rb_local_data_status'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
-// DjmdActiveCensorByRbLocalDataStatus {
-// func DjmdActiveCensorByRbLocalDataStatus(db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
-// true
-// rbLocalDataStatus
-// DjmdActiveCensor
-// DjmdActiveCensorByRbLocalDataStatus
-// false
-// false
 func (c *Client) DjmdActiveCensorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdActiveCensor, error) {
 	db := c.db
@@ -412,16 +370,6 @@ func (c *Client) DjmdActiveCensorByRbLocalDataStatus(ctx context.Context, rbLoca
 // DjmdActiveCensorByRbLocalDeleted retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'djmd_active_censor_rb_local_deleted'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdActiveCensor, error) {
-// DjmdActiveCensorByRbLocalDeleted {
-// func DjmdActiveCensorByRbLocalDeleted(db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdActiveCensor, error) {
-// true
-// rbLocalDeleted
-// DjmdActiveCensor
-// DjmdActiveCensorByRbLocalDeleted
-// false
-// false
 func (c *Client) DjmdActiveCensorByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdActiveCensor, error) {
 	db := c.db
@@ -459,16 +407,6 @@ func (c *Client) DjmdActiveCensorByRbLocalDeleted(ctx context.Context, rbLocalDe
 // DjmdActiveCensorByRbLocalUsnID retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'djmd_active_censor_rb_local_usn__i_d'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdActiveCensor, error) {
-// DjmdActiveCensorByRbLocalUsnID {
-// func DjmdActiveCensorByRbLocalUsnID(db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdActiveCensor, error) {
-// true
-// rbLocalUsn, id
-// DjmdActiveCensor
-// DjmdActiveCensorByRbLocalUsnID
-// false
-// false
 func (c *Client) DjmdActiveCensorByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
@@ -506,16 +444,6 @@ func (c *Client) DjmdActiveCensorByRbLocalUsnID(ctx context.Context, rbLocalUsn 
 // DjmdActiveCensorByID retrieves a row from 'djmdActiveCensor' as a DjmdActiveCensor.
 //
 // Generated from index 'sqlite_autoindex_djmdActiveCensor_1'.
-// func (dac *DjmdActiveCensor) djmdActiveCensor(db DB) (error)
-// func DjmdActiveCensorByID(ctx context.Context, db DB, id sql.NullString) (*DjmdActiveCensor, error) {
-// DjmdActiveCensorByID {
-// func DjmdActiveCensorByID(db DB, id sql.NullString) (*DjmdActiveCensor, error) {
-// true
-// id
-// DjmdActiveCensor
-// DjmdActiveCensorByID
-// true
-// true
 func (c *Client) DjmdActiveCensorByID(ctx context.Context, id sql.NullString) (*DjmdActiveCensor, error) {
 	// func DjmdActiveCensorByID(ctx context.Context, db DB, id sql.NullString) (*DjmdActiveCensor, error) {
 	db := c.db
