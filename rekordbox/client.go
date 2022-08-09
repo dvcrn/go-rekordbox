@@ -2,8 +2,6 @@ package rekordbox
 
 import (
 	"encoding/base64"
-	"fmt"
-	"regexp"
 
 	"github.com/dvcrn/go-rekordbox/internal/supbox"
 	"github.com/jmoiron/sqlx"
@@ -13,26 +11,12 @@ type Client struct {
 	db *sqlx.DB
 }
 
-func NewClient() (*Client, error) {
+func NewClient(optionsFilePath string, asarFilePath string) (*Client, error) {
 	// Files and paths
-	rekordboxConfig := supbox.GetRekordboxConfig()
+	rekordboxConfig := supbox.ReadRekordboxConfig(optionsFilePath)
 
-	// extract .app path
-	langPath := rekordboxConfig.Options[5][1]
-	rgp, err := regexp.Compile(".*/rekordbox.app")
-	if err != nil {
-		return nil, err
-	}
-
-	rekordboxPath := rgp.FindString(langPath)
-
-	if len(rekordboxPath) < 5 {
-		return nil, fmt.Errorf("could not find rekordbox path")
-	}
-
-	asarFilePath := supbox.GetAsarFilePath(rekordboxPath)
-	dataPath := supbox.GetDataPath()
-	databaseFilePath := supbox.GetDatabaseFilePath(dataPath)
+	// {"options":[["db-path","/Users/david/Library/Pioneer/rekordbox/master.db"], ...}
+	databaseFilePath := rekordboxConfig.Options[0][1]
 
 	// Database decryption
 	encodedPasswordData := supbox.GetEncryptedPasswordDataFromConfig(rekordboxConfig)

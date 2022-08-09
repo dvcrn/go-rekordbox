@@ -8,7 +8,7 @@ This is a wrapper to query and interact with the rekordbox 6 database
 
 Motivation behind this tool is to enable better automation and integration with rekordbox. In previous versions it was possible to just use the rekordbox XML to query data, but since rekordbox 6 this is no longer possible
 
-**Note**: This is a quickly hacked together project and currently **only works on Mac**. Use at own risk, and make a backup of your database.
+**Note**: This is a quickly hacked together project. Use at own risk, and make a backup of your database.
 
 ## What is this exactly?
 
@@ -24,6 +24,11 @@ go get github.com/dvcrn/go-rekordbox
 
 Create a new `rekordbox.Client` with `rekordbox.NewClient` and use it to query
 
+You'll need 2 file pathes:
+
+- path to `options.json`, on mac this is typically `~/Library/Application Support/Pioneer/rekordboxAgent/storage/options.json`, on windows potentially in `C:\Users\XXXX\AppData\Roaming\Pioneer\rekordboxAgent\storage`
+- path to the `app.asar` file that's bundled with rekordbox, on mac this is `/Applications/rekordbox 6/rekordbox.app/Contents/MacOS/rekordboxAgent.app/Contents/Resources/app.asar`, on windows potentially in `C:\Users\XXXX\AppData\Roaming\Pioneer\rekordboxAgent\storage`
+
 ```golang
 package main
 
@@ -37,8 +42,16 @@ import (
 func main() {
 	ctx := context.Background()
 
-    // make a new client
-	client, err := rekordbox.NewClient()
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
+	}
+
+	optionsFilePath := filepath.Join(homeDir, "/Library/Application Support/Pioneer/rekordboxAgent/storage/", "options.json")
+
+	asarPath := "/Applications/rekordbox 6/rekordbox.app/Contents/MacOS/rekordboxAgent.app/Contents/Resources/app.asar"
+
+	client, err := rekordbox.NewClient(optionsFilePath, asarPath)
 	if err != nil {
 		panic(err)
 	}
@@ -85,6 +98,14 @@ Tech
         12B - 126 - Technologic (Original Mix)
         9B - 126 - Disconnected (Extended Mix)
         (...and so on)
+```
+
+## How to regenerate the models (after rekordbox upgrades)
+
+There's a handy Makefile command that does all of this for you:
+
+```
+make genmodels
 ```
 
 ## Prior art

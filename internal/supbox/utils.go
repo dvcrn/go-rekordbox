@@ -10,24 +10,9 @@ import (
 	"strings"
 )
 
-func GetDataPath() string {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		panic("Unable to determine your home directory to location options.json")
-	}
-
-	return filepath.Join(homeDir, "/Library/Pioneer/rekordbox")
-}
-
-func GetRekordboxConfig() RekordboxConfig {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		panic("Unable to determine your home directory to location options.json")
-	}
-	optionsFilePath := filepath.Join(homeDir, "/Library/Application Support/Pioneer/rekordboxAgent/storage/", "options.json")
-
+func ReadRekordboxConfig(path string) RekordboxConfig {
 	// read file
-	data, err := ioutil.ReadFile(optionsFilePath)
+	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		fmt.Print(err)
 	}
@@ -71,10 +56,6 @@ func GetEncryptedPassword(asarPath string) string {
 
 	return password
 
-}
-
-func GetAsarFilePath(root string) string {
-	return filepath.Join(root, "/Contents/MacOS/rekordboxAgent.app/Contents/Resources/app.asar")
 }
 
 func GetEncryptedPasswordDataFromConfig(config RekordboxConfig) string {
