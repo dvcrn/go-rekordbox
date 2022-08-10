@@ -5,24 +5,26 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdMyTag represents a row from 'djmdMyTag'.
 type DjmdMyTag struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	Seq               sql.NullInt64  `json:"seq"`                  // Seq
-	Name              sql.NullString `json:"name"`                 // Name
-	Attribute         sql.NullInt64  `json:"attribute"`            // Attribute
-	ParentID          sql.NullString `json:"parent_id"`            // ParentID
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Seq               nulltype.NullInt64  `json:"seq"`                  // Seq
+	Name              nulltype.NullString `json:"name"`                 // Name
+	Attribute         nulltype.NullInt64  `json:"attribute"`            // Attribute
+	ParentID          nulltype.NullString `json:"parent_id"`            // ParentID
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -183,8 +185,8 @@ func (c *Client) AllDjmdMyTag(ctx context.Context) ([]*DjmdMyTag, error) {
 // DjmdMyTagByParentID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag__parent_i_d'.
-func (c *Client) DjmdMyTagByParentID(ctx context.Context, parentID sql.NullString) ([]*DjmdMyTag, error) {
-	// func DjmdMyTagByParentID(ctx context.Context, db DB, parentID sql.NullString) ([]*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagByParentID(ctx context.Context, parentID nulltype.NullString) ([]*DjmdMyTag, error) {
+	// func DjmdMyTagByParentID(ctx context.Context, db DB, parentID nulltype.NullString) ([]*DjmdMyTag, error) {
 	db := c.db
 
 	// query
@@ -220,8 +222,8 @@ func (c *Client) DjmdMyTagByParentID(ctx context.Context, parentID sql.NullStrin
 // DjmdMyTagBySeq retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag__seq'.
-func (c *Client) DjmdMyTagBySeq(ctx context.Context, seq sql.NullInt64) ([]*DjmdMyTag, error) {
-	// func DjmdMyTagBySeq(ctx context.Context, db DB, seq sql.NullInt64) ([]*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagBySeq(ctx context.Context, seq nulltype.NullInt64) ([]*DjmdMyTag, error) {
+	// func DjmdMyTagBySeq(ctx context.Context, db DB, seq nulltype.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
 
 	// query
@@ -257,8 +259,8 @@ func (c *Client) DjmdMyTagBySeq(ctx context.Context, seq sql.NullInt64) ([]*Djmd
 // DjmdMyTagByUUID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag__u_u_i_d'.
-func (c *Client) DjmdMyTagByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdMyTag, error) {
-	// func DjmdMyTagByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdMyTag, error) {
+	// func DjmdMyTagByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdMyTag, error) {
 	db := c.db
 
 	// query
@@ -294,8 +296,8 @@ func (c *Client) DjmdMyTagByUUID(ctx context.Context, uuid sql.NullString) ([]*D
 // DjmdMyTagByRbDataStatus retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_data_status'.
-func (c *Client) DjmdMyTagByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
-	// func DjmdMyTagByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdMyTag, error) {
+	// func DjmdMyTagByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
 
 	// query
@@ -331,8 +333,8 @@ func (c *Client) DjmdMyTagByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // DjmdMyTagByRbLocalDataStatus retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_local_data_status'.
-func (c *Client) DjmdMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
-	// func DjmdMyTagByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdMyTag, error) {
+	// func DjmdMyTagByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
 
 	// query
@@ -368,8 +370,8 @@ func (c *Client) DjmdMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // DjmdMyTagByRbLocalDeleted retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_local_deleted'.
-func (c *Client) DjmdMyTagByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdMyTag, error) {
-	// func DjmdMyTagByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdMyTag, error) {
+	// func DjmdMyTagByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdMyTag, error) {
 	db := c.db
 
 	// query
@@ -405,8 +407,8 @@ func (c *Client) DjmdMyTagByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // DjmdMyTagByRbLocalUsnID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'djmd_my_tag_rb_local_usn__i_d'.
-func (c *Client) DjmdMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMyTag, error) {
-	// func DjmdMyTagByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdMyTag, error) {
+	// func DjmdMyTagByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdMyTag, error) {
 	db := c.db
 
 	// query
@@ -442,8 +444,8 @@ func (c *Client) DjmdMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nul
 // DjmdMyTagByID retrieves a row from 'djmdMyTag' as a DjmdMyTag.
 //
 // Generated from index 'sqlite_autoindex_djmdMyTag_1'.
-func (c *Client) DjmdMyTagByID(ctx context.Context, id sql.NullString) (*DjmdMyTag, error) {
-	// func DjmdMyTagByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMyTag, error) {
+func (c *Client) DjmdMyTagByID(ctx context.Context, id nulltype.NullString) (*DjmdMyTag, error) {
+	// func DjmdMyTagByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdMyTag, error) {
 	db := c.db
 
 	// query

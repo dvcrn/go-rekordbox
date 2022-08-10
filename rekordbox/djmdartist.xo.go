@@ -5,22 +5,24 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdArtist represents a row from 'djmdArtist'.
 type DjmdArtist struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	Name              sql.NullString `json:"name"`                 // Name
-	SearchStr         sql.NullString `json:"search_str"`           // SearchStr
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Name              nulltype.NullString `json:"name"`                 // Name
+	SearchStr         nulltype.NullString `json:"search_str"`           // SearchStr
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -181,8 +183,8 @@ func (c *Client) AllDjmdArtist(ctx context.Context) ([]*DjmdArtist, error) {
 // DjmdArtistByName retrieves a row from 'djmdArtist' as a DjmdArtist.
 //
 // Generated from index 'djmd_artist__name'.
-func (c *Client) DjmdArtistByName(ctx context.Context, name sql.NullString) ([]*DjmdArtist, error) {
-	// func DjmdArtistByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdArtist, error) {
+func (c *Client) DjmdArtistByName(ctx context.Context, name nulltype.NullString) ([]*DjmdArtist, error) {
+	// func DjmdArtistByName(ctx context.Context, db DB, name nulltype.NullString) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -218,8 +220,8 @@ func (c *Client) DjmdArtistByName(ctx context.Context, name sql.NullString) ([]*
 // DjmdArtistByUUID retrieves a row from 'djmdArtist' as a DjmdArtist.
 //
 // Generated from index 'djmd_artist__u_u_i_d'.
-func (c *Client) DjmdArtistByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdArtist, error) {
-	// func DjmdArtistByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdArtist, error) {
+func (c *Client) DjmdArtistByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdArtist, error) {
+	// func DjmdArtistByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -255,8 +257,8 @@ func (c *Client) DjmdArtistByUUID(ctx context.Context, uuid sql.NullString) ([]*
 // DjmdArtistByRbDataStatus retrieves a row from 'djmdArtist' as a DjmdArtist.
 //
 // Generated from index 'djmd_artist_rb_data_status'.
-func (c *Client) DjmdArtistByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdArtist, error) {
+func (c *Client) DjmdArtistByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
+	// func DjmdArtistByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -292,8 +294,8 @@ func (c *Client) DjmdArtistByRbDataStatus(ctx context.Context, rbDataStatus sql.
 // DjmdArtistByRbLocalDataStatus retrieves a row from 'djmdArtist' as a DjmdArtist.
 //
 // Generated from index 'djmd_artist_rb_local_data_status'.
-func (c *Client) DjmdArtistByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdArtist, error) {
+func (c *Client) DjmdArtistByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
+	// func DjmdArtistByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -329,8 +331,8 @@ func (c *Client) DjmdArtistByRbLocalDataStatus(ctx context.Context, rbLocalDataS
 // DjmdArtistByRbLocalDeleted retrieves a row from 'djmdArtist' as a DjmdArtist.
 //
 // Generated from index 'djmd_artist_rb_local_deleted'.
-func (c *Client) DjmdArtistByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdArtist, error) {
+func (c *Client) DjmdArtistByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdArtist, error) {
+	// func DjmdArtistByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -366,8 +368,8 @@ func (c *Client) DjmdArtistByRbLocalDeleted(ctx context.Context, rbLocalDeleted 
 // DjmdArtistByRbLocalUsnID retrieves a row from 'djmdArtist' as a DjmdArtist.
 //
 // Generated from index 'djmd_artist_rb_local_usn__i_d'.
-func (c *Client) DjmdArtistByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdArtist, error) {
+func (c *Client) DjmdArtistByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdArtist, error) {
+	// func DjmdArtistByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -403,8 +405,8 @@ func (c *Client) DjmdArtistByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nu
 // DjmdArtistByID retrieves a row from 'djmdArtist' as a DjmdArtist.
 //
 // Generated from index 'sqlite_autoindex_djmdArtist_1'.
-func (c *Client) DjmdArtistByID(ctx context.Context, id sql.NullString) (*DjmdArtist, error) {
-	// func DjmdArtistByID(ctx context.Context, db DB, id sql.NullString) (*DjmdArtist, error) {
+func (c *Client) DjmdArtistByID(ctx context.Context, id nulltype.NullString) (*DjmdArtist, error) {
+	// func DjmdArtistByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdArtist, error) {
 	db := c.db
 
 	// query

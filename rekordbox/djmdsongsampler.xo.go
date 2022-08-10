@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdSongSampler represents a row from 'djmdSongSampler'.
 type DjmdSongSampler struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	SamplerID         sql.NullString `json:"sampler_id"`           // SamplerID
-	ContentID         sql.NullString `json:"content_id"`           // ContentID
-	TrackNo           sql.NullInt64  `json:"track_no"`             // TrackNo
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	SamplerID         nulltype.NullString `json:"sampler_id"`           // SamplerID
+	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
+	TrackNo           nulltype.NullInt64  `json:"track_no"`             // TrackNo
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllDjmdSongSampler(ctx context.Context) ([]*DjmdSongSampler, er
 // DjmdSongSamplerByContentID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler__content_i_d'.
-func (c *Client) DjmdSongSamplerByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdSongSampler, error) {
-	// func DjmdSongSamplerByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerByContentID(ctx context.Context, contentID nulltype.NullString) ([]*DjmdSongSampler, error) {
+	// func DjmdSongSamplerByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) DjmdSongSamplerByContentID(ctx context.Context, contentID sql.N
 // DjmdSongSamplerBySamplerID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler__sampler_i_d'.
-func (c *Client) DjmdSongSamplerBySamplerID(ctx context.Context, samplerID sql.NullString) ([]*DjmdSongSampler, error) {
-	// func DjmdSongSamplerBySamplerID(ctx context.Context, db DB, samplerID sql.NullString) ([]*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerBySamplerID(ctx context.Context, samplerID nulltype.NullString) ([]*DjmdSongSampler, error) {
+	// func DjmdSongSamplerBySamplerID(ctx context.Context, db DB, samplerID nulltype.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) DjmdSongSamplerBySamplerID(ctx context.Context, samplerID sql.N
 // DjmdSongSamplerByUUID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler__u_u_i_d'.
-func (c *Client) DjmdSongSamplerByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSongSampler, error) {
-	// func DjmdSongSamplerByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdSongSampler, error) {
+	// func DjmdSongSamplerByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) DjmdSongSamplerByUUID(ctx context.Context, uuid sql.NullString)
 // DjmdSongSamplerByRbDataStatus retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_data_status'.
-func (c *Client) DjmdSongSamplerByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
-	// func DjmdSongSamplerByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdSongSampler, error) {
+	// func DjmdSongSamplerByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdSongSampler, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) DjmdSongSamplerByRbDataStatus(ctx context.Context, rbDataStatus
 // DjmdSongSamplerByRbLocalDataStatus retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_local_data_status'.
-func (c *Client) DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
-	// func DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongSampler, error) {
+	// func DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongSampler, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) DjmdSongSamplerByRbLocalDataStatus(ctx context.Context, rbLocal
 // DjmdSongSamplerByRbLocalDeleted retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_local_deleted'.
-func (c *Client) DjmdSongSamplerByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSongSampler, error) {
-	// func DjmdSongSamplerByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongSampler, error) {
+	// func DjmdSongSamplerByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongSampler, error) {
 	db := c.db
 
 	// query
@@ -404,8 +406,8 @@ func (c *Client) DjmdSongSamplerByRbLocalDeleted(ctx context.Context, rbLocalDel
 // DjmdSongSamplerByRbLocalUsnID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'djmd_song_sampler_rb_local_usn__i_d'.
-func (c *Client) DjmdSongSamplerByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongSampler, error) {
-	// func DjmdSongSamplerByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongSampler, error) {
+	// func DjmdSongSamplerByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongSampler, error) {
 	db := c.db
 
 	// query
@@ -441,8 +443,8 @@ func (c *Client) DjmdSongSamplerByRbLocalUsnID(ctx context.Context, rbLocalUsn s
 // DjmdSongSamplerByID retrieves a row from 'djmdSongSampler' as a DjmdSongSampler.
 //
 // Generated from index 'sqlite_autoindex_djmdSongSampler_1'.
-func (c *Client) DjmdSongSamplerByID(ctx context.Context, id sql.NullString) (*DjmdSongSampler, error) {
-	// func DjmdSongSamplerByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongSampler, error) {
+func (c *Client) DjmdSongSamplerByID(ctx context.Context, id nulltype.NullString) (*DjmdSongSampler, error) {
+	// func DjmdSongSamplerByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdSongSampler, error) {
 	db := c.db
 
 	// query

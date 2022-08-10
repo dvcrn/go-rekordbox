@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdColor represents a row from 'djmdColor'.
 type DjmdColor struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	ColorCode         sql.NullInt64  `json:"color_code"`           // ColorCode
-	SortKey           sql.NullInt64  `json:"sort_key"`             // SortKey
-	Commnt            sql.NullString `json:"commnt"`               // Commnt
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	ColorCode         nulltype.NullInt64  `json:"color_code"`           // ColorCode
+	SortKey           nulltype.NullInt64  `json:"sort_key"`             // SortKey
+	Commnt            nulltype.NullString `json:"commnt"`               // Commnt
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllDjmdColor(ctx context.Context) ([]*DjmdColor, error) {
 // DjmdColorByUUID retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color__u_u_i_d'.
-func (c *Client) DjmdColorByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdColor, error) {
-	// func DjmdColorByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdColor, error) {
+func (c *Client) DjmdColorByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdColor, error) {
+	// func DjmdColorByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) DjmdColorByUUID(ctx context.Context, uuid sql.NullString) ([]*D
 // DjmdColorByRbDataStatus retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_data_status'.
-func (c *Client) DjmdColorByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdColor, error) {
-	// func DjmdColorByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdColor, error) {
+func (c *Client) DjmdColorByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
+	// func DjmdColorByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) DjmdColorByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // DjmdColorByRbLocalDataStatus retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_local_data_status'.
-func (c *Client) DjmdColorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdColor, error) {
-	// func DjmdColorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdColor, error) {
+func (c *Client) DjmdColorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
+	// func DjmdColorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) DjmdColorByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // DjmdColorByRbLocalDeleted retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_local_deleted'.
-func (c *Client) DjmdColorByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdColor, error) {
-	// func DjmdColorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdColor, error) {
+func (c *Client) DjmdColorByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdColor, error) {
+	// func DjmdColorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) DjmdColorByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // DjmdColorByRbLocalUsnID retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'djmd_color_rb_local_usn__i_d'.
-func (c *Client) DjmdColorByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdColor, error) {
-	// func DjmdColorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdColor, error) {
+func (c *Client) DjmdColorByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdColor, error) {
+	// func DjmdColorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) DjmdColorByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nul
 // DjmdColorByID retrieves a row from 'djmdColor' as a DjmdColor.
 //
 // Generated from index 'sqlite_autoindex_djmdColor_1'.
-func (c *Client) DjmdColorByID(ctx context.Context, id sql.NullString) (*DjmdColor, error) {
-	// func DjmdColorByID(ctx context.Context, db DB, id sql.NullString) (*DjmdColor, error) {
+func (c *Client) DjmdColorByID(ctx context.Context, id nulltype.NullString) (*DjmdColor, error) {
+	// func DjmdColorByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdColor, error) {
 	db := c.db
 
 	// query

@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdSort represents a row from 'djmdSort'.
 type DjmdSort struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	MenuItemID        sql.NullString `json:"menu_item_id"`         // MenuItemID
-	Seq               sql.NullInt64  `json:"seq"`                  // Seq
-	Disable           sql.NullInt64  `json:"disable"`              // Disable
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	MenuItemID        nulltype.NullString `json:"menu_item_id"`         // MenuItemID
+	Seq               nulltype.NullInt64  `json:"seq"`                  // Seq
+	Disable           nulltype.NullInt64  `json:"disable"`              // Disable
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllDjmdSort(ctx context.Context) ([]*DjmdSort, error) {
 // DjmdSortByUUID retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort__u_u_i_d'.
-func (c *Client) DjmdSortByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSort, error) {
-	// func DjmdSortByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSort, error) {
+func (c *Client) DjmdSortByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdSort, error) {
+	// func DjmdSortByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdSort, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) DjmdSortByUUID(ctx context.Context, uuid sql.NullString) ([]*Dj
 // DjmdSortByRbDataStatus retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_data_status'.
-func (c *Client) DjmdSortByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSort, error) {
-	// func DjmdSortByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSort, error) {
+func (c *Client) DjmdSortByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdSort, error) {
+	// func DjmdSortByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdSort, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) DjmdSortByRbDataStatus(ctx context.Context, rbDataStatus sql.Nu
 // DjmdSortByRbLocalDataStatus retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_local_data_status'.
-func (c *Client) DjmdSortByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSort, error) {
-	// func DjmdSortByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSort, error) {
+func (c *Client) DjmdSortByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSort, error) {
+	// func DjmdSortByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSort, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) DjmdSortByRbLocalDataStatus(ctx context.Context, rbLocalDataSta
 // DjmdSortByRbLocalDeleted retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_local_deleted'.
-func (c *Client) DjmdSortByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSort, error) {
-	// func DjmdSortByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSort, error) {
+func (c *Client) DjmdSortByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSort, error) {
+	// func DjmdSortByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSort, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) DjmdSortByRbLocalDeleted(ctx context.Context, rbLocalDeleted sq
 // DjmdSortByRbLocalUsnID retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'djmd_sort_rb_local_usn__i_d'.
-func (c *Client) DjmdSortByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSort, error) {
-	// func DjmdSortByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSort, error) {
+func (c *Client) DjmdSortByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSort, error) {
+	// func DjmdSortByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSort, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) DjmdSortByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Null
 // DjmdSortByID retrieves a row from 'djmdSort' as a DjmdSort.
 //
 // Generated from index 'sqlite_autoindex_djmdSort_1'.
-func (c *Client) DjmdSortByID(ctx context.Context, id sql.NullString) (*DjmdSort, error) {
-	// func DjmdSortByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSort, error) {
+func (c *Client) DjmdSortByID(ctx context.Context, id nulltype.NullString) (*DjmdSort, error) {
+	// func DjmdSortByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdSort, error) {
 	db := c.db
 
 	// query

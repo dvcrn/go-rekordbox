@@ -5,25 +5,27 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdCloudProperty represents a row from 'djmdCloudProperty'.
 type DjmdCloudProperty struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	Reserved1         sql.NullString `json:"reserved1"`            // Reserved1
-	Reserved2         sql.NullString `json:"reserved2"`            // Reserved2
-	Reserved3         sql.NullString `json:"reserved3"`            // Reserved3
-	Reserved4         sql.NullString `json:"reserved4"`            // Reserved4
-	Reserved5         sql.NullString `json:"reserved5"`            // Reserved5
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Reserved1         nulltype.NullString `json:"reserved1"`            // Reserved1
+	Reserved2         nulltype.NullString `json:"reserved2"`            // Reserved2
+	Reserved3         nulltype.NullString `json:"reserved3"`            // Reserved3
+	Reserved4         nulltype.NullString `json:"reserved4"`            // Reserved4
+	Reserved5         nulltype.NullString `json:"reserved5"`            // Reserved5
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -184,8 +186,8 @@ func (c *Client) AllDjmdCloudProperty(ctx context.Context) ([]*DjmdCloudProperty
 // DjmdCloudPropertyByUUID retrieves a row from 'djmdCloudProperty' as a DjmdCloudProperty.
 //
 // Generated from index 'djmd_cloud_property__u_u_i_d'.
-func (c *Client) DjmdCloudPropertyByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdCloudProperty, error) {
+func (c *Client) DjmdCloudPropertyByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdCloudProperty, error) {
+	// func DjmdCloudPropertyByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -221,8 +223,8 @@ func (c *Client) DjmdCloudPropertyByUUID(ctx context.Context, uuid sql.NullStrin
 // DjmdCloudPropertyByRbDataStatus retrieves a row from 'djmdCloudProperty' as a DjmdCloudProperty.
 //
 // Generated from index 'djmd_cloud_property_rb_data_status'.
-func (c *Client) DjmdCloudPropertyByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdCloudProperty, error) {
+func (c *Client) DjmdCloudPropertyByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
+	// func DjmdCloudPropertyByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -258,8 +260,8 @@ func (c *Client) DjmdCloudPropertyByRbDataStatus(ctx context.Context, rbDataStat
 // DjmdCloudPropertyByRbLocalDataStatus retrieves a row from 'djmdCloudProperty' as a DjmdCloudProperty.
 //
 // Generated from index 'djmd_cloud_property_rb_local_data_status'.
-func (c *Client) DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCloudProperty, error) {
+func (c *Client) DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
+	// func DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -295,8 +297,8 @@ func (c *Client) DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, rbLoc
 // DjmdCloudPropertyByRbLocalDeleted retrieves a row from 'djmdCloudProperty' as a DjmdCloudProperty.
 //
 // Generated from index 'djmd_cloud_property_rb_local_deleted'.
-func (c *Client) DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCloudProperty, error) {
+func (c *Client) DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
+	// func DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -332,8 +334,8 @@ func (c *Client) DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, rbLocalD
 // DjmdCloudPropertyByRbLocalUsnID retrieves a row from 'djmdCloudProperty' as a DjmdCloudProperty.
 //
 // Generated from index 'djmd_cloud_property_rb_local_usn__i_d'.
-func (c *Client) DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCloudProperty, error) {
+func (c *Client) DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCloudProperty, error) {
+	// func DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -369,8 +371,8 @@ func (c *Client) DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, rbLocalUsn
 // DjmdCloudPropertyByID retrieves a row from 'djmdCloudProperty' as a DjmdCloudProperty.
 //
 // Generated from index 'sqlite_autoindex_djmdCloudProperty_1'.
-func (c *Client) DjmdCloudPropertyByID(ctx context.Context, id sql.NullString) (*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByID(ctx context.Context, db DB, id sql.NullString) (*DjmdCloudProperty, error) {
+func (c *Client) DjmdCloudPropertyByID(ctx context.Context, id nulltype.NullString) (*DjmdCloudProperty, error) {
+	// func DjmdCloudPropertyByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query

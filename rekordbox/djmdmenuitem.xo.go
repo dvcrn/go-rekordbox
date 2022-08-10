@@ -5,22 +5,24 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdMenuItem represents a row from 'djmdMenuItems'.
 type DjmdMenuItem struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	Class             sql.NullInt64  `json:"class"`                // Class
-	Name              sql.NullString `json:"name"`                 // Name
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Class             nulltype.NullInt64  `json:"class"`                // Class
+	Name              nulltype.NullString `json:"name"`                 // Name
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -181,8 +183,8 @@ func (c *Client) AllDjmdMenuItem(ctx context.Context) ([]*DjmdMenuItem, error) {
 // DjmdMenuItemsByUUID retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items__u_u_i_d'.
-func (c *Client) DjmdMenuItemsByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdMenuItem, error) {
-	// func DjmdMenuItemsByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdMenuItem, error) {
+func (c *Client) DjmdMenuItemsByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdMenuItem, error) {
+	// func DjmdMenuItemsByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdMenuItem, error) {
 	db := c.db
 
 	// query
@@ -218,8 +220,8 @@ func (c *Client) DjmdMenuItemsByUUID(ctx context.Context, uuid sql.NullString) (
 // DjmdMenuItemsByRbDataStatus retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_data_status'.
-func (c *Client) DjmdMenuItemsByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
-	// func DjmdMenuItemsByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
+func (c *Client) DjmdMenuItemsByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdMenuItem, error) {
+	// func DjmdMenuItemsByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdMenuItem, error) {
 	db := c.db
 
 	// query
@@ -255,8 +257,8 @@ func (c *Client) DjmdMenuItemsByRbDataStatus(ctx context.Context, rbDataStatus s
 // DjmdMenuItemsByRbLocalDataStatus retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_local_data_status'.
-func (c *Client) DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
-	// func DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdMenuItem, error) {
+func (c *Client) DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdMenuItem, error) {
+	// func DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdMenuItem, error) {
 	db := c.db
 
 	// query
@@ -292,8 +294,8 @@ func (c *Client) DjmdMenuItemsByRbLocalDataStatus(ctx context.Context, rbLocalDa
 // DjmdMenuItemsByRbLocalDeleted retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_local_deleted'.
-func (c *Client) DjmdMenuItemsByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdMenuItem, error) {
-	// func DjmdMenuItemsByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdMenuItem, error) {
+func (c *Client) DjmdMenuItemsByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdMenuItem, error) {
+	// func DjmdMenuItemsByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdMenuItem, error) {
 	db := c.db
 
 	// query
@@ -329,8 +331,8 @@ func (c *Client) DjmdMenuItemsByRbLocalDeleted(ctx context.Context, rbLocalDelet
 // DjmdMenuItemsByRbLocalUsnID retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'djmd_menu_items_rb_local_usn__i_d'.
-func (c *Client) DjmdMenuItemsByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMenuItem, error) {
-	// func DjmdMenuItemsByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdMenuItem, error) {
+func (c *Client) DjmdMenuItemsByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdMenuItem, error) {
+	// func DjmdMenuItemsByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdMenuItem, error) {
 	db := c.db
 
 	// query
@@ -366,8 +368,8 @@ func (c *Client) DjmdMenuItemsByRbLocalUsnID(ctx context.Context, rbLocalUsn sql
 // DjmdMenuItemByID retrieves a row from 'djmdMenuItems' as a DjmdMenuItem.
 //
 // Generated from index 'sqlite_autoindex_djmdMenuItems_1'.
-func (c *Client) DjmdMenuItemByID(ctx context.Context, id sql.NullString) (*DjmdMenuItem, error) {
-	// func DjmdMenuItemByID(ctx context.Context, db DB, id sql.NullString) (*DjmdMenuItem, error) {
+func (c *Client) DjmdMenuItemByID(ctx context.Context, id nulltype.NullString) (*DjmdMenuItem, error) {
+	// func DjmdMenuItemByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdMenuItem, error) {
 	db := c.db
 
 	// query

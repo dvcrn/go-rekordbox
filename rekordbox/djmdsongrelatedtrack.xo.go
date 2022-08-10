@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdSongRelatedTrack represents a row from 'djmdSongRelatedTracks'.
 type DjmdSongRelatedTrack struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	RelatedTracksID   sql.NullString `json:"related_tracks_id"`    // RelatedTracksID
-	ContentID         sql.NullString `json:"content_id"`           // ContentID
-	TrackNo           sql.NullInt64  `json:"track_no"`             // TrackNo
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	RelatedTracksID   nulltype.NullString `json:"related_tracks_id"`    // RelatedTracksID
+	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
+	TrackNo           nulltype.NullInt64  `json:"track_no"`             // TrackNo
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllDjmdSongRelatedTrack(ctx context.Context) ([]*DjmdSongRelate
 // DjmdSongRelatedTracksByContentID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks__content_i_d'.
-func (c *Client) DjmdSongRelatedTracksByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTracksByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTracksByContentID(ctx context.Context, contentID nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTracksByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) DjmdSongRelatedTracksByContentID(ctx context.Context, contentID
 // DjmdSongRelatedTracksByRelatedTracksID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks__related_tracks_i_d'.
-func (c *Client) DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, relatedTracksID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, db DB, relatedTracksID sql.NullString) ([]*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, relatedTracksID nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, db DB, relatedTracksID nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) DjmdSongRelatedTracksByRelatedTracksID(ctx context.Context, rel
 // DjmdSongRelatedTracksByUUID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks__u_u_i_d'.
-func (c *Client) DjmdSongRelatedTracksByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTracksByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTracksByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTracksByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) DjmdSongRelatedTracksByUUID(ctx context.Context, uuid sql.NullS
 // DjmdSongRelatedTracksByRbDataStatus retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_data_status'.
-func (c *Client) DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) DjmdSongRelatedTracksByRbDataStatus(ctx context.Context, rbData
 // DjmdSongRelatedTracksByRbLocalDataStatus retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_local_data_status'.
-func (c *Client) DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) DjmdSongRelatedTracksByRbLocalDataStatus(ctx context.Context, r
 // DjmdSongRelatedTracksByRbLocalDeleted retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_local_deleted'.
-func (c *Client) DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query
@@ -404,8 +406,8 @@ func (c *Client) DjmdSongRelatedTracksByRbLocalDeleted(ctx context.Context, rbLo
 // DjmdSongRelatedTracksByRbLocalUsnID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'djmd_song_related_tracks_rb_local_usn__i_d'.
-func (c *Client) DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query
@@ -441,8 +443,8 @@ func (c *Client) DjmdSongRelatedTracksByRbLocalUsnID(ctx context.Context, rbLoca
 // DjmdSongRelatedTrackByID retrieves a row from 'djmdSongRelatedTracks' as a DjmdSongRelatedTrack.
 //
 // Generated from index 'sqlite_autoindex_djmdSongRelatedTracks_1'.
-func (c *Client) DjmdSongRelatedTrackByID(ctx context.Context, id sql.NullString) (*DjmdSongRelatedTrack, error) {
-	// func DjmdSongRelatedTrackByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongRelatedTrack, error) {
+func (c *Client) DjmdSongRelatedTrackByID(ctx context.Context, id nulltype.NullString) (*DjmdSongRelatedTrack, error) {
+	// func DjmdSongRelatedTrackByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdSongRelatedTrack, error) {
 	db := c.db
 
 	// query

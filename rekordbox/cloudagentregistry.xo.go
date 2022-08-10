@@ -5,28 +5,30 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // CloudAgentRegistry represents a row from 'cloudAgentRegistry'.
 type CloudAgentRegistry struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	Int1              sql.NullInt64  `json:"int1"`                 // int_1
-	Int2              sql.NullInt64  `json:"int2"`                 // int_2
-	Str1              sql.NullString `json:"str1"`                 // str_1
-	Str2              sql.NullString `json:"str2"`                 // str_2
-	Date1             *Time          `json:"date1"`                // date_1
-	Date2             *Time          `json:"date2"`                // date_2
-	Text1             sql.NullString `json:"text1"`                // text_1
-	Text2             sql.NullString `json:"text2"`                // text_2
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Int1              nulltype.NullInt64  `json:"int1"`                 // int_1
+	Int2              nulltype.NullInt64  `json:"int2"`                 // int_2
+	Str1              nulltype.NullString `json:"str1"`                 // str_1
+	Str2              nulltype.NullString `json:"str2"`                 // str_2
+	Date1             *Time               `json:"date1"`                // date_1
+	Date2             *Time               `json:"date2"`                // date_2
+	Text1             nulltype.NullString `json:"text1"`                // text_1
+	Text2             nulltype.NullString `json:"text2"`                // text_2
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -187,8 +189,8 @@ func (c *Client) AllCloudAgentRegistry(ctx context.Context) ([]*CloudAgentRegist
 // CloudAgentRegistryByUUID retrieves a row from 'cloudAgentRegistry' as a CloudAgentRegistry.
 //
 // Generated from index 'cloud_agent_registry__u_u_i_d'.
-func (c *Client) CloudAgentRegistryByUUID(ctx context.Context, uuid sql.NullString) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*CloudAgentRegistry, error) {
+func (c *Client) CloudAgentRegistryByUUID(ctx context.Context, uuid nulltype.NullString) ([]*CloudAgentRegistry, error) {
+	// func CloudAgentRegistryByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -224,8 +226,8 @@ func (c *Client) CloudAgentRegistryByUUID(ctx context.Context, uuid sql.NullStri
 // CloudAgentRegistryByRbDataStatus retrieves a row from 'cloudAgentRegistry' as a CloudAgentRegistry.
 //
 // Generated from index 'cloud_agent_registry_rb_data_status'.
-func (c *Client) CloudAgentRegistryByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*CloudAgentRegistry, error) {
+func (c *Client) CloudAgentRegistryByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
+	// func CloudAgentRegistryByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -261,8 +263,8 @@ func (c *Client) CloudAgentRegistryByRbDataStatus(ctx context.Context, rbDataSta
 // CloudAgentRegistryByRbLocalDataStatus retrieves a row from 'cloudAgentRegistry' as a CloudAgentRegistry.
 //
 // Generated from index 'cloud_agent_registry_rb_local_data_status'.
-func (c *Client) CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*CloudAgentRegistry, error) {
+func (c *Client) CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
+	// func CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -298,8 +300,8 @@ func (c *Client) CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, rbLo
 // CloudAgentRegistryByRbLocalDeleted retrieves a row from 'cloudAgentRegistry' as a CloudAgentRegistry.
 //
 // Generated from index 'cloud_agent_registry_rb_local_deleted'.
-func (c *Client) CloudAgentRegistryByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*CloudAgentRegistry, error) {
+func (c *Client) CloudAgentRegistryByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
+	// func CloudAgentRegistryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -335,8 +337,8 @@ func (c *Client) CloudAgentRegistryByRbLocalDeleted(ctx context.Context, rbLocal
 // CloudAgentRegistryByRbLocalUsnID retrieves a row from 'cloudAgentRegistry' as a CloudAgentRegistry.
 //
 // Generated from index 'cloud_agent_registry_rb_local_usn__i_d'.
-func (c *Client) CloudAgentRegistryByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*CloudAgentRegistry, error) {
+func (c *Client) CloudAgentRegistryByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*CloudAgentRegistry, error) {
+	// func CloudAgentRegistryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -372,8 +374,8 @@ func (c *Client) CloudAgentRegistryByRbLocalUsnID(ctx context.Context, rbLocalUs
 // CloudAgentRegistryByID retrieves a row from 'cloudAgentRegistry' as a CloudAgentRegistry.
 //
 // Generated from index 'sqlite_autoindex_cloudAgentRegistry_1'.
-func (c *Client) CloudAgentRegistryByID(ctx context.Context, id sql.NullString) (*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByID(ctx context.Context, db DB, id sql.NullString) (*CloudAgentRegistry, error) {
+func (c *Client) CloudAgentRegistryByID(ctx context.Context, id nulltype.NullString) (*CloudAgentRegistry, error) {
+	// func CloudAgentRegistryByID(ctx context.Context, db DB, id nulltype.NullString) (*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query

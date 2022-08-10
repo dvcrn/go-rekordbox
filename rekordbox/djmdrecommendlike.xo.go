@@ -5,25 +5,27 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdRecommendLike represents a row from 'djmdRecommendLike'.
 type DjmdRecommendLike struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	ContentId1        sql.NullString `json:"content_id1"`          // ContentID1
-	ContentId2        sql.NullString `json:"content_id2"`          // ContentID2
-	LikeRate          sql.NullInt64  `json:"like_rate"`            // LikeRate
-	DataCreatedH      sql.NullInt64  `json:"data_created_h"`       // DataCreatedH
-	DataCreatedL      sql.NullInt64  `json:"data_created_l"`       // DataCreatedL
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	ContentId1        nulltype.NullString `json:"content_id1"`          // ContentID1
+	ContentId2        nulltype.NullString `json:"content_id2"`          // ContentID2
+	LikeRate          nulltype.NullInt64  `json:"like_rate"`            // LikeRate
+	DataCreatedH      nulltype.NullInt64  `json:"data_created_h"`       // DataCreatedH
+	DataCreatedL      nulltype.NullInt64  `json:"data_created_l"`       // DataCreatedL
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -184,8 +186,8 @@ func (c *Client) AllDjmdRecommendLike(ctx context.Context) ([]*DjmdRecommendLike
 // DjmdRecommendLikeByContentId1ContentId2 retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'djmd_recommend_like__content_i_d1__content_i_d2'.
-func (c *Client) DjmdRecommendLikeByContentId1ContentId2(ctx context.Context, contentId1, contentId2 sql.NullString) ([]*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByContentId1ContentId2(ctx context.Context, db DB, contentId1 sql.NullString, contentId2 sql.NullString) ([]*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByContentId1ContentId2(ctx context.Context, contentId1, contentId2 nulltype.NullString) ([]*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByContentId1ContentId2(ctx context.Context, db DB, contentId1 nulltype.NullString, contentId2 nulltype.NullString) ([]*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query
@@ -221,8 +223,8 @@ func (c *Client) DjmdRecommendLikeByContentId1ContentId2(ctx context.Context, co
 // DjmdRecommendLikeByContentId2 retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'djmd_recommend_like__content_i_d2'.
-func (c *Client) DjmdRecommendLikeByContentId2(ctx context.Context, contentId2 sql.NullString) ([]*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByContentId2(ctx context.Context, db DB, contentId2 sql.NullString) ([]*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByContentId2(ctx context.Context, contentId2 nulltype.NullString) ([]*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByContentId2(ctx context.Context, db DB, contentId2 nulltype.NullString) ([]*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query
@@ -258,8 +260,8 @@ func (c *Client) DjmdRecommendLikeByContentId2(ctx context.Context, contentId2 s
 // DjmdRecommendLikeByUUID retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'djmd_recommend_like__u_u_i_d'.
-func (c *Client) DjmdRecommendLikeByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query
@@ -295,8 +297,8 @@ func (c *Client) DjmdRecommendLikeByUUID(ctx context.Context, uuid sql.NullStrin
 // DjmdRecommendLikeByRbDataStatus retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'djmd_recommend_like_rb_data_status'.
-func (c *Client) DjmdRecommendLikeByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query
@@ -332,8 +334,8 @@ func (c *Client) DjmdRecommendLikeByRbDataStatus(ctx context.Context, rbDataStat
 // DjmdRecommendLikeByRbLocalDataStatus retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'djmd_recommend_like_rb_local_data_status'.
-func (c *Client) DjmdRecommendLikeByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query
@@ -369,8 +371,8 @@ func (c *Client) DjmdRecommendLikeByRbLocalDataStatus(ctx context.Context, rbLoc
 // DjmdRecommendLikeByRbLocalDeleted retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'djmd_recommend_like_rb_local_deleted'.
-func (c *Client) DjmdRecommendLikeByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query
@@ -406,8 +408,8 @@ func (c *Client) DjmdRecommendLikeByRbLocalDeleted(ctx context.Context, rbLocalD
 // DjmdRecommendLikeByRbLocalUsnID retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'djmd_recommend_like_rb_local_usn__i_d'.
-func (c *Client) DjmdRecommendLikeByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query
@@ -443,8 +445,8 @@ func (c *Client) DjmdRecommendLikeByRbLocalUsnID(ctx context.Context, rbLocalUsn
 // DjmdRecommendLikeByID retrieves a row from 'djmdRecommendLike' as a DjmdRecommendLike.
 //
 // Generated from index 'sqlite_autoindex_djmdRecommendLike_1'.
-func (c *Client) DjmdRecommendLikeByID(ctx context.Context, id sql.NullString) (*DjmdRecommendLike, error) {
-	// func DjmdRecommendLikeByID(ctx context.Context, db DB, id sql.NullString) (*DjmdRecommendLike, error) {
+func (c *Client) DjmdRecommendLikeByID(ctx context.Context, id nulltype.NullString) (*DjmdRecommendLike, error) {
+	// func DjmdRecommendLikeByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdRecommendLike, error) {
 	db := c.db
 
 	// query

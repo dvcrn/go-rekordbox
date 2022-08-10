@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // HotCueBanklistCue represents a row from 'hotCueBanklistCue'.
 type HotCueBanklistCue struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	HotCueBanklistID  sql.NullString `json:"hot_cue_banklist_id"`  // HotCueBanklistID
-	Cues              sql.NullString `json:"cues"`                 // Cues
-	RbCueCount        sql.NullInt64  `json:"rb_cue_count"`         // rb_cue_count
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	HotCueBanklistID  nulltype.NullString `json:"hot_cue_banklist_id"`  // HotCueBanklistID
+	Cues              nulltype.NullString `json:"cues"`                 // Cues
+	RbCueCount        nulltype.NullInt64  `json:"rb_cue_count"`         // rb_cue_count
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllHotCueBanklistCue(ctx context.Context) ([]*HotCueBanklistCue
 // HotCueBanklistCueByHotCueBanklistID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue__hot_cue_banklist_i_d'.
-func (c *Client) HotCueBanklistCueByHotCueBanklistID(ctx context.Context, hotCueBanklistID sql.NullString) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByHotCueBanklistID(ctx context.Context, db DB, hotCueBanklistID sql.NullString) ([]*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByHotCueBanklistID(ctx context.Context, hotCueBanklistID nulltype.NullString) ([]*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByHotCueBanklistID(ctx context.Context, db DB, hotCueBanklistID nulltype.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) HotCueBanklistCueByHotCueBanklistID(ctx context.Context, hotCue
 // HotCueBanklistCueByUUID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue__u_u_i_d'.
-func (c *Client) HotCueBanklistCueByUUID(ctx context.Context, uuid sql.NullString) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByUUID(ctx context.Context, uuid nulltype.NullString) ([]*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) HotCueBanklistCueByUUID(ctx context.Context, uuid sql.NullStrin
 // HotCueBanklistCueByRbCueCount retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_cue_count'.
-func (c *Client) HotCueBanklistCueByRbCueCount(ctx context.Context, rbCueCount sql.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbCueCount(ctx context.Context, db DB, rbCueCount sql.NullInt64) ([]*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByRbCueCount(ctx context.Context, rbCueCount nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByRbCueCount(ctx context.Context, db DB, rbCueCount nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) HotCueBanklistCueByRbCueCount(ctx context.Context, rbCueCount s
 // HotCueBanklistCueByRbDataStatus retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_data_status'.
-func (c *Client) HotCueBanklistCueByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) HotCueBanklistCueByRbDataStatus(ctx context.Context, rbDataStat
 // HotCueBanklistCueByRbLocalDataStatus retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_data_status'.
-func (c *Client) HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, rbLoc
 // HotCueBanklistCueByRbLocalDeleted retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_deleted'.
-func (c *Client) HotCueBanklistCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -404,8 +406,8 @@ func (c *Client) HotCueBanklistCueByRbLocalDeleted(ctx context.Context, rbLocalD
 // HotCueBanklistCueByRbLocalUsnID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_usn__i_d'.
-func (c *Client) HotCueBanklistCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -441,8 +443,8 @@ func (c *Client) HotCueBanklistCueByRbLocalUsnID(ctx context.Context, rbLocalUsn
 // HotCueBanklistCueByID retrieves a row from 'hotCueBanklistCue' as a HotCueBanklistCue.
 //
 // Generated from index 'sqlite_autoindex_hotCueBanklistCue_1'.
-func (c *Client) HotCueBanklistCueByID(ctx context.Context, id sql.NullString) (*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByID(ctx context.Context, db DB, id sql.NullString) (*HotCueBanklistCue, error) {
+func (c *Client) HotCueBanklistCueByID(ctx context.Context, id nulltype.NullString) (*HotCueBanklistCue, error) {
+	// func HotCueBanklistCueByID(ctx context.Context, db DB, id nulltype.NullString) (*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query

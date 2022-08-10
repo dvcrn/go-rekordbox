@@ -5,24 +5,26 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdCategory represents a row from 'djmdCategory'.
 type DjmdCategory struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	MenuItemID        sql.NullString `json:"menu_item_id"`         // MenuItemID
-	Seq               sql.NullInt64  `json:"seq"`                  // Seq
-	Disable           sql.NullInt64  `json:"disable"`              // Disable
-	InfoOrder         sql.NullInt64  `json:"info_order"`           // InfoOrder
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	MenuItemID        nulltype.NullString `json:"menu_item_id"`         // MenuItemID
+	Seq               nulltype.NullInt64  `json:"seq"`                  // Seq
+	Disable           nulltype.NullInt64  `json:"disable"`              // Disable
+	InfoOrder         nulltype.NullInt64  `json:"info_order"`           // InfoOrder
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -183,8 +185,8 @@ func (c *Client) AllDjmdCategory(ctx context.Context) ([]*DjmdCategory, error) {
 // DjmdCategoryByUUID retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category__u_u_i_d'.
-func (c *Client) DjmdCategoryByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdCategory, error) {
+func (c *Client) DjmdCategoryByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdCategory, error) {
+	// func DjmdCategoryByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -220,8 +222,8 @@ func (c *Client) DjmdCategoryByUUID(ctx context.Context, uuid sql.NullString) ([
 // DjmdCategoryByRbDataStatus retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_data_status'.
-func (c *Client) DjmdCategoryByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
+func (c *Client) DjmdCategoryByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
+	// func DjmdCategoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -257,8 +259,8 @@ func (c *Client) DjmdCategoryByRbDataStatus(ctx context.Context, rbDataStatus sq
 // DjmdCategoryByRbLocalDataStatus retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_local_data_status'.
-func (c *Client) DjmdCategoryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdCategory, error) {
+func (c *Client) DjmdCategoryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
+	// func DjmdCategoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -294,8 +296,8 @@ func (c *Client) DjmdCategoryByRbLocalDataStatus(ctx context.Context, rbLocalDat
 // DjmdCategoryByRbLocalDeleted retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_local_deleted'.
-func (c *Client) DjmdCategoryByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdCategory, error) {
+func (c *Client) DjmdCategoryByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCategory, error) {
+	// func DjmdCategoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -331,8 +333,8 @@ func (c *Client) DjmdCategoryByRbLocalDeleted(ctx context.Context, rbLocalDelete
 // DjmdCategoryByRbLocalUsnID retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'djmd_category_rb_local_usn__i_d'.
-func (c *Client) DjmdCategoryByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdCategory, error) {
+func (c *Client) DjmdCategoryByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCategory, error) {
+	// func DjmdCategoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -368,8 +370,8 @@ func (c *Client) DjmdCategoryByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.
 // DjmdCategoryByID retrieves a row from 'djmdCategory' as a DjmdCategory.
 //
 // Generated from index 'sqlite_autoindex_djmdCategory_1'.
-func (c *Client) DjmdCategoryByID(ctx context.Context, id sql.NullString) (*DjmdCategory, error) {
-	// func DjmdCategoryByID(ctx context.Context, db DB, id sql.NullString) (*DjmdCategory, error) {
+func (c *Client) DjmdCategoryByID(ctx context.Context, id nulltype.NullString) (*DjmdCategory, error) {
+	// func DjmdCategoryByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdCategory, error) {
 	db := c.db
 
 	// query

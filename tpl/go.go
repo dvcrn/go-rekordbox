@@ -1841,7 +1841,7 @@ func (f *Funcs) zero(z ...interface{}) string {
 // typefn generates the Go type, prefixing the custom package name if applicable.
 func (f *Funcs) typefn(typ string) string {
 	if strings.Contains(typ, ".") {
-		return typ
+		return strings.Replace(typ, "sql", "nulltype", -1)
 	}
 	var prefix string
 	for strings.HasPrefix(typ, "[]") {

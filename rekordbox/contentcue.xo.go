@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // ContentCue represents a row from 'contentCue'.
 type ContentCue struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	ContentID         sql.NullString `json:"content_id"`           // ContentID
-	Cues              sql.NullString `json:"cues"`                 // Cues
-	RbCueCount        sql.NullInt64  `json:"rb_cue_count"`         // rb_cue_count
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
+	Cues              nulltype.NullString `json:"cues"`                 // Cues
+	RbCueCount        nulltype.NullInt64  `json:"rb_cue_count"`         // rb_cue_count
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllContentCue(ctx context.Context) ([]*ContentCue, error) {
 // ContentCueByContentID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue__content_i_d'.
-func (c *Client) ContentCueByContentID(ctx context.Context, contentID sql.NullString) ([]*ContentCue, error) {
-	// func ContentCueByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*ContentCue, error) {
+func (c *Client) ContentCueByContentID(ctx context.Context, contentID nulltype.NullString) ([]*ContentCue, error) {
+	// func ContentCueByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*ContentCue, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) ContentCueByContentID(ctx context.Context, contentID sql.NullSt
 // ContentCueByUUID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue__u_u_i_d'.
-func (c *Client) ContentCueByUUID(ctx context.Context, uuid sql.NullString) ([]*ContentCue, error) {
-	// func ContentCueByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*ContentCue, error) {
+func (c *Client) ContentCueByUUID(ctx context.Context, uuid nulltype.NullString) ([]*ContentCue, error) {
+	// func ContentCueByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*ContentCue, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) ContentCueByUUID(ctx context.Context, uuid sql.NullString) ([]*
 // ContentCueByRbCueCount retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_cue_count'.
-func (c *Client) ContentCueByRbCueCount(ctx context.Context, rbCueCount sql.NullInt64) ([]*ContentCue, error) {
-	// func ContentCueByRbCueCount(ctx context.Context, db DB, rbCueCount sql.NullInt64) ([]*ContentCue, error) {
+func (c *Client) ContentCueByRbCueCount(ctx context.Context, rbCueCount nulltype.NullInt64) ([]*ContentCue, error) {
+	// func ContentCueByRbCueCount(ctx context.Context, db DB, rbCueCount nulltype.NullInt64) ([]*ContentCue, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) ContentCueByRbCueCount(ctx context.Context, rbCueCount sql.Null
 // ContentCueByRbDataStatus retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_data_status'.
-func (c *Client) ContentCueByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*ContentCue, error) {
-	// func ContentCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*ContentCue, error) {
+func (c *Client) ContentCueByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*ContentCue, error) {
+	// func ContentCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*ContentCue, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) ContentCueByRbDataStatus(ctx context.Context, rbDataStatus sql.
 // ContentCueByRbLocalDataStatus retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_local_data_status'.
-func (c *Client) ContentCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*ContentCue, error) {
-	// func ContentCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentCue, error) {
+func (c *Client) ContentCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*ContentCue, error) {
+	// func ContentCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*ContentCue, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) ContentCueByRbLocalDataStatus(ctx context.Context, rbLocalDataS
 // ContentCueByRbLocalDeleted retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_local_deleted'.
-func (c *Client) ContentCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*ContentCue, error) {
-	// func ContentCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*ContentCue, error) {
+func (c *Client) ContentCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*ContentCue, error) {
+	// func ContentCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*ContentCue, error) {
 	db := c.db
 
 	// query
@@ -404,8 +406,8 @@ func (c *Client) ContentCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted 
 // ContentCueByRbLocalUsnID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'content_cue_rb_local_usn__i_d'.
-func (c *Client) ContentCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentCue, error) {
-	// func ContentCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentCue, error) {
+func (c *Client) ContentCueByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ContentCue, error) {
+	// func ContentCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ContentCue, error) {
 	db := c.db
 
 	// query
@@ -441,8 +443,8 @@ func (c *Client) ContentCueByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nu
 // ContentCueByID retrieves a row from 'contentCue' as a ContentCue.
 //
 // Generated from index 'sqlite_autoindex_contentCue_1'.
-func (c *Client) ContentCueByID(ctx context.Context, id sql.NullString) (*ContentCue, error) {
-	// func ContentCueByID(ctx context.Context, db DB, id sql.NullString) (*ContentCue, error) {
+func (c *Client) ContentCueByID(ctx context.Context, id nulltype.NullString) (*ContentCue, error) {
+	// func ContentCueByID(ctx context.Context, db DB, id nulltype.NullString) (*ContentCue, error) {
 	db := c.db
 
 	// query

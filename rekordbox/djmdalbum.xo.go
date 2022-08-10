@@ -5,25 +5,27 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdAlbum represents a row from 'djmdAlbum'.
 type DjmdAlbum struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	Name              sql.NullString `json:"name"`                 // Name
-	AlbumArtistID     sql.NullString `json:"album_artist_id"`      // AlbumArtistID
-	ImagePath         sql.NullString `json:"image_path"`           // ImagePath
-	Compilation       sql.NullInt64  `json:"compilation"`          // Compilation
-	SearchStr         sql.NullString `json:"search_str"`           // SearchStr
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Name              nulltype.NullString `json:"name"`                 // Name
+	AlbumArtistID     nulltype.NullString `json:"album_artist_id"`      // AlbumArtistID
+	ImagePath         nulltype.NullString `json:"image_path"`           // ImagePath
+	Compilation       nulltype.NullInt64  `json:"compilation"`          // Compilation
+	SearchStr         nulltype.NullString `json:"search_str"`           // SearchStr
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -184,8 +186,8 @@ func (c *Client) AllDjmdAlbum(ctx context.Context) ([]*DjmdAlbum, error) {
 // DjmdAlbumByAlbumArtistID retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'djmd_album__album_artist_i_d'.
-func (c *Client) DjmdAlbumByAlbumArtistID(ctx context.Context, albumArtistID sql.NullString) ([]*DjmdAlbum, error) {
-	// func DjmdAlbumByAlbumArtistID(ctx context.Context, db DB, albumArtistID sql.NullString) ([]*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByAlbumArtistID(ctx context.Context, albumArtistID nulltype.NullString) ([]*DjmdAlbum, error) {
+	// func DjmdAlbumByAlbumArtistID(ctx context.Context, db DB, albumArtistID nulltype.NullString) ([]*DjmdAlbum, error) {
 	db := c.db
 
 	// query
@@ -221,8 +223,8 @@ func (c *Client) DjmdAlbumByAlbumArtistID(ctx context.Context, albumArtistID sql
 // DjmdAlbumByName retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'djmd_album__name'.
-func (c *Client) DjmdAlbumByName(ctx context.Context, name sql.NullString) ([]*DjmdAlbum, error) {
-	// func DjmdAlbumByName(ctx context.Context, db DB, name sql.NullString) ([]*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByName(ctx context.Context, name nulltype.NullString) ([]*DjmdAlbum, error) {
+	// func DjmdAlbumByName(ctx context.Context, db DB, name nulltype.NullString) ([]*DjmdAlbum, error) {
 	db := c.db
 
 	// query
@@ -258,8 +260,8 @@ func (c *Client) DjmdAlbumByName(ctx context.Context, name sql.NullString) ([]*D
 // DjmdAlbumByUUID retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'djmd_album__u_u_i_d'.
-func (c *Client) DjmdAlbumByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdAlbum, error) {
-	// func DjmdAlbumByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdAlbum, error) {
+	// func DjmdAlbumByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdAlbum, error) {
 	db := c.db
 
 	// query
@@ -295,8 +297,8 @@ func (c *Client) DjmdAlbumByUUID(ctx context.Context, uuid sql.NullString) ([]*D
 // DjmdAlbumByRbDataStatus retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'djmd_album_rb_data_status'.
-func (c *Client) DjmdAlbumByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdAlbum, error) {
-	// func DjmdAlbumByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdAlbum, error) {
+	// func DjmdAlbumByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdAlbum, error) {
 	db := c.db
 
 	// query
@@ -332,8 +334,8 @@ func (c *Client) DjmdAlbumByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // DjmdAlbumByRbLocalDataStatus retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'djmd_album_rb_local_data_status'.
-func (c *Client) DjmdAlbumByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdAlbum, error) {
-	// func DjmdAlbumByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdAlbum, error) {
+	// func DjmdAlbumByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdAlbum, error) {
 	db := c.db
 
 	// query
@@ -369,8 +371,8 @@ func (c *Client) DjmdAlbumByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // DjmdAlbumByRbLocalDeleted retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'djmd_album_rb_local_deleted'.
-func (c *Client) DjmdAlbumByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdAlbum, error) {
-	// func DjmdAlbumByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdAlbum, error) {
+	// func DjmdAlbumByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdAlbum, error) {
 	db := c.db
 
 	// query
@@ -406,8 +408,8 @@ func (c *Client) DjmdAlbumByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // DjmdAlbumByRbLocalUsnID retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'djmd_album_rb_local_usn__i_d'.
-func (c *Client) DjmdAlbumByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdAlbum, error) {
-	// func DjmdAlbumByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdAlbum, error) {
+	// func DjmdAlbumByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdAlbum, error) {
 	db := c.db
 
 	// query
@@ -443,8 +445,8 @@ func (c *Client) DjmdAlbumByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nul
 // DjmdAlbumByID retrieves a row from 'djmdAlbum' as a DjmdAlbum.
 //
 // Generated from index 'sqlite_autoindex_djmdAlbum_1'.
-func (c *Client) DjmdAlbumByID(ctx context.Context, id sql.NullString) (*DjmdAlbum, error) {
-	// func DjmdAlbumByID(ctx context.Context, db DB, id sql.NullString) (*DjmdAlbum, error) {
+func (c *Client) DjmdAlbumByID(ctx context.Context, id nulltype.NullString) (*DjmdAlbum, error) {
+	// func DjmdAlbumByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdAlbum, error) {
 	db := c.db
 
 	// query

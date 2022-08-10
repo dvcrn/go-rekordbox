@@ -5,88 +5,90 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdContent represents a row from 'djmdContent'.
 type DjmdContent struct {
-	ID                sql.NullString  `json:"id"`                   // ID
-	FolderPath        sql.NullString  `json:"folder_path"`          // FolderPath
-	FileNameL         sql.NullString  `json:"file_name_l"`          // FileNameL
-	FileNameS         sql.NullString  `json:"file_name_s"`          // FileNameS
-	Title             sql.NullString  `json:"title"`                // Title
-	ArtistID          sql.NullString  `json:"artist_id"`            // ArtistID
-	AlbumID           sql.NullString  `json:"album_id"`             // AlbumID
-	GenreID           sql.NullString  `json:"genre_id"`             // GenreID
-	BPM               sql.NullInt64   `json:"bpm"`                  // BPM
-	Length            sql.NullInt64   `json:"length"`               // Length
-	TrackNo           sql.NullInt64   `json:"track_no"`             // TrackNo
-	BitRate           sql.NullInt64   `json:"bit_rate"`             // BitRate
-	BitDepth          sql.NullInt64   `json:"bit_depth"`            // BitDepth
-	Commnt            sql.NullString  `json:"commnt"`               // Commnt
-	FileType          sql.NullInt64   `json:"file_type"`            // FileType
-	Rating            sql.NullInt64   `json:"rating"`               // Rating
-	ReleaseYear       sql.NullInt64   `json:"release_year"`         // ReleaseYear
-	RemixerID         sql.NullString  `json:"remixer_id"`           // RemixerID
-	LabelID           sql.NullString  `json:"label_id"`             // LabelID
-	OrgArtistID       sql.NullString  `json:"org_artist_id"`        // OrgArtistID
-	KeyID             sql.NullString  `json:"key_id"`               // KeyID
-	StockDate         sql.NullString  `json:"stock_date"`           // StockDate
-	ColorID           sql.NullString  `json:"color_id"`             // ColorID
-	DJPlayCount       sql.NullInt64   `json:"dj_play_count"`        // DJPlayCount
-	ImagePath         sql.NullString  `json:"image_path"`           // ImagePath
-	MasterDBID        sql.NullString  `json:"master_dbid"`          // MasterDBID
-	MasterSongID      sql.NullString  `json:"master_song_id"`       // MasterSongID
-	AnalysisDataPath  sql.NullString  `json:"analysis_data_path"`   // AnalysisDataPath
-	SearchStr         sql.NullString  `json:"search_str"`           // SearchStr
-	FileSize          sql.NullInt64   `json:"file_size"`            // FileSize
-	DiscNo            sql.NullInt64   `json:"disc_no"`              // DiscNo
-	ComposerID        sql.NullString  `json:"composer_id"`          // ComposerID
-	Subtitle          sql.NullString  `json:"subtitle"`             // Subtitle
-	SampleRate        sql.NullInt64   `json:"sample_rate"`          // SampleRate
-	DisableQuantize   sql.NullInt64   `json:"disable_quantize"`     // DisableQuantize
-	Analysed          sql.NullInt64   `json:"analysed"`             // Analysed
-	ReleaseDate       sql.NullString  `json:"release_date"`         // ReleaseDate
-	DateCreated       sql.NullString  `json:"date_created"`         // DateCreated
-	ContentLink       sql.NullInt64   `json:"content_link"`         // ContentLink
-	Tag               sql.NullString  `json:"tag"`                  // Tag
-	ModifiedByRBM     sql.NullString  `json:"modified_by_rbm"`      // ModifiedByRBM
-	HotCueAutoLoad    sql.NullString  `json:"hot_cue_auto_load"`    // HotCueAutoLoad
-	DeliveryControl   sql.NullString  `json:"delivery_control"`     // DeliveryControl
-	DeliveryComment   sql.NullString  `json:"delivery_comment"`     // DeliveryComment
-	CueUpdated        sql.NullString  `json:"cue_updated"`          // CueUpdated
-	AnalysisUpdated   sql.NullString  `json:"analysis_updated"`     // AnalysisUpdated
-	TrackInfoUpdated  sql.NullString  `json:"track_info_updated"`   // TrackInfoUpdated
-	Lyricist          sql.NullString  `json:"lyricist"`             // Lyricist
-	ISRC              sql.NullString  `json:"isrc"`                 // ISRC
-	SamplerTrackInfo  sql.NullInt64   `json:"sampler_track_info"`   // SamplerTrackInfo
-	SamplerPlayOffset sql.NullInt64   `json:"sampler_play_offset"`  // SamplerPlayOffset
-	SamplerGain       sql.NullFloat64 `json:"sampler_gain"`         // SamplerGain
-	VideoAssociate    sql.NullString  `json:"video_associate"`      // VideoAssociate
-	LyricStatus       sql.NullInt64   `json:"lyric_status"`         // LyricStatus
-	ServiceID         sql.NullInt64   `json:"service_id"`           // ServiceID
-	OrgFolderPath     sql.NullString  `json:"org_folder_path"`      // OrgFolderPath
-	Reserved1         sql.NullString  `json:"reserved1"`            // Reserved1
-	Reserved2         sql.NullString  `json:"reserved2"`            // Reserved2
-	Reserved3         sql.NullString  `json:"reserved3"`            // Reserved3
-	Reserved4         sql.NullString  `json:"reserved4"`            // Reserved4
-	ExtInfo           sql.NullString  `json:"ext_info"`             // ExtInfo
-	RbFileID          sql.NullString  `json:"rb_file_id"`           // rb_file_id
-	DeviceID          sql.NullString  `json:"device_id"`            // DeviceID
-	RbLocalFolderPath sql.NullString  `json:"rb_local_folder_path"` // rb_LocalFolderPath
-	SrcID             sql.NullString  `json:"src_id"`               // SrcID
-	SrcTitle          sql.NullString  `json:"src_title"`            // SrcTitle
-	SrcArtistName     sql.NullString  `json:"src_artist_name"`      // SrcArtistName
-	SrcAlbumName      sql.NullString  `json:"src_album_name"`       // SrcAlbumName
-	SrcLength         sql.NullInt64   `json:"src_length"`           // SrcLength
-	UUID              sql.NullString  `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64   `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64   `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64   `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64   `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64   `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64   `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time            `json:"created_at"`           // created_at
-	UpdatedAt         Time            `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString  `json:"id"`                   // ID
+	FolderPath        nulltype.NullString  `json:"folder_path"`          // FolderPath
+	FileNameL         nulltype.NullString  `json:"file_name_l"`          // FileNameL
+	FileNameS         nulltype.NullString  `json:"file_name_s"`          // FileNameS
+	Title             nulltype.NullString  `json:"title"`                // Title
+	ArtistID          nulltype.NullString  `json:"artist_id"`            // ArtistID
+	AlbumID           nulltype.NullString  `json:"album_id"`             // AlbumID
+	GenreID           nulltype.NullString  `json:"genre_id"`             // GenreID
+	BPM               nulltype.NullInt64   `json:"bpm"`                  // BPM
+	Length            nulltype.NullInt64   `json:"length"`               // Length
+	TrackNo           nulltype.NullInt64   `json:"track_no"`             // TrackNo
+	BitRate           nulltype.NullInt64   `json:"bit_rate"`             // BitRate
+	BitDepth          nulltype.NullInt64   `json:"bit_depth"`            // BitDepth
+	Commnt            nulltype.NullString  `json:"commnt"`               // Commnt
+	FileType          nulltype.NullInt64   `json:"file_type"`            // FileType
+	Rating            nulltype.NullInt64   `json:"rating"`               // Rating
+	ReleaseYear       nulltype.NullInt64   `json:"release_year"`         // ReleaseYear
+	RemixerID         nulltype.NullString  `json:"remixer_id"`           // RemixerID
+	LabelID           nulltype.NullString  `json:"label_id"`             // LabelID
+	OrgArtistID       nulltype.NullString  `json:"org_artist_id"`        // OrgArtistID
+	KeyID             nulltype.NullString  `json:"key_id"`               // KeyID
+	StockDate         nulltype.NullString  `json:"stock_date"`           // StockDate
+	ColorID           nulltype.NullString  `json:"color_id"`             // ColorID
+	DJPlayCount       nulltype.NullInt64   `json:"dj_play_count"`        // DJPlayCount
+	ImagePath         nulltype.NullString  `json:"image_path"`           // ImagePath
+	MasterDBID        nulltype.NullString  `json:"master_dbid"`          // MasterDBID
+	MasterSongID      nulltype.NullString  `json:"master_song_id"`       // MasterSongID
+	AnalysisDataPath  nulltype.NullString  `json:"analysis_data_path"`   // AnalysisDataPath
+	SearchStr         nulltype.NullString  `json:"search_str"`           // SearchStr
+	FileSize          nulltype.NullInt64   `json:"file_size"`            // FileSize
+	DiscNo            nulltype.NullInt64   `json:"disc_no"`              // DiscNo
+	ComposerID        nulltype.NullString  `json:"composer_id"`          // ComposerID
+	Subtitle          nulltype.NullString  `json:"subtitle"`             // Subtitle
+	SampleRate        nulltype.NullInt64   `json:"sample_rate"`          // SampleRate
+	DisableQuantize   nulltype.NullInt64   `json:"disable_quantize"`     // DisableQuantize
+	Analysed          nulltype.NullInt64   `json:"analysed"`             // Analysed
+	ReleaseDate       nulltype.NullString  `json:"release_date"`         // ReleaseDate
+	DateCreated       nulltype.NullString  `json:"date_created"`         // DateCreated
+	ContentLink       nulltype.NullInt64   `json:"content_link"`         // ContentLink
+	Tag               nulltype.NullString  `json:"tag"`                  // Tag
+	ModifiedByRBM     nulltype.NullString  `json:"modified_by_rbm"`      // ModifiedByRBM
+	HotCueAutoLoad    nulltype.NullString  `json:"hot_cue_auto_load"`    // HotCueAutoLoad
+	DeliveryControl   nulltype.NullString  `json:"delivery_control"`     // DeliveryControl
+	DeliveryComment   nulltype.NullString  `json:"delivery_comment"`     // DeliveryComment
+	CueUpdated        nulltype.NullString  `json:"cue_updated"`          // CueUpdated
+	AnalysisUpdated   nulltype.NullString  `json:"analysis_updated"`     // AnalysisUpdated
+	TrackInfoUpdated  nulltype.NullString  `json:"track_info_updated"`   // TrackInfoUpdated
+	Lyricist          nulltype.NullString  `json:"lyricist"`             // Lyricist
+	ISRC              nulltype.NullString  `json:"isrc"`                 // ISRC
+	SamplerTrackInfo  nulltype.NullInt64   `json:"sampler_track_info"`   // SamplerTrackInfo
+	SamplerPlayOffset nulltype.NullInt64   `json:"sampler_play_offset"`  // SamplerPlayOffset
+	SamplerGain       nulltype.NullFloat64 `json:"sampler_gain"`         // SamplerGain
+	VideoAssociate    nulltype.NullString  `json:"video_associate"`      // VideoAssociate
+	LyricStatus       nulltype.NullInt64   `json:"lyric_status"`         // LyricStatus
+	ServiceID         nulltype.NullInt64   `json:"service_id"`           // ServiceID
+	OrgFolderPath     nulltype.NullString  `json:"org_folder_path"`      // OrgFolderPath
+	Reserved1         nulltype.NullString  `json:"reserved1"`            // Reserved1
+	Reserved2         nulltype.NullString  `json:"reserved2"`            // Reserved2
+	Reserved3         nulltype.NullString  `json:"reserved3"`            // Reserved3
+	Reserved4         nulltype.NullString  `json:"reserved4"`            // Reserved4
+	ExtInfo           nulltype.NullString  `json:"ext_info"`             // ExtInfo
+	RbFileID          nulltype.NullString  `json:"rb_file_id"`           // rb_file_id
+	DeviceID          nulltype.NullString  `json:"device_id"`            // DeviceID
+	RbLocalFolderPath nulltype.NullString  `json:"rb_local_folder_path"` // rb_LocalFolderPath
+	SrcID             nulltype.NullString  `json:"src_id"`               // SrcID
+	SrcTitle          nulltype.NullString  `json:"src_title"`            // SrcTitle
+	SrcArtistName     nulltype.NullString  `json:"src_artist_name"`      // SrcArtistName
+	SrcAlbumName      nulltype.NullString  `json:"src_album_name"`       // SrcAlbumName
+	SrcLength         nulltype.NullInt64   `json:"src_length"`           // SrcLength
+	UUID              nulltype.NullString  `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64   `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64   `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64   `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64   `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64   `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64   `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                 `json:"created_at"`           // created_at
+	UpdatedAt         Time                 `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -247,8 +249,8 @@ func (c *Client) AllDjmdContent(ctx context.Context) ([]*DjmdContent, error) {
 // DjmdContentByAlbumID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__album_i_d'.
-func (c *Client) DjmdContentByAlbumID(ctx context.Context, albumID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByAlbumID(ctx context.Context, db DB, albumID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByAlbumID(ctx context.Context, albumID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByAlbumID(ctx context.Context, db DB, albumID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -284,8 +286,8 @@ func (c *Client) DjmdContentByAlbumID(ctx context.Context, albumID sql.NullStrin
 // DjmdContentByArtistID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__artist_i_d'.
-func (c *Client) DjmdContentByArtistID(ctx context.Context, artistID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByArtistID(ctx context.Context, db DB, artistID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByArtistID(ctx context.Context, artistID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByArtistID(ctx context.Context, db DB, artistID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -321,8 +323,8 @@ func (c *Client) DjmdContentByArtistID(ctx context.Context, artistID sql.NullStr
 // DjmdContentByComposerID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__composer_i_d'.
-func (c *Client) DjmdContentByComposerID(ctx context.Context, composerID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByComposerID(ctx context.Context, db DB, composerID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByComposerID(ctx context.Context, composerID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByComposerID(ctx context.Context, db DB, composerID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -358,8 +360,8 @@ func (c *Client) DjmdContentByComposerID(ctx context.Context, composerID sql.Nul
 // DjmdContentByGenreID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__genre_i_d'.
-func (c *Client) DjmdContentByGenreID(ctx context.Context, genreID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByGenreID(ctx context.Context, db DB, genreID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByGenreID(ctx context.Context, genreID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByGenreID(ctx context.Context, db DB, genreID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -395,8 +397,8 @@ func (c *Client) DjmdContentByGenreID(ctx context.Context, genreID sql.NullStrin
 // DjmdContentByKeyID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__key_i_d'.
-func (c *Client) DjmdContentByKeyID(ctx context.Context, keyID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByKeyID(ctx context.Context, db DB, keyID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByKeyID(ctx context.Context, keyID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByKeyID(ctx context.Context, db DB, keyID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -432,8 +434,8 @@ func (c *Client) DjmdContentByKeyID(ctx context.Context, keyID sql.NullString) (
 // DjmdContentByLabelID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__label_i_d'.
-func (c *Client) DjmdContentByLabelID(ctx context.Context, labelID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByLabelID(ctx context.Context, db DB, labelID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByLabelID(ctx context.Context, labelID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByLabelID(ctx context.Context, db DB, labelID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -469,8 +471,8 @@ func (c *Client) DjmdContentByLabelID(ctx context.Context, labelID sql.NullStrin
 // DjmdContentByMasterDBIDMasterSongID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__master_d_b_i_d__master_song_i_d'.
-func (c *Client) DjmdContentByMasterDBIDMasterSongID(ctx context.Context, masterDBID, masterSongID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByMasterDBIDMasterSongID(ctx context.Context, db DB, masterDBID sql.NullString, masterSongID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByMasterDBIDMasterSongID(ctx context.Context, masterDBID, masterSongID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByMasterDBIDMasterSongID(ctx context.Context, db DB, masterDBID nulltype.NullString, masterSongID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -506,8 +508,8 @@ func (c *Client) DjmdContentByMasterDBIDMasterSongID(ctx context.Context, master
 // DjmdContentByOrgArtistID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__org_artist_i_d'.
-func (c *Client) DjmdContentByOrgArtistID(ctx context.Context, orgArtistID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByOrgArtistID(ctx context.Context, db DB, orgArtistID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByOrgArtistID(ctx context.Context, orgArtistID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByOrgArtistID(ctx context.Context, db DB, orgArtistID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -543,8 +545,8 @@ func (c *Client) DjmdContentByOrgArtistID(ctx context.Context, orgArtistID sql.N
 // DjmdContentByRemixerID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__remixer_i_d'.
-func (c *Client) DjmdContentByRemixerID(ctx context.Context, remixerID sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByRemixerID(ctx context.Context, db DB, remixerID sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRemixerID(ctx context.Context, remixerID nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByRemixerID(ctx context.Context, db DB, remixerID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -580,8 +582,8 @@ func (c *Client) DjmdContentByRemixerID(ctx context.Context, remixerID sql.NullS
 // DjmdContentByUUID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content__u_u_i_d'.
-func (c *Client) DjmdContentByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -617,8 +619,8 @@ func (c *Client) DjmdContentByUUID(ctx context.Context, uuid sql.NullString) ([]
 // DjmdContentByRbDataStatus retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_data_status'.
-func (c *Client) DjmdContentByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
+	// func DjmdContentByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -654,8 +656,8 @@ func (c *Client) DjmdContentByRbDataStatus(ctx context.Context, rbDataStatus sql
 // DjmdContentByRbLocalDataStatus retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_data_status'.
-func (c *Client) DjmdContentByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
+	// func DjmdContentByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -691,8 +693,8 @@ func (c *Client) DjmdContentByRbLocalDataStatus(ctx context.Context, rbLocalData
 // DjmdContentByRbLocalDeleted retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted'.
-func (c *Client) DjmdContentByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdContent, error) {
+	// func DjmdContentByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -728,8 +730,8 @@ func (c *Client) DjmdContentByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 // DjmdContentByRbLocalDeletedBitDepth retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__bit_depth'.
-func (c *Client) DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, rbLocalDeleted, bitDepth sql.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, bitDepth sql.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, rbLocalDeleted, bitDepth nulltype.NullInt64) ([]*DjmdContent, error) {
+	// func DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, bitDepth nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -765,8 +767,8 @@ func (c *Client) DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, rbLoca
 // DjmdContentByRbLocalDeletedBitRate retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__bit_rate'.
-func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocalDeleted, bitRate sql.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedBitRate(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, bitRate sql.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocalDeleted, bitRate nulltype.NullInt64) ([]*DjmdContent, error) {
+	// func DjmdContentByRbLocalDeletedBitRate(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, bitRate nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -802,8 +804,8 @@ func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocal
 // DjmdContentByRbLocalDeletedFileType retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__file_type'.
-func (c *Client) DjmdContentByRbLocalDeletedFileType(ctx context.Context, rbLocalDeleted, fileType sql.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedFileType(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, fileType sql.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalDeletedFileType(ctx context.Context, rbLocalDeleted, fileType nulltype.NullInt64) ([]*DjmdContent, error) {
+	// func DjmdContentByRbLocalDeletedFileType(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, fileType nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -839,8 +841,8 @@ func (c *Client) DjmdContentByRbLocalDeletedFileType(ctx context.Context, rbLoca
 // DjmdContentByRbLocalDeletedServiceID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__service_i_d'.
-func (c *Client) DjmdContentByRbLocalDeletedServiceID(ctx context.Context, rbLocalDeleted, serviceID sql.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedServiceID(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, serviceID sql.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalDeletedServiceID(ctx context.Context, rbLocalDeleted, serviceID nulltype.NullInt64) ([]*DjmdContent, error) {
+	// func DjmdContentByRbLocalDeletedServiceID(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, serviceID nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -876,8 +878,8 @@ func (c *Client) DjmdContentByRbLocalDeletedServiceID(ctx context.Context, rbLoc
 // DjmdContentByRbLocalUsnID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_usn__i_d'.
-func (c *Client) DjmdContentByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdContent, error) {
+	// func DjmdContentByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -913,8 +915,8 @@ func (c *Client) DjmdContentByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.N
 // DjmdContentByID retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'sqlite_autoindex_djmdContent_1'.
-func (c *Client) DjmdContentByID(ctx context.Context, id sql.NullString) (*DjmdContent, error) {
-	// func DjmdContentByID(ctx context.Context, db DB, id sql.NullString) (*DjmdContent, error) {
+func (c *Client) DjmdContentByID(ctx context.Context, id nulltype.NullString) (*DjmdContent, error) {
+	// func DjmdContentByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdContent, error) {
 	db := c.db
 
 	// query

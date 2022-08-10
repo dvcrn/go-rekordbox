@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // ContentActiveCensor represents a row from 'contentActiveCensor'.
 type ContentActiveCensor struct {
-	ID                  sql.NullString `json:"id"`                    // ID
-	ContentID           sql.NullString `json:"content_id"`            // ContentID
-	ActiveCensors       sql.NullString `json:"active_censors"`        // ActiveCensors
-	RbActivecensorCount sql.NullInt64  `json:"rb_activecensor_count"` // rb_activecensor_count
-	UUID                sql.NullString `json:"uuid"`                  // UUID
-	RbDataStatus        sql.NullInt64  `json:"rb_data_status"`        // rb_data_status
-	RbLocalDataStatus   sql.NullInt64  `json:"rb_local_data_status"`  // rb_local_data_status
-	RbLocalDeleted      sql.NullInt64  `json:"rb_local_deleted"`      // rb_local_deleted
-	RbLocalSynced       sql.NullInt64  `json:"rb_local_synced"`       // rb_local_synced
-	Usn                 sql.NullInt64  `json:"usn"`                   // usn
-	RbLocalUsn          sql.NullInt64  `json:"rb_local_usn"`          // rb_local_usn
-	CreatedAt           Time           `json:"created_at"`            // created_at
-	UpdatedAt           Time           `json:"updated_at"`            // updated_at
+	ID                  nulltype.NullString `json:"id"`                    // ID
+	ContentID           nulltype.NullString `json:"content_id"`            // ContentID
+	ActiveCensors       nulltype.NullString `json:"active_censors"`        // ActiveCensors
+	RbActivecensorCount nulltype.NullInt64  `json:"rb_activecensor_count"` // rb_activecensor_count
+	UUID                nulltype.NullString `json:"uuid"`                  // UUID
+	RbDataStatus        nulltype.NullInt64  `json:"rb_data_status"`        // rb_data_status
+	RbLocalDataStatus   nulltype.NullInt64  `json:"rb_local_data_status"`  // rb_local_data_status
+	RbLocalDeleted      nulltype.NullInt64  `json:"rb_local_deleted"`      // rb_local_deleted
+	RbLocalSynced       nulltype.NullInt64  `json:"rb_local_synced"`       // rb_local_synced
+	Usn                 nulltype.NullInt64  `json:"usn"`                   // usn
+	RbLocalUsn          nulltype.NullInt64  `json:"rb_local_usn"`          // rb_local_usn
+	CreatedAt           Time                `json:"created_at"`            // created_at
+	UpdatedAt           Time                `json:"updated_at"`            // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllContentActiveCensor(ctx context.Context) ([]*ContentActiveCe
 // ContentActiveCensorByContentID retrieves a row from 'contentActiveCensor' as a ContentActiveCensor.
 //
 // Generated from index 'content_active_censor__content_i_d'.
-func (c *Client) ContentActiveCensorByContentID(ctx context.Context, contentID sql.NullString) ([]*ContentActiveCensor, error) {
-	// func ContentActiveCensorByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*ContentActiveCensor, error) {
+func (c *Client) ContentActiveCensorByContentID(ctx context.Context, contentID nulltype.NullString) ([]*ContentActiveCensor, error) {
+	// func ContentActiveCensorByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*ContentActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) ContentActiveCensorByContentID(ctx context.Context, contentID s
 // ContentActiveCensorByUUID retrieves a row from 'contentActiveCensor' as a ContentActiveCensor.
 //
 // Generated from index 'content_active_censor__u_u_i_d'.
-func (c *Client) ContentActiveCensorByUUID(ctx context.Context, uuid sql.NullString) ([]*ContentActiveCensor, error) {
-	// func ContentActiveCensorByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*ContentActiveCensor, error) {
+func (c *Client) ContentActiveCensorByUUID(ctx context.Context, uuid nulltype.NullString) ([]*ContentActiveCensor, error) {
+	// func ContentActiveCensorByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*ContentActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) ContentActiveCensorByUUID(ctx context.Context, uuid sql.NullStr
 // ContentActiveCensorByRbDataStatus retrieves a row from 'contentActiveCensor' as a ContentActiveCensor.
 //
 // Generated from index 'content_active_censor_rb_data_status'.
-func (c *Client) ContentActiveCensorByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*ContentActiveCensor, error) {
-	// func ContentActiveCensorByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*ContentActiveCensor, error) {
+func (c *Client) ContentActiveCensorByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*ContentActiveCensor, error) {
+	// func ContentActiveCensorByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*ContentActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) ContentActiveCensorByRbDataStatus(ctx context.Context, rbDataSt
 // ContentActiveCensorByRbLocalDataStatus retrieves a row from 'contentActiveCensor' as a ContentActiveCensor.
 //
 // Generated from index 'content_active_censor_rb_local_data_status'.
-func (c *Client) ContentActiveCensorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*ContentActiveCensor, error) {
-	// func ContentActiveCensorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*ContentActiveCensor, error) {
+func (c *Client) ContentActiveCensorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*ContentActiveCensor, error) {
+	// func ContentActiveCensorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*ContentActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) ContentActiveCensorByRbLocalDataStatus(ctx context.Context, rbL
 // ContentActiveCensorByRbLocalDeleted retrieves a row from 'contentActiveCensor' as a ContentActiveCensor.
 //
 // Generated from index 'content_active_censor_rb_local_deleted'.
-func (c *Client) ContentActiveCensorByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*ContentActiveCensor, error) {
-	// func ContentActiveCensorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*ContentActiveCensor, error) {
+func (c *Client) ContentActiveCensorByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*ContentActiveCensor, error) {
+	// func ContentActiveCensorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*ContentActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) ContentActiveCensorByRbLocalDeleted(ctx context.Context, rbLoca
 // ContentActiveCensorByRbLocalUsnID retrieves a row from 'contentActiveCensor' as a ContentActiveCensor.
 //
 // Generated from index 'content_active_censor_rb_local_usn__i_d'.
-func (c *Client) ContentActiveCensorByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentActiveCensor, error) {
-	// func ContentActiveCensorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ContentActiveCensor, error) {
+func (c *Client) ContentActiveCensorByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ContentActiveCensor, error) {
+	// func ContentActiveCensorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ContentActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -404,8 +406,8 @@ func (c *Client) ContentActiveCensorByRbLocalUsnID(ctx context.Context, rbLocalU
 // ContentActiveCensorByID retrieves a row from 'contentActiveCensor' as a ContentActiveCensor.
 //
 // Generated from index 'sqlite_autoindex_contentActiveCensor_1'.
-func (c *Client) ContentActiveCensorByID(ctx context.Context, id sql.NullString) (*ContentActiveCensor, error) {
-	// func ContentActiveCensorByID(ctx context.Context, db DB, id sql.NullString) (*ContentActiveCensor, error) {
+func (c *Client) ContentActiveCensorByID(ctx context.Context, id nulltype.NullString) (*ContentActiveCensor, error) {
+	// func ContentActiveCensorByID(ctx context.Context, db DB, id nulltype.NullString) (*ContentActiveCensor, error) {
 	db := c.db
 
 	// query

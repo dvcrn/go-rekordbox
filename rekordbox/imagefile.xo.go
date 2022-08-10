@@ -5,36 +5,38 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // ImageFile represents a row from 'imageFile'.
 type ImageFile struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	TableName         sql.NullString `json:"table_name"`           // TableName
-	TargetUUID        sql.NullString `json:"target_uuid"`          // TargetUUID
-	TargetID          sql.NullString `json:"target_id"`            // TargetID
-	Path              sql.NullString `json:"path"`                 // Path
-	Hash              sql.NullString `json:"hash"`                 // Hash
-	Size              sql.NullInt64  `json:"size"`                 // Size
-	RbLocalPath       sql.NullString `json:"rb_local_path"`        // rb_local_path
-	RbInsyncHash      sql.NullString `json:"rb_insync_hash"`       // rb_insync_hash
-	RbInsyncLocalUsn  sql.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
-	RbFileHashDirty   sql.NullInt64  `json:"rb_file_hash_dirty"`   // rb_file_hash_dirty
-	RbLocalFileStatus sql.NullInt64  `json:"rb_local_file_status"` // rb_local_file_status
-	RbInProgress      sql.NullInt64  `json:"rb_in_progress"`       // rb_in_progress
-	RbProcessType     sql.NullInt64  `json:"rb_process_type"`      // rb_process_type
-	RbTempPath        sql.NullString `json:"rb_temp_path"`         // rb_temp_path
-	RbPriority        sql.NullInt64  `json:"rb_priority"`          // rb_priority
-	RbFileSizeDirty   sql.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	TableName         nulltype.NullString `json:"table_name"`           // TableName
+	TargetUUID        nulltype.NullString `json:"target_uuid"`          // TargetUUID
+	TargetID          nulltype.NullString `json:"target_id"`            // TargetID
+	Path              nulltype.NullString `json:"path"`                 // Path
+	Hash              nulltype.NullString `json:"hash"`                 // Hash
+	Size              nulltype.NullInt64  `json:"size"`                 // Size
+	RbLocalPath       nulltype.NullString `json:"rb_local_path"`        // rb_local_path
+	RbInsyncHash      nulltype.NullString `json:"rb_insync_hash"`       // rb_insync_hash
+	RbInsyncLocalUsn  nulltype.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
+	RbFileHashDirty   nulltype.NullInt64  `json:"rb_file_hash_dirty"`   // rb_file_hash_dirty
+	RbLocalFileStatus nulltype.NullInt64  `json:"rb_local_file_status"` // rb_local_file_status
+	RbInProgress      nulltype.NullInt64  `json:"rb_in_progress"`       // rb_in_progress
+	RbProcessType     nulltype.NullInt64  `json:"rb_process_type"`      // rb_process_type
+	RbTempPath        nulltype.NullString `json:"rb_temp_path"`         // rb_temp_path
+	RbPriority        nulltype.NullInt64  `json:"rb_priority"`          // rb_priority
+	RbFileSizeDirty   nulltype.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -195,8 +197,8 @@ func (c *Client) AllImageFile(ctx context.Context) ([]*ImageFile, error) {
 // ImageFileByTableNameTargetID retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file__table_name__target_i_d'.
-func (c *Client) ImageFileByTableNameTargetID(ctx context.Context, tableName, targetID sql.NullString) ([]*ImageFile, error) {
-	// func ImageFileByTableNameTargetID(ctx context.Context, db DB, tableName sql.NullString, targetID sql.NullString) ([]*ImageFile, error) {
+func (c *Client) ImageFileByTableNameTargetID(ctx context.Context, tableName, targetID nulltype.NullString) ([]*ImageFile, error) {
+	// func ImageFileByTableNameTargetID(ctx context.Context, db DB, tableName nulltype.NullString, targetID nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -232,8 +234,8 @@ func (c *Client) ImageFileByTableNameTargetID(ctx context.Context, tableName, ta
 // ImageFileByTableNameTargetUUID retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file__table_name__target_u_u_i_d'.
-func (c *Client) ImageFileByTableNameTargetUUID(ctx context.Context, tableName, targetUUID sql.NullString) ([]*ImageFile, error) {
-	// func ImageFileByTableNameTargetUUID(ctx context.Context, db DB, tableName sql.NullString, targetUUID sql.NullString) ([]*ImageFile, error) {
+func (c *Client) ImageFileByTableNameTargetUUID(ctx context.Context, tableName, targetUUID nulltype.NullString) ([]*ImageFile, error) {
+	// func ImageFileByTableNameTargetUUID(ctx context.Context, db DB, tableName nulltype.NullString, targetUUID nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -269,8 +271,8 @@ func (c *Client) ImageFileByTableNameTargetUUID(ctx context.Context, tableName, 
 // ImageFileByUUID retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file__u_u_i_d'.
-func (c *Client) ImageFileByUUID(ctx context.Context, uuid sql.NullString) ([]*ImageFile, error) {
-	// func ImageFileByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*ImageFile, error) {
+func (c *Client) ImageFileByUUID(ctx context.Context, uuid nulltype.NullString) ([]*ImageFile, error) {
+	// func ImageFileByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -306,8 +308,8 @@ func (c *Client) ImageFileByUUID(ctx context.Context, uuid sql.NullString) ([]*I
 // ImageFileByRbDataStatus retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file_rb_data_status'.
-func (c *Client) ImageFileByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*ImageFile, error) {
+func (c *Client) ImageFileByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
+	// func ImageFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -343,8 +345,8 @@ func (c *Client) ImageFileByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // ImageFileByRbFileHashDirty retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file_rb_file_hash_dirty'.
-func (c *Client) ImageFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty sql.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty sql.NullInt64) ([]*ImageFile, error) {
+func (c *Client) ImageFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty nulltype.NullInt64) ([]*ImageFile, error) {
+	// func ImageFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -380,8 +382,8 @@ func (c *Client) ImageFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty
 // ImageFileByRbFileSizeDirty retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file_rb_file_size_dirty'.
-func (c *Client) ImageFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty sql.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty sql.NullInt64) ([]*ImageFile, error) {
+func (c *Client) ImageFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty nulltype.NullInt64) ([]*ImageFile, error) {
+	// func ImageFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -417,8 +419,8 @@ func (c *Client) ImageFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty
 // ImageFileByRbLocalDataStatus retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file_rb_local_data_status'.
-func (c *Client) ImageFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*ImageFile, error) {
+func (c *Client) ImageFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
+	// func ImageFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -454,8 +456,8 @@ func (c *Client) ImageFileByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // ImageFileByRbLocalDeleted retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file_rb_local_deleted'.
-func (c *Client) ImageFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*ImageFile, error) {
+func (c *Client) ImageFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*ImageFile, error) {
+	// func ImageFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -491,8 +493,8 @@ func (c *Client) ImageFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file_rb_local_deleted_rb_in_progress_rb_local_file_status_rb_process_type_rb_priority'.
-func (c *Client) ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, rbLocalDeleted, rbInProgress, rbLocalFileStatus, rbProcessType, rbPriority sql.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64, rbInProgress sql.NullInt64, rbLocalFileStatus sql.NullInt64, rbProcessType sql.NullInt64, rbPriority sql.NullInt64) ([]*ImageFile, error) {
+func (c *Client) ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, rbLocalDeleted, rbInProgress, rbLocalFileStatus, rbProcessType, rbPriority nulltype.NullInt64) ([]*ImageFile, error) {
+	// func ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, rbInProgress nulltype.NullInt64, rbLocalFileStatus nulltype.NullInt64, rbProcessType nulltype.NullInt64, rbPriority nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -528,8 +530,8 @@ func (c *Client) ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcess
 // ImageFileByRbLocalUsnID retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file_rb_local_usn__i_d'.
-func (c *Client) ImageFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*ImageFile, error) {
+func (c *Client) ImageFileByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ImageFile, error) {
+	// func ImageFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -565,8 +567,8 @@ func (c *Client) ImageFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.Nul
 // ImageFileByID retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'sqlite_autoindex_imageFile_1'.
-func (c *Client) ImageFileByID(ctx context.Context, id sql.NullString) (*ImageFile, error) {
-	// func ImageFileByID(ctx context.Context, db DB, id sql.NullString) (*ImageFile, error) {
+func (c *Client) ImageFileByID(ctx context.Context, id nulltype.NullString) (*ImageFile, error) {
+	// func ImageFileByID(ctx context.Context, db DB, id nulltype.NullString) (*ImageFile, error) {
 	db := c.db
 
 	// query

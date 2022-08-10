@@ -5,22 +5,24 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdProperty represents a row from 'djmdProperty'.
 type DjmdProperty struct {
-	DBID           sql.NullString `json:"dbid"`             // DBID
-	DBVersion      sql.NullString `json:"db_version"`       // DBVersion
-	BaseDBDrive    sql.NullString `json:"base_db_drive"`    // BaseDBDrive
-	CurrentDBDrive sql.NullString `json:"current_db_drive"` // CurrentDBDrive
-	DeviceID       sql.NullString `json:"device_id"`        // DeviceID
-	Reserved1      sql.NullString `json:"reserved1"`        // Reserved1
-	Reserved2      sql.NullString `json:"reserved2"`        // Reserved2
-	Reserved3      sql.NullString `json:"reserved3"`        // Reserved3
-	Reserved4      sql.NullString `json:"reserved4"`        // Reserved4
-	Reserved5      sql.NullString `json:"reserved5"`        // Reserved5
-	CreatedAt      Time           `json:"created_at"`       // created_at
-	UpdatedAt      Time           `json:"updated_at"`       // updated_at
+	DBID           nulltype.NullString `json:"dbid"`             // DBID
+	DBVersion      nulltype.NullString `json:"db_version"`       // DBVersion
+	BaseDBDrive    nulltype.NullString `json:"base_db_drive"`    // BaseDBDrive
+	CurrentDBDrive nulltype.NullString `json:"current_db_drive"` // CurrentDBDrive
+	DeviceID       nulltype.NullString `json:"device_id"`        // DeviceID
+	Reserved1      nulltype.NullString `json:"reserved1"`        // Reserved1
+	Reserved2      nulltype.NullString `json:"reserved2"`        // Reserved2
+	Reserved3      nulltype.NullString `json:"reserved3"`        // Reserved3
+	Reserved4      nulltype.NullString `json:"reserved4"`        // Reserved4
+	Reserved5      nulltype.NullString `json:"reserved5"`        // Reserved5
+	CreatedAt      Time                `json:"created_at"`       // created_at
+	UpdatedAt      Time                `json:"updated_at"`       // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -181,8 +183,8 @@ func (c *Client) AllDjmdProperty(ctx context.Context) ([]*DjmdProperty, error) {
 // DjmdPropertyByDBID retrieves a row from 'djmdProperty' as a DjmdProperty.
 //
 // Generated from index 'sqlite_autoindex_djmdProperty_1'.
-func (c *Client) DjmdPropertyByDBID(ctx context.Context, dBID sql.NullString) (*DjmdProperty, error) {
-	// func DjmdPropertyByDBID(ctx context.Context, db DB, dBID sql.NullString) (*DjmdProperty, error) {
+func (c *Client) DjmdPropertyByDBID(ctx context.Context, dBID nulltype.NullString) (*DjmdProperty, error) {
+	// func DjmdPropertyByDBID(ctx context.Context, db DB, dBID nulltype.NullString) (*DjmdProperty, error) {
 	db := c.db
 
 	// query

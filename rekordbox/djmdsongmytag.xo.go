@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // DjmdSongMyTag represents a row from 'djmdSongMyTag'.
 type DjmdSongMyTag struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	MyTagID           sql.NullString `json:"my_tag_id"`            // MyTagID
-	ContentID         sql.NullString `json:"content_id"`           // ContentID
-	TrackNo           sql.NullInt64  `json:"track_no"`             // TrackNo
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	MyTagID           nulltype.NullString `json:"my_tag_id"`            // MyTagID
+	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
+	TrackNo           nulltype.NullInt64  `json:"track_no"`             // TrackNo
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllDjmdSongMyTag(ctx context.Context) ([]*DjmdSongMyTag, error)
 // DjmdSongMyTagByContentID retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag__content_i_d'.
-func (c *Client) DjmdSongMyTagByContentID(ctx context.Context, contentID sql.NullString) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByContentID(ctx context.Context, db DB, contentID sql.NullString) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByContentID(ctx context.Context, contentID nulltype.NullString) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -219,8 +221,8 @@ func (c *Client) DjmdSongMyTagByContentID(ctx context.Context, contentID sql.Nul
 // DjmdSongMyTagByContentIDRbLocalDeleted retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag__content_i_d_rb_local_deleted'.
-func (c *Client) DjmdSongMyTagByContentIDRbLocalDeleted(ctx context.Context, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByContentIDRbLocalDeleted(ctx context.Context, db DB, contentID sql.NullString, rbLocalDeleted sql.NullInt64) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByContentIDRbLocalDeleted(ctx context.Context, contentID nulltype.NullString, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByContentIDRbLocalDeleted(ctx context.Context, db DB, contentID nulltype.NullString, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -256,8 +258,8 @@ func (c *Client) DjmdSongMyTagByContentIDRbLocalDeleted(ctx context.Context, con
 // DjmdSongMyTagByMyTagID retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag__my_tag_i_d'.
-func (c *Client) DjmdSongMyTagByMyTagID(ctx context.Context, myTagID sql.NullString) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByMyTagID(ctx context.Context, db DB, myTagID sql.NullString) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByMyTagID(ctx context.Context, myTagID nulltype.NullString) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByMyTagID(ctx context.Context, db DB, myTagID nulltype.NullString) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -293,8 +295,8 @@ func (c *Client) DjmdSongMyTagByMyTagID(ctx context.Context, myTagID sql.NullStr
 // DjmdSongMyTagByMyTagIDRbLocalDeletedID retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag__my_tag_i_d_rb_local_deleted__i_d'.
-func (c *Client) DjmdSongMyTagByMyTagIDRbLocalDeletedID(ctx context.Context, myTagID sql.NullString, rbLocalDeleted sql.NullInt64, id sql.NullString) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByMyTagIDRbLocalDeletedID(ctx context.Context, db DB, myTagID sql.NullString, rbLocalDeleted sql.NullInt64, id sql.NullString) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByMyTagIDRbLocalDeletedID(ctx context.Context, myTagID nulltype.NullString, rbLocalDeleted nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByMyTagIDRbLocalDeletedID(ctx context.Context, db DB, myTagID nulltype.NullString, rbLocalDeleted nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -330,8 +332,8 @@ func (c *Client) DjmdSongMyTagByMyTagIDRbLocalDeletedID(ctx context.Context, myT
 // DjmdSongMyTagByUUID retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag__u_u_i_d'.
-func (c *Client) DjmdSongMyTagByUUID(ctx context.Context, uuid sql.NullString) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -367,8 +369,8 @@ func (c *Client) DjmdSongMyTagByUUID(ctx context.Context, uuid sql.NullString) (
 // DjmdSongMyTagByRbDataStatus retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag_rb_data_status'.
-func (c *Client) DjmdSongMyTagByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -404,8 +406,8 @@ func (c *Client) DjmdSongMyTagByRbDataStatus(ctx context.Context, rbDataStatus s
 // DjmdSongMyTagByRbLocalDataStatus retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag_rb_local_data_status'.
-func (c *Client) DjmdSongMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -441,8 +443,8 @@ func (c *Client) DjmdSongMyTagByRbLocalDataStatus(ctx context.Context, rbLocalDa
 // DjmdSongMyTagByRbLocalDeleted retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag_rb_local_deleted'.
-func (c *Client) DjmdSongMyTagByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -478,8 +480,8 @@ func (c *Client) DjmdSongMyTagByRbLocalDeleted(ctx context.Context, rbLocalDelet
 // DjmdSongMyTagByRbLocalUsnID retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'djmd_song_my_tag_rb_local_usn__i_d'.
-func (c *Client) DjmdSongMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query
@@ -515,8 +517,8 @@ func (c *Client) DjmdSongMyTagByRbLocalUsnID(ctx context.Context, rbLocalUsn sql
 // DjmdSongMyTagByID retrieves a row from 'djmdSongMyTag' as a DjmdSongMyTag.
 //
 // Generated from index 'sqlite_autoindex_djmdSongMyTag_1'.
-func (c *Client) DjmdSongMyTagByID(ctx context.Context, id sql.NullString) (*DjmdSongMyTag, error) {
-	// func DjmdSongMyTagByID(ctx context.Context, db DB, id sql.NullString) (*DjmdSongMyTag, error) {
+func (c *Client) DjmdSongMyTagByID(ctx context.Context, id nulltype.NullString) (*DjmdSongMyTag, error) {
+	// func DjmdSongMyTagByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdSongMyTag, error) {
 	db := c.db
 
 	// query

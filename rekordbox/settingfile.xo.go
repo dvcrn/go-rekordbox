@@ -5,28 +5,30 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // SettingFile represents a row from 'settingFile'.
 type SettingFile struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	Path              sql.NullString `json:"path"`                 // Path
-	Hash              sql.NullString `json:"hash"`                 // Hash
-	Size              sql.NullInt64  `json:"size"`                 // Size
-	RbLocalPath       sql.NullString `json:"rb_local_path"`        // rb_local_path
-	RbInsyncHash      sql.NullString `json:"rb_insync_hash"`       // rb_insync_hash
-	RbInsyncLocalUsn  sql.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
-	RbFileHashDirty   sql.NullInt64  `json:"rb_file_hash_dirty"`   // rb_file_hash_dirty
-	RbFileSizeDirty   sql.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Path              nulltype.NullString `json:"path"`                 // Path
+	Hash              nulltype.NullString `json:"hash"`                 // Hash
+	Size              nulltype.NullInt64  `json:"size"`                 // Size
+	RbLocalPath       nulltype.NullString `json:"rb_local_path"`        // rb_local_path
+	RbInsyncHash      nulltype.NullString `json:"rb_insync_hash"`       // rb_insync_hash
+	RbInsyncLocalUsn  nulltype.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
+	RbFileHashDirty   nulltype.NullInt64  `json:"rb_file_hash_dirty"`   // rb_file_hash_dirty
+	RbFileSizeDirty   nulltype.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -187,8 +189,8 @@ func (c *Client) AllSettingFile(ctx context.Context) ([]*SettingFile, error) {
 // SettingFileByUUID retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file__u_u_i_d'.
-func (c *Client) SettingFileByUUID(ctx context.Context, uuid sql.NullString) ([]*SettingFile, error) {
-	// func SettingFileByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*SettingFile, error) {
+func (c *Client) SettingFileByUUID(ctx context.Context, uuid nulltype.NullString) ([]*SettingFile, error) {
+	// func SettingFileByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*SettingFile, error) {
 	db := c.db
 
 	// query
@@ -224,8 +226,8 @@ func (c *Client) SettingFileByUUID(ctx context.Context, uuid sql.NullString) ([]
 // SettingFileByRbDataStatus retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_data_status'.
-func (c *Client) SettingFileByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*SettingFile, error) {
-	// func SettingFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*SettingFile, error) {
+func (c *Client) SettingFileByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*SettingFile, error) {
+	// func SettingFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*SettingFile, error) {
 	db := c.db
 
 	// query
@@ -261,8 +263,8 @@ func (c *Client) SettingFileByRbDataStatus(ctx context.Context, rbDataStatus sql
 // SettingFileByRbFileHashDirty retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_file_hash_dirty'.
-func (c *Client) SettingFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty sql.NullInt64) ([]*SettingFile, error) {
-	// func SettingFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty sql.NullInt64) ([]*SettingFile, error) {
+func (c *Client) SettingFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty nulltype.NullInt64) ([]*SettingFile, error) {
+	// func SettingFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty nulltype.NullInt64) ([]*SettingFile, error) {
 	db := c.db
 
 	// query
@@ -298,8 +300,8 @@ func (c *Client) SettingFileByRbFileHashDirty(ctx context.Context, rbFileHashDir
 // SettingFileByRbFileSizeDirty retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_file_size_dirty'.
-func (c *Client) SettingFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty sql.NullInt64) ([]*SettingFile, error) {
-	// func SettingFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty sql.NullInt64) ([]*SettingFile, error) {
+func (c *Client) SettingFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty nulltype.NullInt64) ([]*SettingFile, error) {
+	// func SettingFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty nulltype.NullInt64) ([]*SettingFile, error) {
 	db := c.db
 
 	// query
@@ -335,8 +337,8 @@ func (c *Client) SettingFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDir
 // SettingFileByRbLocalDataStatus retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_local_data_status'.
-func (c *Client) SettingFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*SettingFile, error) {
-	// func SettingFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*SettingFile, error) {
+func (c *Client) SettingFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*SettingFile, error) {
+	// func SettingFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*SettingFile, error) {
 	db := c.db
 
 	// query
@@ -372,8 +374,8 @@ func (c *Client) SettingFileByRbLocalDataStatus(ctx context.Context, rbLocalData
 // SettingFileByRbLocalDeleted retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_local_deleted'.
-func (c *Client) SettingFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*SettingFile, error) {
-	// func SettingFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*SettingFile, error) {
+func (c *Client) SettingFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*SettingFile, error) {
+	// func SettingFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*SettingFile, error) {
 	db := c.db
 
 	// query
@@ -409,8 +411,8 @@ func (c *Client) SettingFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 // SettingFileByRbLocalUsnID retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'setting_file_rb_local_usn__i_d'.
-func (c *Client) SettingFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*SettingFile, error) {
-	// func SettingFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*SettingFile, error) {
+func (c *Client) SettingFileByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*SettingFile, error) {
+	// func SettingFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*SettingFile, error) {
 	db := c.db
 
 	// query
@@ -446,8 +448,8 @@ func (c *Client) SettingFileByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.N
 // SettingFileByID retrieves a row from 'settingFile' as a SettingFile.
 //
 // Generated from index 'sqlite_autoindex_settingFile_1'.
-func (c *Client) SettingFileByID(ctx context.Context, id sql.NullString) (*SettingFile, error) {
-	// func SettingFileByID(ctx context.Context, db DB, id sql.NullString) (*SettingFile, error) {
+func (c *Client) SettingFileByID(ctx context.Context, id nulltype.NullString) (*SettingFile, error) {
+	// func SettingFileByID(ctx context.Context, db DB, id nulltype.NullString) (*SettingFile, error) {
 	db := c.db
 
 	// query

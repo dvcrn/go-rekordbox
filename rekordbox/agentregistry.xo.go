@@ -6,23 +6,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // AgentRegistry represents a row from 'agentRegistry'.
 type AgentRegistry struct {
-	RegistryID sql.NullString `json:"registry_id"` // registry_id
-	ID1        sql.NullString `json:"id1"`         // id_1
-	ID2        sql.NullString `json:"id2"`         // id_2
-	Int1       sql.NullInt64  `json:"int1"`        // int_1
-	Int2       sql.NullInt64  `json:"int2"`        // int_2
-	Str1       sql.NullString `json:"str1"`        // str_1
-	Str2       sql.NullString `json:"str2"`        // str_2
-	Date1      *Time          `json:"date1"`       // date_1
-	Date2      *Time          `json:"date2"`       // date_2
-	Text1      sql.NullString `json:"text1"`       // text_1
-	Text2      sql.NullString `json:"text2"`       // text_2
-	CreatedAt  Time           `json:"created_at"`  // created_at
-	UpdatedAt  Time           `json:"updated_at"`  // updated_at
+	RegistryID nulltype.NullString `json:"registry_id"` // registry_id
+	ID1        nulltype.NullString `json:"id1"`         // id_1
+	ID2        nulltype.NullString `json:"id2"`         // id_2
+	Int1       nulltype.NullInt64  `json:"int1"`        // int_1
+	Int2       nulltype.NullInt64  `json:"int2"`        // int_2
+	Str1       nulltype.NullString `json:"str1"`        // str_1
+	Str2       nulltype.NullString `json:"str2"`        // str_2
+	Date1      *Time               `json:"date1"`       // date_1
+	Date2      *Time               `json:"date2"`       // date_2
+	Text1      nulltype.NullString `json:"text1"`       // text_1
+	Text2      nulltype.NullString `json:"text2"`       // text_2
+	CreatedAt  Time                `json:"created_at"`  // created_at
+	UpdatedAt  Time                `json:"updated_at"`  // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -183,8 +185,8 @@ func (c *Client) AllAgentRegistry(ctx context.Context) ([]*AgentRegistry, error)
 // AgentRegistryByID1ID2 retrieves a row from 'agentRegistry' as a AgentRegistry.
 //
 // Generated from index 'agent_registry_id_1_id_2'.
-func (c *Client) AgentRegistryByID1ID2(ctx context.Context, id1, id2 sql.NullString) ([]*AgentRegistry, error) {
-	// func AgentRegistryByID1ID2(ctx context.Context, db DB, id1 sql.NullString, id2 sql.NullString) ([]*AgentRegistry, error) {
+func (c *Client) AgentRegistryByID1ID2(ctx context.Context, id1, id2 nulltype.NullString) ([]*AgentRegistry, error) {
+	// func AgentRegistryByID1ID2(ctx context.Context, db DB, id1 nulltype.NullString, id2 nulltype.NullString) ([]*AgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -220,8 +222,8 @@ func (c *Client) AgentRegistryByID1ID2(ctx context.Context, id1, id2 sql.NullStr
 // AgentRegistryByRegistryID retrieves a row from 'agentRegistry' as a AgentRegistry.
 //
 // Generated from index 'sqlite_autoindex_agentRegistry_1'.
-func (c *Client) AgentRegistryByRegistryID(ctx context.Context, registryID sql.NullString) (*AgentRegistry, error) {
-	// func AgentRegistryByRegistryID(ctx context.Context, db DB, registryID sql.NullString) (*AgentRegistry, error) {
+func (c *Client) AgentRegistryByRegistryID(ctx context.Context, registryID nulltype.NullString) (*AgentRegistry, error) {
+	// func AgentRegistryByRegistryID(ctx context.Context, db DB, registryID nulltype.NullString) (*AgentRegistry, error) {
 	db := c.db
 
 	// query

@@ -5,23 +5,25 @@ package rekordbox
 import (
 	"context"
 	"database/sql"
+
+	nulltype "github.com/mattn/go-nulltype"
 )
 
 // UUIDIDMap represents a row from 'uuidIDMap'.
 type UUIDIDMap struct {
-	ID                sql.NullString `json:"id"`                   // ID
-	TableName         sql.NullString `json:"table_name"`           // TableName
-	TargetUUID        sql.NullString `json:"target_uuid"`          // TargetUUID
-	CurrentID         sql.NullString `json:"current_id"`           // CurrentID
-	UUID              sql.NullString `json:"uuid"`                 // UUID
-	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
-	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
-	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
-	RbLocalSynced     sql.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
-	Usn               sql.NullInt64  `json:"usn"`                  // usn
-	RbLocalUsn        sql.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
-	CreatedAt         Time           `json:"created_at"`           // created_at
-	UpdatedAt         Time           `json:"updated_at"`           // updated_at
+	ID                nulltype.NullString `json:"id"`                   // ID
+	TableName         nulltype.NullString `json:"table_name"`           // TableName
+	TargetUUID        nulltype.NullString `json:"target_uuid"`          // TargetUUID
+	CurrentID         nulltype.NullString `json:"current_id"`           // CurrentID
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
+	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
+	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
+	RbLocalSynced     nulltype.NullInt64  `json:"rb_local_synced"`      // rb_local_synced
+	Usn               nulltype.NullInt64  `json:"usn"`                  // usn
+	RbLocalUsn        nulltype.NullInt64  `json:"rb_local_usn"`         // rb_local_usn
+	CreatedAt         Time                `json:"created_at"`           // created_at
+	UpdatedAt         Time                `json:"updated_at"`           // updated_at
 	// xo fields
 	_exists, _deleted bool
 }
@@ -182,8 +184,8 @@ func (c *Client) AllUUIDIDMap(ctx context.Context) ([]*UUIDIDMap, error) {
 // UUIDIDMapByID retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'sqlite_autoindex_uuidIDMap_1'.
-func (c *Client) UUIDIDMapByID(ctx context.Context, id sql.NullString) (*UUIDIDMap, error) {
-	// func UUIDIDMapByID(ctx context.Context, db DB, id sql.NullString) (*UUIDIDMap, error) {
+func (c *Client) UUIDIDMapByID(ctx context.Context, id nulltype.NullString) (*UUIDIDMap, error) {
+	// func UUIDIDMapByID(ctx context.Context, db DB, id nulltype.NullString) (*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -205,8 +207,8 @@ func (c *Client) UUIDIDMapByID(ctx context.Context, id sql.NullString) (*UUIDIDM
 // UUIDIDMapByUUID retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map__u_u_i_d'.
-func (c *Client) UUIDIDMapByUUID(ctx context.Context, uuid sql.NullString) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByUUID(ctx context.Context, db DB, uuid sql.NullString) ([]*UUIDIDMap, error) {
+func (c *Client) UUIDIDMapByUUID(ctx context.Context, uuid nulltype.NullString) ([]*UUIDIDMap, error) {
+	// func UUIDIDMapByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -242,8 +244,8 @@ func (c *Client) UUIDIDMapByUUID(ctx context.Context, uuid sql.NullString) ([]*U
 // UUIDIDMapByRbDataStatus retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_data_status'.
-func (c *Client) UUIDIDMapByRbDataStatus(ctx context.Context, rbDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbDataStatus(ctx context.Context, db DB, rbDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
+func (c *Client) UUIDIDMapByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
+	// func UUIDIDMapByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -279,8 +281,8 @@ func (c *Client) UUIDIDMapByRbDataStatus(ctx context.Context, rbDataStatus sql.N
 // UUIDIDMapByRbLocalDataStatus retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_local_data_status'.
-func (c *Client) UUIDIDMapByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus sql.NullInt64) ([]*UUIDIDMap, error) {
+func (c *Client) UUIDIDMapByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
+	// func UUIDIDMapByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -316,8 +318,8 @@ func (c *Client) UUIDIDMapByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 // UUIDIDMapByRbLocalDeleted retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_local_deleted'.
-func (c *Client) UUIDIDMapByRbLocalDeleted(ctx context.Context, rbLocalDeleted sql.NullInt64) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted sql.NullInt64) ([]*UUIDIDMap, error) {
+func (c *Client) UUIDIDMapByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*UUIDIDMap, error) {
+	// func UUIDIDMapByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -353,8 +355,8 @@ func (c *Client) UUIDIDMapByRbLocalDeleted(ctx context.Context, rbLocalDeleted s
 // UUIDIDMapByRbLocalUsnID retrieves a row from 'uuidIDMap' as a UUIDIDMap.
 //
 // Generated from index 'uuid_i_d_map_rb_local_usn__i_d'.
-func (c *Client) UUIDIDMapByRbLocalUsnID(ctx context.Context, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn sql.NullInt64, id sql.NullString) ([]*UUIDIDMap, error) {
+func (c *Client) UUIDIDMapByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*UUIDIDMap, error) {
+	// func UUIDIDMapByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
