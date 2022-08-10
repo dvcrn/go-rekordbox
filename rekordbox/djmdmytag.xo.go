@@ -9,12 +9,12 @@ import (
 
 // DjmdMyTag represents a row from 'djmdMyTag'.
 type DjmdMyTag struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	Seq               sql.NullInt64  `json:"Seq"`                  // Seq
-	Name              sql.NullString `json:"Name"`                 // Name
-	Attribute         sql.NullInt64  `json:"Attribute"`            // Attribute
-	ParentID          sql.NullString `json:"ParentID"`             // ParentID
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	Seq               sql.NullInt64  `json:"seq"`                  // Seq
+	Name              sql.NullString `json:"name"`                 // Name
+	Attribute         sql.NullInt64  `json:"attribute"`            // Attribute
+	ParentID          sql.NullString `json:"parent_id"`            // ParentID
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

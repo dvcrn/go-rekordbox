@@ -9,11 +9,11 @@ import (
 
 // ContentCue represents a row from 'contentCue'.
 type ContentCue struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	ContentID         sql.NullString `json:"ContentID"`            // ContentID
-	Cues              sql.NullString `json:"Cues"`                 // Cues
+	ID                sql.NullString `json:"id"`                   // ID
+	ContentID         sql.NullString `json:"content_id"`           // ContentID
+	Cues              sql.NullString `json:"cues"`                 // Cues
 	RbCueCount        sql.NullInt64  `json:"rb_cue_count"`         // rb_cue_count
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

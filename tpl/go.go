@@ -29,6 +29,15 @@ var (
 	ErrNoSingle = errors.New("in query exec mode, the --single or -S must be provided")
 )
 
+var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
+var matchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
+
+func ToSnakeCase(str string) string {
+	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
+	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
+}
+
 // Init registers the template.
 func Init(ctx context.Context, f func(xo.TemplateType)) error {
 	knownTypes := map[string]bool{
@@ -1851,10 +1860,8 @@ func (f *Funcs) field(field Field) (string, error) {
 	if err := f.fieldtag.Funcs(f.FuncMap()).Execute(buf, field); err != nil {
 		return "", err
 	}
-	var tag string
-	if s := buf.String(); s != "" {
-		tag = " `" + s + "`"
-	}
+
+	tag := fmt.Sprintf("`json:\"%s\"`", ToSnakeCase(field.GoName))
 	return fmt.Sprintf("\t%s %s%s // %s", field.GoName, f.typefn(field.Type), tag, field.SQLName), nil
 }
 

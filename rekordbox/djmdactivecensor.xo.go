@@ -9,14 +9,14 @@ import (
 
 // DjmdActiveCensor represents a row from 'djmdActiveCensor'.
 type DjmdActiveCensor struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	ContentID         sql.NullString `json:"ContentID"`            // ContentID
-	InMsec            sql.NullInt64  `json:"InMsec"`               // InMsec
-	OutMsec           sql.NullInt64  `json:"OutMsec"`              // OutMsec
-	Info              sql.NullInt64  `json:"Info"`                 // Info
-	ParameterList     sql.NullString `json:"ParameterList"`        // ParameterList
-	ContentUUID       sql.NullString `json:"ContentUUID"`          // ContentUUID
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	ContentID         sql.NullString `json:"content_id"`           // ContentID
+	InMsec            sql.NullInt64  `json:"in_msec"`              // InMsec
+	OutMsec           sql.NullInt64  `json:"out_msec"`             // OutMsec
+	Info              sql.NullInt64  `json:"info"`                 // Info
+	ParameterList     sql.NullString `json:"parameter_list"`       // ParameterList
+	ContentUUID       sql.NullString `json:"content_uuid"`         // ContentUUID
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

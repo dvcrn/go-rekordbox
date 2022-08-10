@@ -9,11 +9,11 @@ import (
 
 // DjmdSort represents a row from 'djmdSort'.
 type DjmdSort struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	MenuItemID        sql.NullString `json:"MenuItemID"`           // MenuItemID
-	Seq               sql.NullInt64  `json:"Seq"`                  // Seq
-	Disable           sql.NullInt64  `json:"Disable"`              // Disable
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	MenuItemID        sql.NullString `json:"menu_item_id"`         // MenuItemID
+	Seq               sql.NullInt64  `json:"seq"`                  // Seq
+	Disable           sql.NullInt64  `json:"disable"`              // Disable
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

@@ -9,16 +9,16 @@ import (
 
 // CloudAgentRegistry represents a row from 'cloudAgentRegistry'.
 type CloudAgentRegistry struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	Int1              sql.NullInt64  `json:"int_1"`                // int_1
-	Int2              sql.NullInt64  `json:"int_2"`                // int_2
-	Str1              sql.NullString `json:"str_1"`                // str_1
-	Str2              sql.NullString `json:"str_2"`                // str_2
-	Date1             *Time          `json:"date_1"`               // date_1
-	Date2             *Time          `json:"date_2"`               // date_2
-	Text1             sql.NullString `json:"text_1"`               // text_1
-	Text2             sql.NullString `json:"text_2"`               // text_2
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	Int1              sql.NullInt64  `json:"int1"`                 // int_1
+	Int2              sql.NullInt64  `json:"int2"`                 // int_2
+	Str1              sql.NullString `json:"str1"`                 // str_1
+	Str2              sql.NullString `json:"str2"`                 // str_2
+	Date1             *Time          `json:"date1"`                // date_1
+	Date2             *Time          `json:"date2"`                // date_2
+	Text1             sql.NullString `json:"text1"`                // text_1
+	Text2             sql.NullString `json:"text2"`                // text_2
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

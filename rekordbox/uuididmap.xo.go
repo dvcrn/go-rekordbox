@@ -9,11 +9,11 @@ import (
 
 // UUIDIDMap represents a row from 'uuidIDMap'.
 type UUIDIDMap struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	TableName         sql.NullString `json:"TableName"`            // TableName
-	TargetUUID        sql.NullString `json:"TargetUUID"`           // TargetUUID
-	CurrentID         sql.NullString `json:"CurrentID"`            // CurrentID
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	TableName         sql.NullString `json:"table_name"`           // TableName
+	TargetUUID        sql.NullString `json:"target_uuid"`          // TargetUUID
+	CurrentID         sql.NullString `json:"current_id"`           // CurrentID
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

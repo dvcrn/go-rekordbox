@@ -9,11 +9,11 @@ import (
 
 // DjmdSongSampler represents a row from 'djmdSongSampler'.
 type DjmdSongSampler struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	SamplerID         sql.NullString `json:"SamplerID"`            // SamplerID
-	ContentID         sql.NullString `json:"ContentID"`            // ContentID
-	TrackNo           sql.NullInt64  `json:"TrackNo"`              // TrackNo
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	SamplerID         sql.NullString `json:"sampler_id"`           // SamplerID
+	ContentID         sql.NullString `json:"content_id"`           // ContentID
+	TrackNo           sql.NullInt64  `json:"track_no"`             // TrackNo
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

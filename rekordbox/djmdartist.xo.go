@@ -9,10 +9,10 @@ import (
 
 // DjmdArtist represents a row from 'djmdArtist'.
 type DjmdArtist struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	Name              sql.NullString `json:"Name"`                 // Name
-	SearchStr         sql.NullString `json:"SearchStr"`            // SearchStr
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	Name              sql.NullString `json:"name"`                 // Name
+	SearchStr         sql.NullString `json:"search_str"`           // SearchStr
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

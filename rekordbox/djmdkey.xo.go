@@ -9,10 +9,10 @@ import (
 
 // DjmdKey represents a row from 'djmdKey'.
 type DjmdKey struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	ScaleName         sql.NullString `json:"ScaleName"`            // ScaleName
-	Seq               sql.NullInt64  `json:"Seq"`                  // Seq
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	ScaleName         sql.NullString `json:"scale_name"`           // ScaleName
+	Seq               sql.NullInt64  `json:"seq"`                  // Seq
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

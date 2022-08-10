@@ -9,16 +9,16 @@ import (
 
 // SettingFile represents a row from 'settingFile'.
 type SettingFile struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	Path              sql.NullString `json:"Path"`                 // Path
-	Hash              sql.NullString `json:"Hash"`                 // Hash
-	Size              sql.NullInt64  `json:"Size"`                 // Size
+	ID                sql.NullString `json:"id"`                   // ID
+	Path              sql.NullString `json:"path"`                 // Path
+	Hash              sql.NullString `json:"hash"`                 // Hash
+	Size              sql.NullInt64  `json:"size"`                 // Size
 	RbLocalPath       sql.NullString `json:"rb_local_path"`        // rb_local_path
 	RbInsyncHash      sql.NullString `json:"rb_insync_hash"`       // rb_insync_hash
 	RbInsyncLocalUsn  sql.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
 	RbFileHashDirty   sql.NullInt64  `json:"rb_file_hash_dirty"`   // rb_file_hash_dirty
 	RbFileSizeDirty   sql.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

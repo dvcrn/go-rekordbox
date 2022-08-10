@@ -9,13 +9,13 @@ import (
 
 // DjmdAlbum represents a row from 'djmdAlbum'.
 type DjmdAlbum struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	Name              sql.NullString `json:"Name"`                 // Name
-	AlbumArtistID     sql.NullString `json:"AlbumArtistID"`        // AlbumArtistID
-	ImagePath         sql.NullString `json:"ImagePath"`            // ImagePath
-	Compilation       sql.NullInt64  `json:"Compilation"`          // Compilation
-	SearchStr         sql.NullString `json:"SearchStr"`            // SearchStr
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	Name              sql.NullString `json:"name"`                 // Name
+	AlbumArtistID     sql.NullString `json:"album_artist_id"`      // AlbumArtistID
+	ImagePath         sql.NullString `json:"image_path"`           // ImagePath
+	Compilation       sql.NullInt64  `json:"compilation"`          // Compilation
+	SearchStr         sql.NullString `json:"search_str"`           // SearchStr
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

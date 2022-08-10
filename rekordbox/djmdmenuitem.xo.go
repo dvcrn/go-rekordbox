@@ -9,10 +9,10 @@ import (
 
 // DjmdMenuItem represents a row from 'djmdMenuItems'.
 type DjmdMenuItem struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	Class             sql.NullInt64  `json:"Class"`                // Class
-	Name              sql.NullString `json:"Name"`                 // Name
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	Class             sql.NullInt64  `json:"class"`                // Class
+	Name              sql.NullString `json:"name"`                 // Name
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

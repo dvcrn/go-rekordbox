@@ -9,11 +9,11 @@ import (
 
 // ContentActiveCensor represents a row from 'contentActiveCensor'.
 type ContentActiveCensor struct {
-	ID                  sql.NullString `json:"ID"`                    // ID
-	ContentID           sql.NullString `json:"ContentID"`             // ContentID
-	ActiveCensors       sql.NullString `json:"ActiveCensors"`         // ActiveCensors
+	ID                  sql.NullString `json:"id"`                    // ID
+	ContentID           sql.NullString `json:"content_id"`            // ContentID
+	ActiveCensors       sql.NullString `json:"active_censors"`        // ActiveCensors
 	RbActivecensorCount sql.NullInt64  `json:"rb_activecensor_count"` // rb_activecensor_count
-	UUID                sql.NullString `json:"UUID"`                  // UUID
+	UUID                sql.NullString `json:"uuid"`                  // UUID
 	RbDataStatus        sql.NullInt64  `json:"rb_data_status"`        // rb_data_status
 	RbLocalDataStatus   sql.NullInt64  `json:"rb_local_data_status"`  // rb_local_data_status
 	RbLocalDeleted      sql.NullInt64  `json:"rb_local_deleted"`      // rb_local_deleted

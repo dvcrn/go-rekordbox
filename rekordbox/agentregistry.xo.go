@@ -11,16 +11,16 @@ import (
 // AgentRegistry represents a row from 'agentRegistry'.
 type AgentRegistry struct {
 	RegistryID sql.NullString `json:"registry_id"` // registry_id
-	ID1        sql.NullString `json:"id_1"`        // id_1
-	ID2        sql.NullString `json:"id_2"`        // id_2
-	Int1       sql.NullInt64  `json:"int_1"`       // int_1
-	Int2       sql.NullInt64  `json:"int_2"`       // int_2
-	Str1       sql.NullString `json:"str_1"`       // str_1
-	Str2       sql.NullString `json:"str_2"`       // str_2
-	Date1      *Time          `json:"date_1"`      // date_1
-	Date2      *Time          `json:"date_2"`      // date_2
-	Text1      sql.NullString `json:"text_1"`      // text_1
-	Text2      sql.NullString `json:"text_2"`      // text_2
+	ID1        sql.NullString `json:"id1"`         // id_1
+	ID2        sql.NullString `json:"id2"`         // id_2
+	Int1       sql.NullInt64  `json:"int1"`        // int_1
+	Int2       sql.NullInt64  `json:"int2"`        // int_2
+	Str1       sql.NullString `json:"str1"`        // str_1
+	Str2       sql.NullString `json:"str2"`        // str_2
+	Date1      *Time          `json:"date1"`       // date_1
+	Date2      *Time          `json:"date2"`       // date_2
+	Text1      sql.NullString `json:"text1"`       // text_1
+	Text2      sql.NullString `json:"text2"`       // text_2
 	CreatedAt  Time           `json:"created_at"`  // created_at
 	UpdatedAt  Time           `json:"updated_at"`  // updated_at
 	// xo fields

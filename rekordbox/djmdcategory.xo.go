@@ -9,12 +9,12 @@ import (
 
 // DjmdCategory represents a row from 'djmdCategory'.
 type DjmdCategory struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	MenuItemID        sql.NullString `json:"MenuItemID"`           // MenuItemID
-	Seq               sql.NullInt64  `json:"Seq"`                  // Seq
-	Disable           sql.NullInt64  `json:"Disable"`              // Disable
-	InfoOrder         sql.NullInt64  `json:"InfoOrder"`            // InfoOrder
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	MenuItemID        sql.NullString `json:"menu_item_id"`         // MenuItemID
+	Seq               sql.NullInt64  `json:"seq"`                  // Seq
+	Disable           sql.NullInt64  `json:"disable"`              // Disable
+	InfoOrder         sql.NullInt64  `json:"info_order"`           // InfoOrder
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

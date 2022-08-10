@@ -9,27 +9,27 @@ import (
 
 // DjmdCue represents a row from 'djmdCue'.
 type DjmdCue struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	ContentID         sql.NullString `json:"ContentID"`            // ContentID
-	InMsec            sql.NullInt64  `json:"InMsec"`               // InMsec
-	InFrame           sql.NullInt64  `json:"InFrame"`              // InFrame
-	InMpegFrame       sql.NullInt64  `json:"InMpegFrame"`          // InMpegFrame
-	InMpegAbs         sql.NullInt64  `json:"InMpegAbs"`            // InMpegAbs
-	OutMsec           sql.NullInt64  `json:"OutMsec"`              // OutMsec
-	OutFrame          sql.NullInt64  `json:"OutFrame"`             // OutFrame
-	OutMpegFrame      sql.NullInt64  `json:"OutMpegFrame"`         // OutMpegFrame
-	OutMpegAbs        sql.NullInt64  `json:"OutMpegAbs"`           // OutMpegAbs
-	Kind              sql.NullInt64  `json:"Kind"`                 // Kind
-	Color             sql.NullInt64  `json:"Color"`                // Color
-	ColorTableIndex   sql.NullInt64  `json:"ColorTableIndex"`      // ColorTableIndex
-	ActiveLoop        sql.NullInt64  `json:"ActiveLoop"`           // ActiveLoop
-	Comment           sql.NullString `json:"Comment"`              // Comment
-	BeatLoopSize      sql.NullInt64  `json:"BeatLoopSize"`         // BeatLoopSize
-	CueMicrosec       sql.NullInt64  `json:"CueMicrosec"`          // CueMicrosec
-	InPointSeekInfo   sql.NullString `json:"InPointSeekInfo"`      // InPointSeekInfo
-	OutPointSeekInfo  sql.NullString `json:"OutPointSeekInfo"`     // OutPointSeekInfo
-	ContentUUID       sql.NullString `json:"ContentUUID"`          // ContentUUID
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	ID                sql.NullString `json:"id"`                   // ID
+	ContentID         sql.NullString `json:"content_id"`           // ContentID
+	InMsec            sql.NullInt64  `json:"in_msec"`              // InMsec
+	InFrame           sql.NullInt64  `json:"in_frame"`             // InFrame
+	InMpegFrame       sql.NullInt64  `json:"in_mpeg_frame"`        // InMpegFrame
+	InMpegAbs         sql.NullInt64  `json:"in_mpeg_abs"`          // InMpegAbs
+	OutMsec           sql.NullInt64  `json:"out_msec"`             // OutMsec
+	OutFrame          sql.NullInt64  `json:"out_frame"`            // OutFrame
+	OutMpegFrame      sql.NullInt64  `json:"out_mpeg_frame"`       // OutMpegFrame
+	OutMpegAbs        sql.NullInt64  `json:"out_mpeg_abs"`         // OutMpegAbs
+	Kind              sql.NullInt64  `json:"kind"`                 // Kind
+	Color             sql.NullInt64  `json:"color"`                // Color
+	ColorTableIndex   sql.NullInt64  `json:"color_table_index"`    // ColorTableIndex
+	ActiveLoop        sql.NullInt64  `json:"active_loop"`          // ActiveLoop
+	Comment           sql.NullString `json:"comment"`              // Comment
+	BeatLoopSize      sql.NullInt64  `json:"beat_loop_size"`       // BeatLoopSize
+	CueMicrosec       sql.NullInt64  `json:"cue_microsec"`         // CueMicrosec
+	InPointSeekInfo   sql.NullString `json:"in_point_seek_info"`   // InPointSeekInfo
+	OutPointSeekInfo  sql.NullString `json:"out_point_seek_info"`  // OutPointSeekInfo
+	ContentUUID       sql.NullString `json:"content_uuid"`         // ContentUUID
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

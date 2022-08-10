@@ -9,13 +9,13 @@ import (
 
 // ImageFile represents a row from 'imageFile'.
 type ImageFile struct {
-	ID                sql.NullString `json:"ID"`                   // ID
-	TableName         sql.NullString `json:"TableName"`            // TableName
-	TargetUUID        sql.NullString `json:"TargetUUID"`           // TargetUUID
-	TargetID          sql.NullString `json:"TargetID"`             // TargetID
-	Path              sql.NullString `json:"Path"`                 // Path
-	Hash              sql.NullString `json:"Hash"`                 // Hash
-	Size              sql.NullInt64  `json:"Size"`                 // Size
+	ID                sql.NullString `json:"id"`                   // ID
+	TableName         sql.NullString `json:"table_name"`           // TableName
+	TargetUUID        sql.NullString `json:"target_uuid"`          // TargetUUID
+	TargetID          sql.NullString `json:"target_id"`            // TargetID
+	Path              sql.NullString `json:"path"`                 // Path
+	Hash              sql.NullString `json:"hash"`                 // Hash
+	Size              sql.NullInt64  `json:"size"`                 // Size
 	RbLocalPath       sql.NullString `json:"rb_local_path"`        // rb_local_path
 	RbInsyncHash      sql.NullString `json:"rb_insync_hash"`       // rb_insync_hash
 	RbInsyncLocalUsn  sql.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
@@ -26,7 +26,7 @@ type ImageFile struct {
 	RbTempPath        sql.NullString `json:"rb_temp_path"`         // rb_temp_path
 	RbPriority        sql.NullInt64  `json:"rb_priority"`          // rb_priority
 	RbFileSizeDirty   sql.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
-	UUID              sql.NullString `json:"UUID"`                 // UUID
+	UUID              sql.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      sql.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus sql.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    sql.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
