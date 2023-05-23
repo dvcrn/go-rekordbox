@@ -1,7 +1,7 @@
 package rekordbox
 
 import (
-	"encoding/base64"
+	//"encoding/base64"
 
 	"github.com/dvcrn/go-rekordbox/internal/supbox"
 	"github.com/jmoiron/sqlx"
@@ -11,7 +11,7 @@ type Client struct {
 	db *sqlx.DB
 }
 
-func NewClient(optionsFilePath string, asarFilePath string) (*Client, error) {
+func NewClient(optionsFilePath string) (*Client, error) {
 	// Files and paths
 	rekordboxConfig := supbox.ReadRekordboxConfig(optionsFilePath)
 
@@ -19,16 +19,10 @@ func NewClient(optionsFilePath string, asarFilePath string) (*Client, error) {
 	databaseFilePath := rekordboxConfig.Options[0][1]
 
 	// Database decryption
-	encodedPasswordData := supbox.GetEncryptedPasswordDataFromConfig(rekordboxConfig)
-	decodedPasswordData, err := base64.StdEncoding.DecodeString(encodedPasswordData)
-	if err != nil {
-		return nil, err
-	}
-
-	passwordString := supbox.GetEncryptedPassword(asarFilePath)
-	password := []byte(passwordString)
-	decryptedBytes := supbox.Decrypt(decodedPasswordData, password)
-	encryptionKey := string(decryptedBytes)
+	// passwordString := supbox.GetEncryptedPasswordDataFromConfig(rekordboxConfig)
+	// password := []byte(passwordString)
+	// decryptedBytes := supbox.Decrypt(decodedPasswordData, password)
+	encryptionKey := string("402fd482c38817c35ffa8ffb8c7d93143b749e7d315df7a81732a1ff43608497")
 
 	// Open the Database
 	dsn := supbox.GetDatabaseDSN(databaseFilePath, encryptionKey)
