@@ -193,6 +193,54 @@ Your recent songs
         12B - 130 - Last Step (A*S*Y*S Remix) (246529)
 ```
 
+## Intelligent / Smart playlists
+
+Smart playlists are not fully supported by this library yet, but work has started in djmdplaylist.go. The gist is - there is no built-in support for filtering smartlists. Those are not stored in the DB so you'll have to do the querying yourself.
+
+If a playlist is a smartlist, the field `SmartList` will be set with an XML of all conditions of the filter like so:
+
+```
+<NODE Id="1820824522" LogicalOperator="2" AutomaticUpdate="0"><CONDITION PropertyName="myTag" Operator="9" ValueUnit="" ValueLeft="-1758883739" ValueRight=""/><CONDITION PropertyName="artist" Operator="11" ValueUnit="" ValueLeft="hoge" ValueRight=""/></NODE>
+```
+
+**Note here**: Rekordbox stores value as 32bit integer, so if you see a negative value under `ValueLeft`, this value likely overflowed by exceeding max int32, and you need to reverse the overflow process to get the original value back.
+
+This library comes with helpers to parse the XML content and all sub-conditions. There are also helpers to parse the value and fix the overflow mentioned in the line above.
+
+Here is an example that parses an intelligent playlist with 2 MyTag filters, one by MyTag "Genre" (this overflows and is stored as '-215641850' but the actual ID is '4079325446'), one by MyTag "Energy".
+
+```go
+playlist, err := client.DjmdPlaylistByID(ctx, nulltype.NullStringOf("397309610"))
+if err != nil {
+	panic(err)
+}
+
+if playlist.IsSmartlist() {
+	fmt.Println("playlist is a smartlist")
+	fmt.Println("title: ", playlist.Name)
+
+	node := playlist.SmartlistNode()
+
+	fmt.Println("conditions in this smartlist:")
+	for _, condition := range node.Conditions {
+		fmt.Println(condition.PropertyName)
+		fmt.Println(condition.ParseValueLeft())
+	}
+}
+```
+
+Outputs: 
+
+```
+playlist is a smartlist
+title:  Techno
+conditions in this smartlist:
+myTag
+4079325446
+myTag
+22788202
+```
+
 ## Usage without generated helper functions
 
 You can also directly access the sqlx.DB object by calling `client.GetDB()`, and use that to issue queries directly
