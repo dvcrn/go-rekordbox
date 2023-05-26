@@ -16,6 +16,7 @@ Motivation behind this tool is to enable better automation and integration with 
 	- [Usage](#usage)
 	- [Usage Example: Query all playlists](#usage-example-query-all-playlists)
 	- [Usage Example: Get the most recent plays/songs to use in overlays](#usage-example-get-the-most-recent-playssongs-to-use-in-overlays)
+	- [Intelligent / Smart playlists](#intelligent--smart-playlists)
 	- [Usage without generated helper functions](#usage-without-generated-helper-functions)
 	- [Contributing](#contributing)
 		- [How to regenerate the models (after rekordbox upgrades)](#how-to-regenerate-the-models-after-rekordbox-upgrades)
