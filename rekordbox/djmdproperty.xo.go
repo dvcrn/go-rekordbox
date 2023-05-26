@@ -11,18 +11,18 @@ import (
 
 // DjmdProperty represents a row from 'djmdProperty'.
 type DjmdProperty struct {
-	DBID           nulltype.NullString `json:"dbid"`             // DBID
-	DBVersion      nulltype.NullString `json:"db_version"`       // DBVersion
-	BaseDBDrive    nulltype.NullString `json:"base_db_drive"`    // BaseDBDrive
-	CurrentDBDrive nulltype.NullString `json:"current_db_drive"` // CurrentDBDrive
-	DeviceID       nulltype.NullString `json:"device_id"`        // DeviceID
-	Reserved1      nulltype.NullString `json:"reserved1"`        // Reserved1
-	Reserved2      nulltype.NullString `json:"reserved2"`        // Reserved2
-	Reserved3      nulltype.NullString `json:"reserved3"`        // Reserved3
-	Reserved4      nulltype.NullString `json:"reserved4"`        // Reserved4
-	Reserved5      nulltype.NullString `json:"reserved5"`        // Reserved5
-	CreatedAt      Time                `json:"created_at"`       // created_at
-	UpdatedAt      Time                `json:"updated_at"`       // updated_at
+	DBID           nulltype.NullString `json:"DBID"`           // DBID
+	DBVersion      nulltype.NullString `json:"DBVersion"`      // DBVersion
+	BaseDBDrive    nulltype.NullString `json:"BaseDBDrive"`    // BaseDBDrive
+	CurrentDBDrive nulltype.NullString `json:"CurrentDBDrive"` // CurrentDBDrive
+	DeviceID       nulltype.NullString `json:"DeviceID"`       // DeviceID
+	Reserved1      nulltype.NullString `json:"Reserved1"`      // Reserved1
+	Reserved2      nulltype.NullString `json:"Reserved2"`      // Reserved2
+	Reserved3      nulltype.NullString `json:"Reserved3"`      // Reserved3
+	Reserved4      nulltype.NullString `json:"Reserved4"`      // Reserved4
+	Reserved5      nulltype.NullString `json:"Reserved5"`      // Reserved5
+	CreatedAt      Time                `json:"created_at"`     // created_at
+	UpdatedAt      Time                `json:"updated_at"`     // updated_at
 	// xo fields
 	_exists, _deleted bool
 }

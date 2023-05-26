@@ -39,10 +39,9 @@ go get github.com/dvcrn/go-rekordbox
 
 Create a new `rekordbox.Client` with `rekordbox.NewClient` and use it to query
 
-You'll need 2 file pathes:
+You'll need the following:
 
 - path to `options.json`, on mac this is typically `~/Library/Application Support/Pioneer/rekordboxAgent/storage/options.json`, on windows potentially in `C:\Users\XXXX\AppData\Roaming\Pioneer\rekordboxAgent\storage`
-- path to the `app.asar` file that's bundled with rekordbox, on mac this is `/Applications/rekordbox 6/rekordbox.app/Contents/MacOS/rekordboxAgent.app/Contents/Resources/app.asar`, on windows potentially in `C:\Users\XXXX\AppData\Roaming\Pioneer\rekordboxAgent\storage`
 
 ```golang
 package main
@@ -64,9 +63,7 @@ func main() {
 
 	optionsFilePath := filepath.Join(homeDir, "/Library/Application Support/Pioneer/rekordboxAgent/storage/", "options.json")
 
-	asarPath := "/Applications/rekordbox 6/rekordbox.app/Contents/MacOS/rekordboxAgent.app/Contents/Resources/app.asar"
-
-	client, err := rekordbox.NewClient(optionsFilePath, asarPath)
+	client, err := rekordbox.NewClient(optionsFilePath)
 	if err != nil {
 		panic(err)
 	}
@@ -97,9 +94,7 @@ func main() {
 
 	optionsFilePath := filepath.Join(homeDir, "/Library/Application Support/Pioneer/rekordboxAgent/storage/", "options.json")
 
-	asarPath := "/Applications/rekordbox 6/rekordbox.app/Contents/MacOS/rekordboxAgent.app/Contents/Resources/app.asar"
-
-	client, err := rekordbox.NewClient(optionsFilePath, asarPath)
+	client, err := rekordbox.NewClient(optionsFilePath)
 	if err != nil {
 		panic(err)
 	}
@@ -160,9 +155,7 @@ Tech
 
 	optionsFilePath := filepath.Join(homeDir, "/Library/Application Support/Pioneer/rekordboxAgent/storage/", "options.json")
 
-	asarPath := "/Applications/rekordbox 6/rekordbox.app/Contents/MacOS/rekordboxAgent.app/Contents/Resources/app.asar"
-
-	client, err := rekordbox.NewClient(optionsFilePath, asarPath)
+	client, err := rekordbox.NewClient(optionsFilePath)
 	if err != nil {
 		panic(err)
 	}
@@ -213,6 +206,8 @@ There's a handy Makefile command that does all of this for you (works only on Ma
 ```
 make genmodels
 ```
+
+You need to have xo (run `make deps` and sqlcipher installed (through brew))
 
 ### Extending the default generated code with custom code
 

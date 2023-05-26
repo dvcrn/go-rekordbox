@@ -7,6 +7,7 @@ SHELL := $(shell which bash)
 .PHONY: deps
 deps:
 	go install github.com/xo/xo@latest
+	brew install sqlcipher
 
 .PHONY: genmodels
 genmodels:

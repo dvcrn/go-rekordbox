@@ -11,27 +11,27 @@ import (
 
 // DjmdCue represents a row from 'djmdCue'.
 type DjmdCue struct {
-	ID                nulltype.NullString `json:"id"`                   // ID
-	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
-	InMsec            nulltype.NullInt64  `json:"in_msec"`              // InMsec
-	InFrame           nulltype.NullInt64  `json:"in_frame"`             // InFrame
-	InMpegFrame       nulltype.NullInt64  `json:"in_mpeg_frame"`        // InMpegFrame
-	InMpegAbs         nulltype.NullInt64  `json:"in_mpeg_abs"`          // InMpegAbs
-	OutMsec           nulltype.NullInt64  `json:"out_msec"`             // OutMsec
-	OutFrame          nulltype.NullInt64  `json:"out_frame"`            // OutFrame
-	OutMpegFrame      nulltype.NullInt64  `json:"out_mpeg_frame"`       // OutMpegFrame
-	OutMpegAbs        nulltype.NullInt64  `json:"out_mpeg_abs"`         // OutMpegAbs
-	Kind              nulltype.NullInt64  `json:"kind"`                 // Kind
-	Color             nulltype.NullInt64  `json:"color"`                // Color
-	ColorTableIndex   nulltype.NullInt64  `json:"color_table_index"`    // ColorTableIndex
-	ActiveLoop        nulltype.NullInt64  `json:"active_loop"`          // ActiveLoop
-	Comment           nulltype.NullString `json:"comment"`              // Comment
-	BeatLoopSize      nulltype.NullInt64  `json:"beat_loop_size"`       // BeatLoopSize
-	CueMicrosec       nulltype.NullInt64  `json:"cue_microsec"`         // CueMicrosec
-	InPointSeekInfo   nulltype.NullString `json:"in_point_seek_info"`   // InPointSeekInfo
-	OutPointSeekInfo  nulltype.NullString `json:"out_point_seek_info"`  // OutPointSeekInfo
-	ContentUUID       nulltype.NullString `json:"content_uuid"`         // ContentUUID
-	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	ID                nulltype.NullString `json:"ID"`                   // ID
+	ContentID         nulltype.NullString `json:"ContentID"`            // ContentID
+	InMsec            nulltype.NullInt64  `json:"InMsec"`               // InMsec
+	InFrame           nulltype.NullInt64  `json:"InFrame"`              // InFrame
+	InMpegFrame       nulltype.NullInt64  `json:"InMpegFrame"`          // InMpegFrame
+	InMpegAbs         nulltype.NullInt64  `json:"InMpegAbs"`            // InMpegAbs
+	OutMsec           nulltype.NullInt64  `json:"OutMsec"`              // OutMsec
+	OutFrame          nulltype.NullInt64  `json:"OutFrame"`             // OutFrame
+	OutMpegFrame      nulltype.NullInt64  `json:"OutMpegFrame"`         // OutMpegFrame
+	OutMpegAbs        nulltype.NullInt64  `json:"OutMpegAbs"`           // OutMpegAbs
+	Kind              nulltype.NullInt64  `json:"Kind"`                 // Kind
+	Color             nulltype.NullInt64  `json:"Color"`                // Color
+	ColorTableIndex   nulltype.NullInt64  `json:"ColorTableIndex"`      // ColorTableIndex
+	ActiveLoop        nulltype.NullInt64  `json:"ActiveLoop"`           // ActiveLoop
+	Comment           nulltype.NullString `json:"Comment"`              // Comment
+	BeatLoopSize      nulltype.NullInt64  `json:"BeatLoopSize"`         // BeatLoopSize
+	CueMicrosec       nulltype.NullInt64  `json:"CueMicrosec"`          // CueMicrosec
+	InPointSeekInfo   nulltype.NullString `json:"InPointSeekInfo"`      // InPointSeekInfo
+	OutPointSeekInfo  nulltype.NullString `json:"OutPointSeekInfo"`     // OutPointSeekInfo
+	ContentUUID       nulltype.NullString `json:"ContentUUID"`          // ContentUUID
+	UUID              nulltype.NullString `json:"UUID"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

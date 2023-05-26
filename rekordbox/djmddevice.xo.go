@@ -11,10 +11,10 @@ import (
 
 // DjmdDevice represents a row from 'djmdDevice'.
 type DjmdDevice struct {
-	ID                nulltype.NullString `json:"id"`                   // ID
-	MasterDBID        nulltype.NullString `json:"master_dbid"`          // MasterDBID
-	Name              nulltype.NullString `json:"name"`                 // Name
-	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	ID                nulltype.NullString `json:"ID"`                   // ID
+	MasterDBID        nulltype.NullString `json:"MasterDBID"`           // MasterDBID
+	Name              nulltype.NullString `json:"Name"`                 // Name
+	UUID              nulltype.NullString `json:"UUID"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

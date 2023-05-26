@@ -11,12 +11,12 @@ import (
 
 // DjmdMyTag represents a row from 'djmdMyTag'.
 type DjmdMyTag struct {
-	ID                nulltype.NullString `json:"id"`                   // ID
-	Seq               nulltype.NullInt64  `json:"seq"`                  // Seq
-	Name              nulltype.NullString `json:"name"`                 // Name
-	Attribute         nulltype.NullInt64  `json:"attribute"`            // Attribute
-	ParentID          nulltype.NullString `json:"parent_id"`            // ParentID
-	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	ID                nulltype.NullString `json:"ID"`                   // ID
+	Seq               nulltype.NullInt64  `json:"Seq"`                  // Seq
+	Name              nulltype.NullString `json:"Name"`                 // Name
+	Attribute         nulltype.NullInt64  `json:"Attribute"`            // Attribute
+	ParentID          nulltype.NullString `json:"ParentID"`             // ParentID
+	UUID              nulltype.NullString `json:"UUID"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

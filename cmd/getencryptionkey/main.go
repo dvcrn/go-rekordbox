@@ -11,6 +11,12 @@ import (
 )
 
 func main() {
+
+	// TODO: reinstate extraction of key from asar file
+	// rekordbox shuffled things around and it's no longer at the location expected by this script
+	fmt.Print("402fd482c38817c35ffa8ffb8c7d93143b749e7d315df7a81732a1ff43608497")
+	return
+
 	// Files and paths
 	homeDir, err := os.UserHomeDir()
 	if err != nil {

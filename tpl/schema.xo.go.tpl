@@ -314,7 +314,16 @@ func (c *Client) Insert{{ $t.GoName }}(ctx context.Context, {{ short $t}} *{{ $t
 {{- end -}}
 {{ if not (driver "postgres") -}}
 	// set primary key
-	{{ short $t }}.{{ (index $t.PrimaryKeys 0).GoName }} = {{ (index $t.PrimaryKeys 0).Type }}(id)
+
+	v := {{ (index $t.PrimaryKeys 0).Type }}{}
+	scanErr := v.Scan(id)
+	if scanErr != nil {
+		return scanErr
+	}
+
+	// {{ short $t }}.{{ (index $t.PrimaryKeys 0).GoName }} = {{ (index $t.PrimaryKeys 0).Type }}(id)
+	{{ short $t }}.{{ (index $t.PrimaryKeys 0).GoName }} = v
+
 {{- end }}
 {{- end }}
 	// set exists

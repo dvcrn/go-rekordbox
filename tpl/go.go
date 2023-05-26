@@ -25,58 +25,75 @@ import (
 	"mvdan.cc/gofumpt/format"
 )
 
-var (
-	ErrNoSingle = errors.New("in query exec mode, the --single or -S must be provided")
-)
-
-var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
-var matchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
-
-func ToSnakeCase(str string) string {
-	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
-	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
-	return strings.ToLower(snake)
-}
+var ErrNoSingle = errors.New("in query exec mode, the --single or -S must be provided")
 
 // Init registers the template.
 func Init(ctx context.Context, f func(xo.TemplateType)) error {
 	knownTypes := map[string]bool{
-		"bool":        true,
-		"string":      true,
-		"byte":        true,
-		"rune":        true,
-		"int":         true,
-		"int16":       true,
-		"int32":       true,
-		"int64":       true,
-		"uint":        true,
-		"uint8":       true,
-		"uint16":      true,
-		"uint32":      true,
-		"uint64":      true,
-		"float32":     true,
-		"float64":     true,
-		"Slice":       true,
-		"StringSlice": true,
+		"bool":            true,
+		"string":          true,
+		"byte":            true,
+		"rune":            true,
+		"int":             true,
+		"int16":           true,
+		"int32":           true,
+		"int64":           true,
+		"uint":            true,
+		"uint8":           true,
+		"uint16":          true,
+		"uint32":          true,
+		"uint64":          true,
+		"float32":         true,
+		"float64":         true,
+		"[]bool":          true,
+		"[][]byte":        true,
+		"[]float64":       true,
+		"[]float32":       true,
+		"[]int64":         true,
+		"[]int32":         true,
+		"[]string":        true,
+		"[]byte":          true,
+		"pq.BoolArray":    true,
+		"pq.ByteArray":    true,
+		"pq.Float64Array": true,
+		"pq.Float32Array": true,
+		"pq.Int64Array":   true,
+		"pq.Int32Array":   true,
+		"pq.StringArray":  true,
+		"pq.GenericArray": true,
 	}
 	shorts := map[string]string{
-		"bool":        "b",
-		"string":      "s",
-		"byte":        "b",
-		"rune":        "r",
-		"int":         "i",
-		"int16":       "i",
-		"int32":       "i",
-		"int64":       "i",
-		"uint":        "u",
-		"uint8":       "u",
-		"uint16":      "u",
-		"uint32":      "u",
-		"uint64":      "u",
-		"float32":     "f",
-		"float64":     "f",
-		"Slice":       "s",
-		"StringSlice": "ss",
+		"bool":            "b",
+		"string":          "s",
+		"byte":            "b",
+		"rune":            "r",
+		"int":             "i",
+		"int16":           "i",
+		"int32":           "i",
+		"int64":           "i",
+		"uint":            "u",
+		"uint8":           "u",
+		"uint16":          "u",
+		"uint32":          "u",
+		"uint64":          "u",
+		"float32":         "f",
+		"float64":         "f",
+		"[]bool":          "a",
+		"[][]byte":        "a",
+		"[]float64":       "a",
+		"[]float32":       "a",
+		"[]int64":         "a",
+		"[]int32":         "a",
+		"[]string":        "a",
+		"[]byte":          "a",
+		"pq.BoolArray":    "a",
+		"pq.ByteArray":    "a",
+		"pq.Float64Array": "a",
+		"pq.Float32Array": "a",
+		"pq.Int64Array":   "a",
+		"pq.Int32Array":   "a",
+		"pq.StringArray":  "a",
+		"pq.GenericArray": "a",
 	}
 	f(xo.TemplateType{
 		Modes: []string{"query", "schema"},
@@ -106,6 +123,12 @@ func Init(ctx context.Context, f func(xo.TemplateType)) error {
 				Type:       "string",
 				Desc:       "uint32 type",
 				Default:    "uint",
+			},
+			{
+				ContextKey: ArrayModeKey,
+				Type:       "string",
+				Desc:       "array type mode (postgres only)",
+				Enums:      []string{"stdlib", "pq"},
 			},
 			{
 				ContextKey: PkgKey,
@@ -182,6 +205,13 @@ func Init(ctx context.Context, f func(xo.TemplateType)) error {
 				Type:       "bool",
 				Desc:       "enables legacy v1 template funcs",
 				Default:    "false",
+			},
+			{
+				ContextKey: OracleTypeKey,
+				Type:       "string",
+				Desc:       "oracle driver type",
+				Default:    "ora",
+				Enums:      []string{"ora", "godror"},
 			},
 		},
 		Funcs: func(ctx context.Context, _ string) (template.FuncMap, error) {
@@ -728,7 +758,14 @@ func goType(ctx context.Context, typ xo.Type) (string, string, error) {
 	case "oracle":
 		f = loader.OracleGoType
 	case "postgres":
-		f = loader.PostgresGoType
+		switch mode := ArrayMode(ctx); mode {
+		case "stdlib":
+			f = loader.StdlibPostgresGoType
+		case "pq", "":
+			f = loader.PQPostgresGoType
+		default:
+			return "", "", fmt.Errorf("unknown array mode: %q", mode)
+		}
 	case "sqlite3":
 		f = loader.Sqlite3GoType
 	case "sqlserver":
@@ -736,7 +773,20 @@ func goType(ctx context.Context, typ xo.Type) (string, string, error) {
 	default:
 		return "", "", fmt.Errorf("unknown driver %q", driver)
 	}
-	return f(typ, schema, Int32(ctx), Uint32(ctx))
+
+	// override converted type with nulltype, if it's sql.null*
+	res1, res2, err := f(typ, schema, Int32(ctx), Uint32(ctx))
+
+	if strings.HasPrefix(res1, "sql.Null") {
+		res1 = strings.Replace(res1, "sql.", "nulltype.", -1)
+	}
+	if strings.HasPrefix(res2, "sql.Null") {
+		res2 = strings.Replace(res2, "sql.", "nulltype.", -1)
+	}
+
+	return res1, res2, err
+
+	// return f(typ, schema, Int32(ctx), Uint32(ctx))
 }
 
 type transformFunc func(...string) string
@@ -757,21 +807,22 @@ const ext = ".xo.go"
 
 // Funcs is a set of template funcs.
 type Funcs struct {
-	driver    string
-	schema    string
-	nth       func(int) string
-	first     bool
-	pkg       string
-	tags      []string
-	imports   []string
-	conflict  string
-	custom    string
-	escSchema bool
-	escTable  bool
-	escColumn bool
-	fieldtag  *template.Template
-	context   string
-	inject    string
+	driver     string
+	schema     string
+	nth        func(int) string
+	first      bool
+	pkg        string
+	tags       []string
+	imports    []string
+	conflict   string
+	custom     string
+	escSchema  bool
+	escTable   bool
+	escColumn  bool
+	fieldtag   *template.Template
+	context    string
+	inject     string
+	oracleType string
 	// knownTypes is the collection of known Go types.
 	knownTypes map[string]bool
 	// shorts is the collection of Go style short names for types, mainly
@@ -817,6 +868,7 @@ func NewFuncs(ctx context.Context) (template.FuncMap, error) {
 		fieldtag:   fieldtag,
 		context:    Context(ctx),
 		inject:     inject,
+		oracleType: OracleType(ctx),
 		knownTypes: KnownTypes(ctx),
 		shorts:     Shorts(ctx),
 	}
@@ -1221,7 +1273,10 @@ func (f *Funcs) db_named(name string, v interface{}) string {
 }
 
 func (f *Funcs) named(name, value string, out bool) string {
-	if out {
+	switch {
+	case out && f.driver == "oracle" && f.oracleType == "ora":
+		return fmt.Sprintf("sql.Out{Dest: %s}", value)
+	case out:
 		return fmt.Sprintf("sql.Named(%q, sql.Out{Dest: %s})", name, value)
 	}
 	return fmt.Sprintf("sql.Named(%q, %s)", name, value)
@@ -1446,16 +1501,26 @@ func (f *Funcs) sqlstr_insert(v interface{}) []string {
 	switch x := v.(type) {
 	case Table:
 		var seq Field
+		var count int
 		for _, field := range x.Fields {
 			if field.IsSequence {
 				seq = field
+			} else {
+				count++
 			}
 		}
 		lines := f.sqlstr_insert_base(false, v)
 		// add return clause
 		switch f.driver {
 		case "oracle":
-			lines[len(lines)-1] += ` RETURNING ` + f.colname(seq) + ` /*LASTINSERTID*/ INTO :pk`
+			switch f.oracleType {
+			case "ora":
+				lines[len(lines)-1] += ` RETURNING ` + f.colname(seq) + ` INTO ` + f.nth(count)
+			case "godror":
+				lines[len(lines)-1] += ` RETURNING ` + f.colname(seq) + ` /*LASTINSERTID*/ INTO :pk`
+			default:
+				return []string{fmt.Sprintf("[[ UNSUPPORTED ORACLE TYPE: %s]]", f.oracleType)}
+			}
 		case "postgres":
 			lines[len(lines)-1] += ` RETURNING ` + f.colname(seq)
 		case "sqlserver":
@@ -1860,8 +1925,10 @@ func (f *Funcs) field(field Field) (string, error) {
 	if err := f.fieldtag.Funcs(f.FuncMap()).Execute(buf, field); err != nil {
 		return "", err
 	}
-
-	tag := fmt.Sprintf("`json:\"%s\"`", ToSnakeCase(field.GoName))
+	var tag string
+	if s := buf.String(); s != "" {
+		tag = " `" + s + "`"
+	}
 	return fmt.Sprintf("\t%s %s%s // %s", field.GoName, f.typefn(field.Type), tag, field.SQLName), nil
 }
 
@@ -2035,6 +2102,7 @@ var (
 	NotFirstKey   xo.ContextKey = "not-first"
 	Int32Key      xo.ContextKey = "int32"
 	Uint32Key     xo.ContextKey = "uint32"
+	ArrayModeKey  xo.ContextKey = "array-mode"
 	PkgKey        xo.ContextKey = "pkg"
 	TagKey        xo.ContextKey = "tag"
 	ImportKey     xo.ContextKey = "import"
@@ -2048,6 +2116,7 @@ var (
 	InjectKey     xo.ContextKey = "inject"
 	InjectFileKey xo.ContextKey = "inject-file"
 	LegacyKey     xo.ContextKey = "legacy"
+	OracleTypeKey xo.ContextKey = "oracle-type"
 )
 
 // Append returns append from the context.
@@ -2083,6 +2152,12 @@ func Int32(ctx context.Context) string {
 // Uint32 returns uint32 from the context.
 func Uint32(ctx context.Context) string {
 	s, _ := ctx.Value(Uint32Key).(string)
+	return s
+}
+
+// ArrayMode returns array-mode from the context.
+func ArrayMode(ctx context.Context) string {
+	s, _ := ctx.Value(ArrayMode).(string)
 	return s
 }
 
@@ -2171,6 +2246,12 @@ func InjectFile(ctx context.Context) string {
 func Legacy(ctx context.Context) bool {
 	b, _ := ctx.Value(LegacyKey).(bool)
 	return b
+}
+
+// OracleType returns oracle-type from the context.
+func OracleType(ctx context.Context) string {
+	s, _ := ctx.Value(OracleTypeKey).(string)
+	return s
 }
 
 // addInitialisms adds snaker initialisms from the context.
@@ -2618,13 +2699,14 @@ func addLegacyFuncs(ctx context.Context, funcs template.FuncMap) {
 		if strings.HasPrefix(ft, "sql.Null") {
 			expr = expr + "." + f.Type[8:]
 			ft = strings.ToLower(f.Type[8:])
+			ft = strings.Replace(ft, "sql.", "nulltype.", -1)
 		}
 		if t.Type != ft {
 			expr = t.Type + "(" + expr + ")"
 		}
 		return expr
 	}
-	// getstartcount returns a starting count for numbering columsn in queries
+	// getstartcount returns a starting count for numbering columns in queries
 	funcs["getstartcount"] = func(fields []*Field, pkFields []*Field) int {
 		return len(fields) - len(pkFields)
 	}

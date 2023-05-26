@@ -11,11 +11,11 @@ import (
 
 // DjmdSongPlaylist represents a row from 'djmdSongPlaylist'.
 type DjmdSongPlaylist struct {
-	ID                nulltype.NullString `json:"id"`                   // ID
-	PlaylistID        nulltype.NullString `json:"playlist_id"`          // PlaylistID
-	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
-	TrackNo           nulltype.NullInt64  `json:"track_no"`             // TrackNo
-	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	ID                nulltype.NullString `json:"ID"`                   // ID
+	PlaylistID        nulltype.NullString `json:"PlaylistID"`           // PlaylistID
+	ContentID         nulltype.NullString `json:"ContentID"`            // ContentID
+	TrackNo           nulltype.NullInt64  `json:"TrackNo"`              // TrackNo
+	UUID              nulltype.NullString `json:"UUID"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
@@ -270,6 +270,43 @@ func (c *Client) DjmdSongPlaylistByPlaylistID(ctx context.Context, playlistID nu
 	// run
 	logf(sqlstr, playlistID)
 	rows, err := db.QueryContext(ctx, sqlstr, playlistID)
+	if err != nil {
+		return nil, logerror(err)
+	}
+	defer rows.Close()
+	// process
+	var res []*DjmdSongPlaylist
+	for rows.Next() {
+		dsp := DjmdSongPlaylist{
+			_exists: true,
+		}
+		// scan
+		if err := rows.Scan(&dsp.ID, &dsp.PlaylistID, &dsp.ContentID, &dsp.TrackNo, &dsp.UUID, &dsp.RbDataStatus, &dsp.RbLocalDataStatus, &dsp.RbLocalDeleted, &dsp.RbLocalSynced, &dsp.Usn, &dsp.RbLocalUsn, &dsp.CreatedAt, &dsp.UpdatedAt); err != nil {
+			return nil, logerror(err)
+		}
+		res = append(res, &dsp)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+// DjmdSongPlaylistByPlaylistIDID retrieves a row from 'djmdSongPlaylist' as a DjmdSongPlaylist.
+//
+// Generated from index 'djmd_song_playlist__playlist_i_d__i_d'.
+func (c *Client) DjmdSongPlaylistByPlaylistIDID(ctx context.Context, playlistID, id nulltype.NullString) ([]*DjmdSongPlaylist, error) {
+	// func DjmdSongPlaylistByPlaylistIDID(ctx context.Context, db DB, playlistID nulltype.NullString, id nulltype.NullString) ([]*DjmdSongPlaylist, error) {
+	db := c.db
+
+	// query
+	const sqlstr = `SELECT ` +
+		`ID, PlaylistID, ContentID, TrackNo, UUID, rb_data_status, rb_local_data_status, rb_local_deleted, rb_local_synced, usn, rb_local_usn, created_at, updated_at ` +
+		`FROM djmdSongPlaylist ` +
+		`WHERE PlaylistID = $1 AND ID = $2`
+	// run
+	logf(sqlstr, playlistID, id)
+	rows, err := db.QueryContext(ctx, sqlstr, playlistID, id)
 	if err != nil {
 		return nil, logerror(err)
 	}

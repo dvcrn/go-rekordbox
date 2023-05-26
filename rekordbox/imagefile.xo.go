@@ -11,13 +11,13 @@ import (
 
 // ImageFile represents a row from 'imageFile'.
 type ImageFile struct {
-	ID                nulltype.NullString `json:"id"`                   // ID
-	TableName         nulltype.NullString `json:"table_name"`           // TableName
-	TargetUUID        nulltype.NullString `json:"target_uuid"`          // TargetUUID
-	TargetID          nulltype.NullString `json:"target_id"`            // TargetID
-	Path              nulltype.NullString `json:"path"`                 // Path
-	Hash              nulltype.NullString `json:"hash"`                 // Hash
-	Size              nulltype.NullInt64  `json:"size"`                 // Size
+	ID                nulltype.NullString `json:"ID"`                   // ID
+	TableName         nulltype.NullString `json:"TableName"`            // TableName
+	TargetUUID        nulltype.NullString `json:"TargetUUID"`           // TargetUUID
+	TargetID          nulltype.NullString `json:"TargetID"`             // TargetID
+	Path              nulltype.NullString `json:"Path"`                 // Path
+	Hash              nulltype.NullString `json:"Hash"`                 // Hash
+	Size              nulltype.NullInt64  `json:"Size"`                 // Size
 	RbLocalPath       nulltype.NullString `json:"rb_local_path"`        // rb_local_path
 	RbInsyncHash      nulltype.NullString `json:"rb_insync_hash"`       // rb_insync_hash
 	RbInsyncLocalUsn  nulltype.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
@@ -28,7 +28,7 @@ type ImageFile struct {
 	RbTempPath        nulltype.NullString `json:"rb_temp_path"`         // rb_temp_path
 	RbPriority        nulltype.NullInt64  `json:"rb_priority"`          // rb_priority
 	RbFileSizeDirty   nulltype.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
-	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	UUID              nulltype.NullString `json:"UUID"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted
@@ -246,6 +246,43 @@ func (c *Client) ImageFileByTableNameTargetUUID(ctx context.Context, tableName, 
 	// run
 	logf(sqlstr, tableName, targetUUID)
 	rows, err := db.QueryContext(ctx, sqlstr, tableName, targetUUID)
+	if err != nil {
+		return nil, logerror(err)
+	}
+	defer rows.Close()
+	// process
+	var res []*ImageFile
+	for rows.Next() {
+		ifVal := ImageFile{
+			_exists: true,
+		}
+		// scan
+		if err := rows.Scan(&ifVal.ID, &ifVal.TableName, &ifVal.TargetUUID, &ifVal.TargetID, &ifVal.Path, &ifVal.Hash, &ifVal.Size, &ifVal.RbLocalPath, &ifVal.RbInsyncHash, &ifVal.RbInsyncLocalUsn, &ifVal.RbFileHashDirty, &ifVal.RbLocalFileStatus, &ifVal.RbInProgress, &ifVal.RbProcessType, &ifVal.RbTempPath, &ifVal.RbPriority, &ifVal.RbFileSizeDirty, &ifVal.UUID, &ifVal.RbDataStatus, &ifVal.RbLocalDataStatus, &ifVal.RbLocalDeleted, &ifVal.RbLocalSynced, &ifVal.Usn, &ifVal.RbLocalUsn, &ifVal.CreatedAt, &ifVal.UpdatedAt); err != nil {
+			return nil, logerror(err)
+		}
+		res = append(res, &ifVal)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, logerror(err)
+	}
+	return res, nil
+}
+
+// ImageFileByTableNameTargetUUIDID retrieves a row from 'imageFile' as a ImageFile.
+//
+// Generated from index 'image_file__table_name__target_u_u_i_d__i_d'.
+func (c *Client) ImageFileByTableNameTargetUUIDID(ctx context.Context, tableName, targetUUID, id nulltype.NullString) ([]*ImageFile, error) {
+	// func ImageFileByTableNameTargetUUIDID(ctx context.Context, db DB, tableName nulltype.NullString, targetUUID nulltype.NullString, id nulltype.NullString) ([]*ImageFile, error) {
+	db := c.db
+
+	// query
+	const sqlstr = `SELECT ` +
+		`ID, TableName, TargetUUID, TargetID, Path, Hash, Size, rb_local_path, rb_insync_hash, rb_insync_local_usn, rb_file_hash_dirty, rb_local_file_status, rb_in_progress, rb_process_type, rb_temp_path, rb_priority, rb_file_size_dirty, UUID, rb_data_status, rb_local_data_status, rb_local_deleted, rb_local_synced, usn, rb_local_usn, created_at, updated_at ` +
+		`FROM imageFile ` +
+		`WHERE TableName = $1 AND TargetUUID = $2 AND ID = $3`
+	// run
+	logf(sqlstr, tableName, targetUUID, id)
+	rows, err := db.QueryContext(ctx, sqlstr, tableName, targetUUID, id)
 	if err != nil {
 		return nil, logerror(err)
 	}

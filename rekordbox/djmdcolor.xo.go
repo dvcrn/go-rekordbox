@@ -11,11 +11,11 @@ import (
 
 // DjmdColor represents a row from 'djmdColor'.
 type DjmdColor struct {
-	ID                nulltype.NullString `json:"id"`                   // ID
-	ColorCode         nulltype.NullInt64  `json:"color_code"`           // ColorCode
-	SortKey           nulltype.NullInt64  `json:"sort_key"`             // SortKey
-	Commnt            nulltype.NullString `json:"commnt"`               // Commnt
-	UUID              nulltype.NullString `json:"uuid"`                 // UUID
+	ID                nulltype.NullString `json:"ID"`                   // ID
+	ColorCode         nulltype.NullInt64  `json:"ColorCode"`            // ColorCode
+	SortKey           nulltype.NullInt64  `json:"SortKey"`              // SortKey
+	Commnt            nulltype.NullString `json:"Commnt"`               // Commnt
+	UUID              nulltype.NullString `json:"UUID"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

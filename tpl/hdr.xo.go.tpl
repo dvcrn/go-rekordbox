@@ -26,6 +26,7 @@ import (
 	"time"
 	nulltype "github.com/mattn/go-nulltype"
 {{- if driver "postgres" }}
+	"github.com/lib/pq"
 	"github.com/lib/pq/hstore"
 {{ end }}{{ range imports }}
 	{{ with .Alias }}{{ . }} {{ end }}{{ .Pkg }}
