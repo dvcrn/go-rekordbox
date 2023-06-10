@@ -11,13 +11,13 @@ import (
 
 // DjmdMixerParam represents a row from 'djmdMixerParam'.
 type DjmdMixerParam struct {
-	ID                nulltype.NullString `json:"ID"`                   // ID
-	ContentID         nulltype.NullString `json:"ContentID"`            // ContentID
-	GainHigh          nulltype.NullInt64  `json:"GainHigh"`             // GainHigh
-	GainLow           nulltype.NullInt64  `json:"GainLow"`              // GainLow
-	PeakHigh          nulltype.NullInt64  `json:"PeakHigh"`             // PeakHigh
-	PeakLow           nulltype.NullInt64  `json:"PeakLow"`              // PeakLow
-	UUID              nulltype.NullString `json:"UUID"`                 // UUID
+	ID                nulltype.NullString `json:"id"`                   // ID
+	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
+	GainHigh          nulltype.NullInt64  `json:"gain_high"`            // GainHigh
+	GainLow           nulltype.NullInt64  `json:"gain_low"`             // GainLow
+	PeakHigh          nulltype.NullInt64  `json:"peak_high"`            // PeakHigh
+	PeakLow           nulltype.NullInt64  `json:"peak_low"`             // PeakLow
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

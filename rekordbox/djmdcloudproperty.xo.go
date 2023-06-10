@@ -11,13 +11,13 @@ import (
 
 // DjmdCloudProperty represents a row from 'djmdCloudProperty'.
 type DjmdCloudProperty struct {
-	ID                nulltype.NullString `json:"ID"`                   // ID
-	Reserved1         nulltype.NullString `json:"Reserved1"`            // Reserved1
-	Reserved2         nulltype.NullString `json:"Reserved2"`            // Reserved2
-	Reserved3         nulltype.NullString `json:"Reserved3"`            // Reserved3
-	Reserved4         nulltype.NullString `json:"Reserved4"`            // Reserved4
-	Reserved5         nulltype.NullString `json:"Reserved5"`            // Reserved5
-	UUID              nulltype.NullString `json:"UUID"`                 // UUID
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Reserved1         nulltype.NullString `json:"reserved1"`            // Reserved1
+	Reserved2         nulltype.NullString `json:"reserved2"`            // Reserved2
+	Reserved3         nulltype.NullString `json:"reserved3"`            // Reserved3
+	Reserved4         nulltype.NullString `json:"reserved4"`            // Reserved4
+	Reserved5         nulltype.NullString `json:"reserved5"`            // Reserved5
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

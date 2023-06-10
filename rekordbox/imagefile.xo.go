@@ -11,13 +11,13 @@ import (
 
 // ImageFile represents a row from 'imageFile'.
 type ImageFile struct {
-	ID                nulltype.NullString `json:"ID"`                   // ID
-	TableName         nulltype.NullString `json:"TableName"`            // TableName
-	TargetUUID        nulltype.NullString `json:"TargetUUID"`           // TargetUUID
-	TargetID          nulltype.NullString `json:"TargetID"`             // TargetID
-	Path              nulltype.NullString `json:"Path"`                 // Path
-	Hash              nulltype.NullString `json:"Hash"`                 // Hash
-	Size              nulltype.NullInt64  `json:"Size"`                 // Size
+	ID                nulltype.NullString `json:"id"`                   // ID
+	TableName         nulltype.NullString `json:"table_name"`           // TableName
+	TargetUUID        nulltype.NullString `json:"target_uuid"`          // TargetUUID
+	TargetID          nulltype.NullString `json:"target_id"`            // TargetID
+	Path              nulltype.NullString `json:"path"`                 // Path
+	Hash              nulltype.NullString `json:"hash"`                 // Hash
+	Size              nulltype.NullInt64  `json:"size"`                 // Size
 	RbLocalPath       nulltype.NullString `json:"rb_local_path"`        // rb_local_path
 	RbInsyncHash      nulltype.NullString `json:"rb_insync_hash"`       // rb_insync_hash
 	RbInsyncLocalUsn  nulltype.NullInt64  `json:"rb_insync_local_usn"`  // rb_insync_local_usn
@@ -28,7 +28,7 @@ type ImageFile struct {
 	RbTempPath        nulltype.NullString `json:"rb_temp_path"`         // rb_temp_path
 	RbPriority        nulltype.NullInt64  `json:"rb_priority"`          // rb_priority
 	RbFileSizeDirty   nulltype.NullInt64  `json:"rb_file_size_dirty"`   // rb_file_size_dirty
-	UUID              nulltype.NullString `json:"UUID"`                 // UUID
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

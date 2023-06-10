@@ -11,11 +11,11 @@ import (
 
 // DjmdSongPlaylist represents a row from 'djmdSongPlaylist'.
 type DjmdSongPlaylist struct {
-	ID                nulltype.NullString `json:"ID"`                   // ID
-	PlaylistID        nulltype.NullString `json:"PlaylistID"`           // PlaylistID
-	ContentID         nulltype.NullString `json:"ContentID"`            // ContentID
-	TrackNo           nulltype.NullInt64  `json:"TrackNo"`              // TrackNo
-	UUID              nulltype.NullString `json:"UUID"`                 // UUID
+	ID                nulltype.NullString `json:"id"`                   // ID
+	PlaylistID        nulltype.NullString `json:"playlist_id"`          // PlaylistID
+	ContentID         nulltype.NullString `json:"content_id"`           // ContentID
+	TrackNo           nulltype.NullInt64  `json:"track_no"`             // TrackNo
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

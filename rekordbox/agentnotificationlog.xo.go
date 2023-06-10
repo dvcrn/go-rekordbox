@@ -11,7 +11,7 @@ import (
 
 // AgentNotificationLog represents a row from 'agentNotificationLog'.
 type AgentNotificationLog struct {
-	ID               nulltype.NullInt64  `json:"ID"`                // ID
+	ID               nulltype.NullInt64  `json:"id"`                // ID
 	GigyaUID         nulltype.NullString `json:"gigya_uid"`         // gigya_uid
 	EventDate        nulltype.NullInt64  `json:"event_date"`        // event_date
 	ReportedDatetime *Time               `json:"reported_datetime"` // reported_datetime

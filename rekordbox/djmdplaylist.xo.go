@@ -11,14 +11,14 @@ import (
 
 // DjmdPlaylist represents a row from 'djmdPlaylist'.
 type DjmdPlaylist struct {
-	ID                nulltype.NullString `json:"ID"`                   // ID
-	Seq               nulltype.NullInt64  `json:"Seq"`                  // Seq
-	Name              nulltype.NullString `json:"Name"`                 // Name
-	ImagePath         nulltype.NullString `json:"ImagePath"`            // ImagePath
-	Attribute         nulltype.NullInt64  `json:"Attribute"`            // Attribute
-	ParentID          nulltype.NullString `json:"ParentID"`             // ParentID
-	SmartList         nulltype.NullString `json:"SmartList"`            // SmartList
-	UUID              nulltype.NullString `json:"UUID"`                 // UUID
+	ID                nulltype.NullString `json:"id"`                   // ID
+	Seq               nulltype.NullInt64  `json:"seq"`                  // Seq
+	Name              nulltype.NullString `json:"name"`                 // Name
+	ImagePath         nulltype.NullString `json:"image_path"`           // ImagePath
+	Attribute         nulltype.NullInt64  `json:"attribute"`            // Attribute
+	ParentID          nulltype.NullString `json:"parent_id"`            // ParentID
+	SmartList         nulltype.NullString `json:"smart_list"`           // SmartList
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

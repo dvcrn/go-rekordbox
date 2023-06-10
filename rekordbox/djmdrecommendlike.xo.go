@@ -11,13 +11,13 @@ import (
 
 // DjmdRecommendLike represents a row from 'djmdRecommendLike'.
 type DjmdRecommendLike struct {
-	ID                nulltype.NullString `json:"ID"`                   // ID
-	ContentId1        nulltype.NullString `json:"ContentID1"`           // ContentID1
-	ContentId2        nulltype.NullString `json:"ContentID2"`           // ContentID2
-	LikeRate          nulltype.NullInt64  `json:"LikeRate"`             // LikeRate
-	DataCreatedH      nulltype.NullInt64  `json:"DataCreatedH"`         // DataCreatedH
-	DataCreatedL      nulltype.NullInt64  `json:"DataCreatedL"`         // DataCreatedL
-	UUID              nulltype.NullString `json:"UUID"`                 // UUID
+	ID                nulltype.NullString `json:"id"`                   // ID
+	ContentId1        nulltype.NullString `json:"content_id1"`          // ContentID1
+	ContentId2        nulltype.NullString `json:"content_id2"`          // ContentID2
+	LikeRate          nulltype.NullInt64  `json:"like_rate"`            // LikeRate
+	DataCreatedH      nulltype.NullInt64  `json:"data_created_h"`       // DataCreatedH
+	DataCreatedL      nulltype.NullInt64  `json:"data_created_l"`       // DataCreatedL
+	UUID              nulltype.NullString `json:"uuid"`                 // UUID
 	RbDataStatus      nulltype.NullInt64  `json:"rb_data_status"`       // rb_data_status
 	RbLocalDataStatus nulltype.NullInt64  `json:"rb_local_data_status"` // rb_local_data_status
 	RbLocalDeleted    nulltype.NullInt64  `json:"rb_local_deleted"`     // rb_local_deleted

@@ -12,7 +12,7 @@ import (
 
 // AgentNotification represents a row from 'agentNotification'.
 type AgentNotification struct {
-	ID                    nulltype.NullInt64  `json:"ID"`                      // ID
+	ID                    nulltype.NullInt64  `json:"id"`                      // ID
 	GraphicArea           nulltype.NullInt64  `json:"graphic_area"`            // graphic_area
 	TextArea              nulltype.NullInt64  `json:"text_area"`               // text_area
 	OsNotification        nulltype.NullInt64  `json:"os_notification"`         // os_notification
