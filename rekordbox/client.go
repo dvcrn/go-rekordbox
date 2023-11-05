@@ -3,10 +3,11 @@ package rekordbox
 import (
 	"github.com/dvcrn/go-rekordbox/internal/supbox"
 	"github.com/jmoiron/sqlx"
+	"github.com/nurcahyaari/sqlabst"
 )
 
 type Client struct {
-	db *sqlx.DB
+	db *sqlabst.SqlAbst
 }
 
 func NewClient(optionsFilePath string) (*Client, error) {
@@ -27,13 +28,17 @@ func NewClient(optionsFilePath string) (*Client, error) {
 		return nil, err
 	}
 
-	return &Client{db: db}, nil
+	return &Client{db: sqlabst.NewSqlAbst(db)}, nil
 }
 
 func (c *Client) Close() {
 	c.db.Close()
 }
 
-func (c *Client) GetDB() *sqlx.DB {
+func (c *Client) GetSqlAbst() *sqlabst.SqlAbst {
 	return c.db
+}
+
+func (c *Client) GetDB() *sqlx.DB {
+	return c.db.GetDB()
 }

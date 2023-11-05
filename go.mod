@@ -6,6 +6,7 @@ require (
 	github.com/andreburgaud/crypt2go v1.1.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/mattn/go-nulltype v0.0.0-20200221160555-75ae8a76f2e9
+	github.com/nurcahyaari/sqlabst v0.0.0-20220902160139-0f2eb23feed8
 	github.com/xeodou/go-sqlcipher v0.0.0-20200727080346-d681773ef093
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 	golang.org/x/tools v0.1.10
