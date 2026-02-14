@@ -21,7 +21,7 @@ func main() {
 
 	client, err := rekordbox.NewClient(optionsFilePath)
 	if err != nil {
-	    panic(err)
+		panic(err)
 	}
 	defer client.Close()
 
@@ -29,7 +29,7 @@ func main() {
 	fmt.Println("DEBUG: Fetching all playlists...")
 	playlists, err := client.AllDjmdPlaylist(ctx)
 	if err != nil {
-	    panic(err)
+		panic(err)
 	}
 
 	fmt.Printf("DEBUG: Found %d playlists\n\n", len(playlists))
