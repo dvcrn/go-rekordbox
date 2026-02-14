@@ -3,7 +3,6 @@ package rekordbox
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"math"
 
 	nulltype "github.com/mattn/go-nulltype"
 )
@@ -65,7 +64,7 @@ func (b BitRate) MarshalJSON() ([]byte, error) {
 	}
 	floatVal := b.value.Float64Value()
 	// Marshal as integer if no decimal part, otherwise as float
-	if floatVal == math.Floor(floatVal) {
+	if floatVal == float64(int64(floatVal)) {
 		return json.Marshal(int64(floatVal))
 	}
 	return json.Marshal(floatVal)
