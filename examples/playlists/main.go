@@ -35,8 +35,7 @@ func main() {
 		// query all songs that are in the playlist
 		playlistSongs, err := client.DjmdSongPlaylistByPlaylistID(ctx, playlist.ID)
 		if err != nil {
-			fmt.Printf("DEBUG: ERROR fetching songs for playlist %s: %v\n", playlist.Name.String(), err)
-			continue
+fmt.Printf("ERROR: fetching songs for playlist %s (ID: %s): %v\n", playlist.Name.String(), playlist.ID.String(), err)
 		}
 
 		// get all songs within the playlist
