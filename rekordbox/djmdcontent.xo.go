@@ -22,7 +22,7 @@ type DjmdContent struct {
 	BPM               nulltype.NullInt64   `json:"bpm"`                  // BPM
 	Length            nulltype.NullInt64   `json:"length"`               // Length
 	TrackNo           nulltype.NullInt64   `json:"track_no"`             // TrackNo
-	BitRate           BitRate              `json:"bit_rate"`             // BitRate
+BitRate           BitRate              `json:"bit_rate"`             // BitRate
 	BitDepth          nulltype.NullInt64   `json:"bit_depth"`            // BitDepth
 	Commnt            nulltype.NullString  `json:"commnt"`               // Commnt
 	FileType          nulltype.NullInt64   `json:"file_type"`            // FileType
