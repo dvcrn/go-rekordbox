@@ -17,4 +17,8 @@ genmodels:
 	@xo schema "file:plaintext.db" -o "rekordbox/" --src tpl/
 	@sqlite3 "file:plaintext.db" ".schema" > db/schema.sql
 	@rm plaintext.db
-	@echo "generated rekordbox/"
+	@echo "generated rekordbox/\"
+
+.PHONY: test
+test:
+	go test -v ./rekordbox

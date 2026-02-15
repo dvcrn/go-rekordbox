@@ -748,6 +748,13 @@ func convertField(ctx context.Context, tf transformFunc, f xo.Field) (Field, err
 	if err != nil {
 		return Field{}, err
 	}
+
+	// Special case: BitRate should use custom BitRate type
+	if f.Name == "BitRate" {
+		typ = "BitRate"
+		zero = "BitRate{}"
+	}
+
 	return Field{
 		Type:       typ,
 		GoName:     tf(f.Name),
