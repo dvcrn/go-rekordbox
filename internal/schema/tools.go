@@ -81,7 +81,7 @@ func generateModels(ctx context.Context, xo, repository, database, destination s
 }
 
 func dumpSchema(ctx context.Context, sqlite, database, destination string) error {
-	output, err := exec.CommandContext(ctx, sqlite, database, ".schema").CombinedOutput()
+	output, err := exec.CommandContext(ctx, sqlite, database, ".schema --nosys").CombinedOutput()
 	if err != nil {
 		return commandError("dump database schema", err, output)
 	}

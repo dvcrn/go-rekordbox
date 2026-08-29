@@ -8,10 +8,7 @@ import (
 
 // DjmdSongPlaylistByPlaylistID returns every track entry for a playlist.
 func (c *Client) DjmdSongPlaylistByPlaylistID(ctx context.Context, playlistID nulltype.NullString) ([]*DjmdSongPlaylist, error) {
-	const query = `SELECT ` +
-		`ID, PlaylistID, ContentID, TrackNo, UUID, rb_data_status, rb_local_data_status, rb_local_deleted, rb_local_synced, usn, rb_local_usn, created_at, updated_at ` +
-		`FROM djmdSongPlaylist ` +
-		`WHERE PlaylistID = $1`
+	const query = `SELECT * FROM djmdSongPlaylist WHERE PlaylistID = $1`
 	logf(query, playlistID)
 
 	rows, err := c.db.QueryContext(ctx, query, playlistID)
