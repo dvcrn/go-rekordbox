@@ -33,14 +33,10 @@ func Generate(ctx context.Context, config Config) error {
 	}
 	defer os.RemoveAll(workDir)
 
-	encryptedDatabase := filepath.Join(workDir, "master.db")
 	plaintextDatabase := filepath.Join(workDir, "plaintext.db")
 	generatedDir := filepath.Join(workDir, "generated")
 
-	if err := copyFile(resolved.DatabasePath, encryptedDatabase, 0o400); err != nil {
-		return fmt.Errorf("copy source database: %w", err)
-	}
-	if err := decrypt(ctx, tools.sqlcipher, encryptedDatabase, plaintextDatabase); err != nil {
+	if err := decrypt(ctx, tools.sqlcipher, resolved.DatabasePath, plaintextDatabase); err != nil {
 		return err
 	}
 	if err := checkIntegrity(ctx, tools.sqlite, plaintextDatabase); err != nil {

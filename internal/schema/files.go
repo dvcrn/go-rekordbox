@@ -3,40 +3,12 @@ package schema
 import (
 	"errors"
 	"fmt"
-	"io"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 )
-
-func copyFile(source, destination string, mode fs.FileMode) (returnErr error) {
-	sourceFile, err := os.Open(source)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := sourceFile.Close(); returnErr == nil {
-			returnErr = err
-		}
-	}()
-
-	destinationFile, err := os.OpenFile(destination, os.O_WRONLY|os.O_CREATE|os.O_EXCL, mode)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := destinationFile.Close(); returnErr == nil {
-			returnErr = err
-		}
-	}()
-
-	if _, err := io.Copy(destinationFile, sourceFile); err != nil {
-		return err
-	}
-	return destinationFile.Sync()
-}
 
 func installOutputs(repository, generatedDir, schemaPath string) error {
 	generatedFiles, err := filepath.Glob(filepath.Join(generatedDir, "*.go"))

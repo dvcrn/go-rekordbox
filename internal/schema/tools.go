@@ -29,6 +29,11 @@ func findTools() (toolPaths, error) {
 }
 
 func decrypt(ctx context.Context, sqlcipher, encryptedDatabase, plaintextDatabase string) error {
+	databaseURL := &url.URL{
+		Scheme:   "file",
+		Path:     encryptedDatabase,
+		RawQuery: "mode=ro",
+	}
 	script := strings.Join([]string{
 		"PRAGMA key = '" + encryptionKey + "';",
 		"ATTACH DATABASE '" + sqliteQuote(plaintextDatabase) + "' AS plaintext KEY '';",
@@ -36,7 +41,7 @@ func decrypt(ctx context.Context, sqlcipher, encryptedDatabase, plaintextDatabas
 		"DETACH DATABASE plaintext;",
 	}, "\n")
 
-	command := exec.CommandContext(ctx, sqlcipher, "-bail", encryptedDatabase)
+	command := exec.CommandContext(ctx, sqlcipher, "-bail", databaseURL.String())
 	command.Stdin = strings.NewReader(script)
 	if output, err := command.CombinedOutput(); err != nil {
 		return commandError("decrypt database", err, output)
