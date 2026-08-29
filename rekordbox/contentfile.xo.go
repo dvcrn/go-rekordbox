@@ -196,7 +196,6 @@ func (c *Client) AllContentFile(ctx context.Context) ([]*ContentFile, error) {
 //
 // Generated from index 'content_file__content_i_d'.
 func (c *Client) ContentFileByContentID(ctx context.Context, contentID nulltype.NullString) ([]*ContentFile, error) {
-	// func ContentFileByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -233,7 +232,6 @@ func (c *Client) ContentFileByContentID(ctx context.Context, contentID nulltype.
 //
 // Generated from index 'content_file__u_u_i_d'.
 func (c *Client) ContentFileByUUID(ctx context.Context, uuid nulltype.NullString) ([]*ContentFile, error) {
-	// func ContentFileByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -270,7 +268,6 @@ func (c *Client) ContentFileByUUID(ctx context.Context, uuid nulltype.NullString
 //
 // Generated from index 'content_file_rb_data_status'.
 func (c *Client) ContentFileByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*ContentFile, error) {
-	// func ContentFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -307,7 +304,6 @@ func (c *Client) ContentFileByRbDataStatus(ctx context.Context, rbDataStatus nul
 //
 // Generated from index 'content_file_rb_file_hash_dirty'.
 func (c *Client) ContentFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty nulltype.NullInt64) ([]*ContentFile, error) {
-	// func ContentFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty nulltype.NullInt64) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -344,7 +340,6 @@ func (c *Client) ContentFileByRbFileHashDirty(ctx context.Context, rbFileHashDir
 //
 // Generated from index 'content_file_rb_file_size_dirty'.
 func (c *Client) ContentFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty nulltype.NullInt64) ([]*ContentFile, error) {
-	// func ContentFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty nulltype.NullInt64) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -381,7 +376,6 @@ func (c *Client) ContentFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDir
 //
 // Generated from index 'content_file_rb_local_data_status'.
 func (c *Client) ContentFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*ContentFile, error) {
-	// func ContentFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -418,7 +412,6 @@ func (c *Client) ContentFileByRbLocalDataStatus(ctx context.Context, rbLocalData
 //
 // Generated from index 'content_file_rb_local_deleted'.
 func (c *Client) ContentFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*ContentFile, error) {
-	// func ContentFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -455,7 +448,6 @@ func (c *Client) ContentFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 //
 // Generated from index 'content_file_rb_local_deleted_rb_in_progress_rb_local_file_status_rb_process_type_rb_priority'.
 func (c *Client) ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, rbLocalDeleted, rbInProgress, rbLocalFileStatus, rbProcessType, rbPriority nulltype.NullInt64) ([]*ContentFile, error) {
-	// func ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, rbInProgress nulltype.NullInt64, rbLocalFileStatus nulltype.NullInt64, rbProcessType nulltype.NullInt64, rbPriority nulltype.NullInt64) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -492,7 +484,6 @@ func (c *Client) ContentFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProce
 //
 // Generated from index 'content_file_rb_local_usn__i_d'.
 func (c *Client) ContentFileByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ContentFile, error) {
-	// func ContentFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ContentFile, error) {
 	db := c.db
 
 	// query
@@ -529,7 +520,6 @@ func (c *Client) ContentFileByRbLocalUsnID(ctx context.Context, rbLocalUsn nullt
 //
 // Generated from index 'sqlite_autoindex_contentFile_1'.
 func (c *Client) ContentFileByID(ctx context.Context, id nulltype.NullString) (*ContentFile, error) {
-	// func ContentFileByID(ctx context.Context, db DB, id nulltype.NullString) (*ContentFile, error) {
 	db := c.db
 
 	// query

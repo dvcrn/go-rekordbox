@@ -22,7 +22,7 @@ type DjmdContent struct {
 	BPM               nulltype.NullInt64   `json:"bpm"`                  // BPM
 	Length            nulltype.NullInt64   `json:"length"`               // Length
 	TrackNo           nulltype.NullInt64   `json:"track_no"`             // TrackNo
-BitRate           BitRate              `json:"bit_rate"`             // BitRate
+	BitRate           BitRate              `json:"bit_rate"`             // BitRate
 	BitDepth          nulltype.NullInt64   `json:"bit_depth"`            // BitDepth
 	Commnt            nulltype.NullString  `json:"commnt"`               // Commnt
 	FileType          nulltype.NullInt64   `json:"file_type"`            // FileType
@@ -250,7 +250,6 @@ func (c *Client) AllDjmdContent(ctx context.Context) ([]*DjmdContent, error) {
 //
 // Generated from index 'djmd_content__album_i_d'.
 func (c *Client) DjmdContentByAlbumID(ctx context.Context, albumID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByAlbumID(ctx context.Context, db DB, albumID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -287,7 +286,6 @@ func (c *Client) DjmdContentByAlbumID(ctx context.Context, albumID nulltype.Null
 //
 // Generated from index 'djmd_content__artist_i_d'.
 func (c *Client) DjmdContentByArtistID(ctx context.Context, artistID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByArtistID(ctx context.Context, db DB, artistID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -324,7 +322,6 @@ func (c *Client) DjmdContentByArtistID(ctx context.Context, artistID nulltype.Nu
 //
 // Generated from index 'djmd_content__composer_i_d'.
 func (c *Client) DjmdContentByComposerID(ctx context.Context, composerID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByComposerID(ctx context.Context, db DB, composerID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -361,7 +358,6 @@ func (c *Client) DjmdContentByComposerID(ctx context.Context, composerID nulltyp
 //
 // Generated from index 'djmd_content__genre_i_d'.
 func (c *Client) DjmdContentByGenreID(ctx context.Context, genreID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByGenreID(ctx context.Context, db DB, genreID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -398,7 +394,6 @@ func (c *Client) DjmdContentByGenreID(ctx context.Context, genreID nulltype.Null
 //
 // Generated from index 'djmd_content__key_i_d'.
 func (c *Client) DjmdContentByKeyID(ctx context.Context, keyID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByKeyID(ctx context.Context, db DB, keyID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -435,7 +430,6 @@ func (c *Client) DjmdContentByKeyID(ctx context.Context, keyID nulltype.NullStri
 //
 // Generated from index 'djmd_content__label_i_d'.
 func (c *Client) DjmdContentByLabelID(ctx context.Context, labelID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByLabelID(ctx context.Context, db DB, labelID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -472,7 +466,6 @@ func (c *Client) DjmdContentByLabelID(ctx context.Context, labelID nulltype.Null
 //
 // Generated from index 'djmd_content__master_d_b_i_d__master_song_i_d'.
 func (c *Client) DjmdContentByMasterDBIDMasterSongID(ctx context.Context, masterDBID, masterSongID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByMasterDBIDMasterSongID(ctx context.Context, db DB, masterDBID nulltype.NullString, masterSongID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -509,7 +502,6 @@ func (c *Client) DjmdContentByMasterDBIDMasterSongID(ctx context.Context, master
 //
 // Generated from index 'djmd_content__org_artist_i_d'.
 func (c *Client) DjmdContentByOrgArtistID(ctx context.Context, orgArtistID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByOrgArtistID(ctx context.Context, db DB, orgArtistID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -546,7 +538,6 @@ func (c *Client) DjmdContentByOrgArtistID(ctx context.Context, orgArtistID nullt
 //
 // Generated from index 'djmd_content__remixer_i_d'.
 func (c *Client) DjmdContentByRemixerID(ctx context.Context, remixerID nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByRemixerID(ctx context.Context, db DB, remixerID nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -583,7 +574,6 @@ func (c *Client) DjmdContentByRemixerID(ctx context.Context, remixerID nulltype.
 //
 // Generated from index 'djmd_content__u_u_i_d'.
 func (c *Client) DjmdContentByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -620,7 +610,6 @@ func (c *Client) DjmdContentByUUID(ctx context.Context, uuid nulltype.NullString
 //
 // Generated from index 'djmd_content_rb_data_status'.
 func (c *Client) DjmdContentByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -657,7 +646,6 @@ func (c *Client) DjmdContentByRbDataStatus(ctx context.Context, rbDataStatus nul
 //
 // Generated from index 'djmd_content_rb_local_data_status'.
 func (c *Client) DjmdContentByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -694,7 +682,6 @@ func (c *Client) DjmdContentByRbLocalDataStatus(ctx context.Context, rbLocalData
 //
 // Generated from index 'djmd_content_rb_local_deleted'.
 func (c *Client) DjmdContentByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -731,7 +718,6 @@ func (c *Client) DjmdContentByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 //
 // Generated from index 'djmd_content_rb_local_deleted__bit_depth'.
 func (c *Client) DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, rbLocalDeleted, bitDepth nulltype.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, bitDepth nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -767,8 +753,7 @@ func (c *Client) DjmdContentByRbLocalDeletedBitDepth(ctx context.Context, rbLoca
 // DjmdContentByRbLocalDeletedBitRate retrieves a row from 'djmdContent' as a DjmdContent.
 //
 // Generated from index 'djmd_content_rb_local_deleted__bit_rate'.
-func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocalDeleted, bitRate nulltype.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedBitRate(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, bitRate nulltype.NullInt64) ([]*DjmdContent, error) {
+func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocalDeleted nulltype.NullInt64, bitRate BitRate) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -805,7 +790,6 @@ func (c *Client) DjmdContentByRbLocalDeletedBitRate(ctx context.Context, rbLocal
 //
 // Generated from index 'djmd_content_rb_local_deleted__file_type'.
 func (c *Client) DjmdContentByRbLocalDeletedFileType(ctx context.Context, rbLocalDeleted, fileType nulltype.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedFileType(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, fileType nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -842,7 +826,6 @@ func (c *Client) DjmdContentByRbLocalDeletedFileType(ctx context.Context, rbLoca
 //
 // Generated from index 'djmd_content_rb_local_deleted__service_i_d'.
 func (c *Client) DjmdContentByRbLocalDeletedServiceID(ctx context.Context, rbLocalDeleted, serviceID nulltype.NullInt64) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalDeletedServiceID(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, serviceID nulltype.NullInt64) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -879,7 +862,6 @@ func (c *Client) DjmdContentByRbLocalDeletedServiceID(ctx context.Context, rbLoc
 //
 // Generated from index 'djmd_content_rb_local_usn__i_d'.
 func (c *Client) DjmdContentByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdContent, error) {
-	// func DjmdContentByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdContent, error) {
 	db := c.db
 
 	// query
@@ -916,7 +898,6 @@ func (c *Client) DjmdContentByRbLocalUsnID(ctx context.Context, rbLocalUsn nullt
 //
 // Generated from index 'sqlite_autoindex_djmdContent_1'.
 func (c *Client) DjmdContentByID(ctx context.Context, id nulltype.NullString) (*DjmdContent, error) {
-	// func DjmdContentByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdContent, error) {
 	db := c.db
 
 	// query

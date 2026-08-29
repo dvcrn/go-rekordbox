@@ -185,7 +185,6 @@ func (c *Client) AllAgentRegistry(ctx context.Context) ([]*AgentRegistry, error)
 //
 // Generated from index 'agent_registry_id_1_id_2'.
 func (c *Client) AgentRegistryByID1ID2(ctx context.Context, id1, id2 nulltype.NullString) ([]*AgentRegistry, error) {
-	// func AgentRegistryByID1ID2(ctx context.Context, db DB, id1 nulltype.NullString, id2 nulltype.NullString) ([]*AgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -222,7 +221,6 @@ func (c *Client) AgentRegistryByID1ID2(ctx context.Context, id1, id2 nulltype.Nu
 //
 // Generated from index 'sqlite_autoindex_agentRegistry_1'.
 func (c *Client) AgentRegistryByRegistryID(ctx context.Context, registryID nulltype.NullString) (*AgentRegistry, error) {
-	// func AgentRegistryByRegistryID(ctx context.Context, db DB, registryID nulltype.NullString) (*AgentRegistry, error) {
 	db := c.db
 
 	// query

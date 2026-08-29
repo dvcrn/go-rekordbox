@@ -186,7 +186,6 @@ func (c *Client) AllDjmdSampler(ctx context.Context) ([]*DjmdSampler, error) {
 //
 // Generated from index 'djmd_sampler__name'.
 func (c *Client) DjmdSamplerByName(ctx context.Context, name nulltype.NullString) ([]*DjmdSampler, error) {
-	// func DjmdSamplerByName(ctx context.Context, db DB, name nulltype.NullString) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -223,7 +222,6 @@ func (c *Client) DjmdSamplerByName(ctx context.Context, name nulltype.NullString
 //
 // Generated from index 'djmd_sampler__parent_i_d'.
 func (c *Client) DjmdSamplerByParentID(ctx context.Context, parentID nulltype.NullString) ([]*DjmdSampler, error) {
-	// func DjmdSamplerByParentID(ctx context.Context, db DB, parentID nulltype.NullString) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -260,7 +258,6 @@ func (c *Client) DjmdSamplerByParentID(ctx context.Context, parentID nulltype.Nu
 //
 // Generated from index 'djmd_sampler__seq'.
 func (c *Client) DjmdSamplerBySeq(ctx context.Context, seq nulltype.NullInt64) ([]*DjmdSampler, error) {
-	// func DjmdSamplerBySeq(ctx context.Context, db DB, seq nulltype.NullInt64) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -297,7 +294,6 @@ func (c *Client) DjmdSamplerBySeq(ctx context.Context, seq nulltype.NullInt64) (
 //
 // Generated from index 'djmd_sampler__u_u_i_d'.
 func (c *Client) DjmdSamplerByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdSampler, error) {
-	// func DjmdSamplerByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -334,7 +330,6 @@ func (c *Client) DjmdSamplerByUUID(ctx context.Context, uuid nulltype.NullString
 //
 // Generated from index 'djmd_sampler_rb_data_status'.
 func (c *Client) DjmdSamplerByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdSampler, error) {
-	// func DjmdSamplerByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -371,7 +366,6 @@ func (c *Client) DjmdSamplerByRbDataStatus(ctx context.Context, rbDataStatus nul
 //
 // Generated from index 'djmd_sampler_rb_local_data_status'.
 func (c *Client) DjmdSamplerByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSampler, error) {
-	// func DjmdSamplerByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -408,7 +402,6 @@ func (c *Client) DjmdSamplerByRbLocalDataStatus(ctx context.Context, rbLocalData
 //
 // Generated from index 'djmd_sampler_rb_local_deleted'.
 func (c *Client) DjmdSamplerByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSampler, error) {
-	// func DjmdSamplerByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -445,7 +438,6 @@ func (c *Client) DjmdSamplerByRbLocalDeleted(ctx context.Context, rbLocalDeleted
 //
 // Generated from index 'djmd_sampler_rb_local_usn__i_d'.
 func (c *Client) DjmdSamplerByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSampler, error) {
-	// func DjmdSamplerByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSampler, error) {
 	db := c.db
 
 	// query
@@ -482,7 +474,6 @@ func (c *Client) DjmdSamplerByRbLocalUsnID(ctx context.Context, rbLocalUsn nullt
 //
 // Generated from index 'sqlite_autoindex_djmdSampler_1'.
 func (c *Client) DjmdSamplerByID(ctx context.Context, id nulltype.NullString) (*DjmdSampler, error) {
-	// func DjmdSamplerByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdSampler, error) {
 	db := c.db
 
 	// query

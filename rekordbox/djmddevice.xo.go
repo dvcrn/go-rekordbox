@@ -184,7 +184,6 @@ func (c *Client) AllDjmdDevice(ctx context.Context) ([]*DjmdDevice, error) {
 //
 // Generated from index 'djmd_device__u_u_i_d'.
 func (c *Client) DjmdDeviceByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdDevice, error) {
-	// func DjmdDeviceByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdDevice, error) {
 	db := c.db
 
 	// query
@@ -221,7 +220,6 @@ func (c *Client) DjmdDeviceByUUID(ctx context.Context, uuid nulltype.NullString)
 //
 // Generated from index 'djmd_device_rb_data_status'.
 func (c *Client) DjmdDeviceByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdDevice, error) {
-	// func DjmdDeviceByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdDevice, error) {
 	db := c.db
 
 	// query
@@ -258,7 +256,6 @@ func (c *Client) DjmdDeviceByRbDataStatus(ctx context.Context, rbDataStatus null
 //
 // Generated from index 'djmd_device_rb_local_data_status'.
 func (c *Client) DjmdDeviceByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdDevice, error) {
-	// func DjmdDeviceByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdDevice, error) {
 	db := c.db
 
 	// query
@@ -295,7 +292,6 @@ func (c *Client) DjmdDeviceByRbLocalDataStatus(ctx context.Context, rbLocalDataS
 //
 // Generated from index 'djmd_device_rb_local_deleted'.
 func (c *Client) DjmdDeviceByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdDevice, error) {
-	// func DjmdDeviceByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdDevice, error) {
 	db := c.db
 
 	// query
@@ -332,7 +328,6 @@ func (c *Client) DjmdDeviceByRbLocalDeleted(ctx context.Context, rbLocalDeleted 
 //
 // Generated from index 'djmd_device_rb_local_usn__i_d'.
 func (c *Client) DjmdDeviceByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdDevice, error) {
-	// func DjmdDeviceByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdDevice, error) {
 	db := c.db
 
 	// query
@@ -369,7 +364,6 @@ func (c *Client) DjmdDeviceByRbLocalUsnID(ctx context.Context, rbLocalUsn nullty
 //
 // Generated from index 'sqlite_autoindex_djmdDevice_1'.
 func (c *Client) DjmdDeviceByID(ctx context.Context, id nulltype.NullString) (*DjmdDevice, error) {
-	// func DjmdDeviceByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdDevice, error) {
 	db := c.db
 
 	// query

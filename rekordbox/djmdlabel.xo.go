@@ -183,7 +183,6 @@ func (c *Client) AllDjmdLabel(ctx context.Context) ([]*DjmdLabel, error) {
 //
 // Generated from index 'djmd_label__name'.
 func (c *Client) DjmdLabelByName(ctx context.Context, name nulltype.NullString) ([]*DjmdLabel, error) {
-	// func DjmdLabelByName(ctx context.Context, db DB, name nulltype.NullString) ([]*DjmdLabel, error) {
 	db := c.db
 
 	// query
@@ -220,7 +219,6 @@ func (c *Client) DjmdLabelByName(ctx context.Context, name nulltype.NullString) 
 //
 // Generated from index 'djmd_label__u_u_i_d'.
 func (c *Client) DjmdLabelByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdLabel, error) {
-	// func DjmdLabelByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdLabel, error) {
 	db := c.db
 
 	// query
@@ -257,7 +255,6 @@ func (c *Client) DjmdLabelByUUID(ctx context.Context, uuid nulltype.NullString) 
 //
 // Generated from index 'djmd_label_rb_data_status'.
 func (c *Client) DjmdLabelByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdLabel, error) {
-	// func DjmdLabelByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdLabel, error) {
 	db := c.db
 
 	// query
@@ -294,7 +291,6 @@ func (c *Client) DjmdLabelByRbDataStatus(ctx context.Context, rbDataStatus nullt
 //
 // Generated from index 'djmd_label_rb_local_data_status'.
 func (c *Client) DjmdLabelByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdLabel, error) {
-	// func DjmdLabelByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdLabel, error) {
 	db := c.db
 
 	// query
@@ -331,7 +327,6 @@ func (c *Client) DjmdLabelByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 //
 // Generated from index 'djmd_label_rb_local_deleted'.
 func (c *Client) DjmdLabelByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdLabel, error) {
-	// func DjmdLabelByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdLabel, error) {
 	db := c.db
 
 	// query
@@ -368,7 +363,6 @@ func (c *Client) DjmdLabelByRbLocalDeleted(ctx context.Context, rbLocalDeleted n
 //
 // Generated from index 'djmd_label_rb_local_usn__i_d'.
 func (c *Client) DjmdLabelByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdLabel, error) {
-	// func DjmdLabelByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdLabel, error) {
 	db := c.db
 
 	// query
@@ -405,7 +399,6 @@ func (c *Client) DjmdLabelByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltyp
 //
 // Generated from index 'sqlite_autoindex_djmdLabel_1'.
 func (c *Client) DjmdLabelByID(ctx context.Context, id nulltype.NullString) (*DjmdLabel, error) {
-	// func DjmdLabelByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdLabel, error) {
 	db := c.db
 
 	// query

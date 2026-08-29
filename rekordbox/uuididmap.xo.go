@@ -185,7 +185,6 @@ func (c *Client) AllUUIDIDMap(ctx context.Context) ([]*UUIDIDMap, error) {
 //
 // Generated from index 'sqlite_autoindex_uuidIDMap_1'.
 func (c *Client) UUIDIDMapByID(ctx context.Context, id nulltype.NullString) (*UUIDIDMap, error) {
-	// func UUIDIDMapByID(ctx context.Context, db DB, id nulltype.NullString) (*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -208,7 +207,6 @@ func (c *Client) UUIDIDMapByID(ctx context.Context, id nulltype.NullString) (*UU
 //
 // Generated from index 'uuid_i_d_map__u_u_i_d'.
 func (c *Client) UUIDIDMapByUUID(ctx context.Context, uuid nulltype.NullString) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -245,7 +243,6 @@ func (c *Client) UUIDIDMapByUUID(ctx context.Context, uuid nulltype.NullString) 
 //
 // Generated from index 'uuid_i_d_map_rb_data_status'.
 func (c *Client) UUIDIDMapByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -282,7 +279,6 @@ func (c *Client) UUIDIDMapByRbDataStatus(ctx context.Context, rbDataStatus nullt
 //
 // Generated from index 'uuid_i_d_map_rb_local_data_status'.
 func (c *Client) UUIDIDMapByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -319,7 +315,6 @@ func (c *Client) UUIDIDMapByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 //
 // Generated from index 'uuid_i_d_map_rb_local_deleted'.
 func (c *Client) UUIDIDMapByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query
@@ -356,7 +351,6 @@ func (c *Client) UUIDIDMapByRbLocalDeleted(ctx context.Context, rbLocalDeleted n
 //
 // Generated from index 'uuid_i_d_map_rb_local_usn__i_d'.
 func (c *Client) UUIDIDMapByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*UUIDIDMap, error) {
-	// func UUIDIDMapByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*UUIDIDMap, error) {
 	db := c.db
 
 	// query

@@ -185,7 +185,6 @@ func (c *Client) AllDjmdColor(ctx context.Context) ([]*DjmdColor, error) {
 //
 // Generated from index 'djmd_color__u_u_i_d'.
 func (c *Client) DjmdColorByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdColor, error) {
-	// func DjmdColorByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -222,7 +221,6 @@ func (c *Client) DjmdColorByUUID(ctx context.Context, uuid nulltype.NullString) 
 //
 // Generated from index 'djmd_color_rb_data_status'.
 func (c *Client) DjmdColorByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
-	// func DjmdColorByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -259,7 +257,6 @@ func (c *Client) DjmdColorByRbDataStatus(ctx context.Context, rbDataStatus nullt
 //
 // Generated from index 'djmd_color_rb_local_data_status'.
 func (c *Client) DjmdColorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
-	// func DjmdColorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -296,7 +293,6 @@ func (c *Client) DjmdColorByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 //
 // Generated from index 'djmd_color_rb_local_deleted'.
 func (c *Client) DjmdColorByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdColor, error) {
-	// func DjmdColorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -333,7 +329,6 @@ func (c *Client) DjmdColorByRbLocalDeleted(ctx context.Context, rbLocalDeleted n
 //
 // Generated from index 'djmd_color_rb_local_usn__i_d'.
 func (c *Client) DjmdColorByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdColor, error) {
-	// func DjmdColorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdColor, error) {
 	db := c.db
 
 	// query
@@ -370,7 +365,6 @@ func (c *Client) DjmdColorByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltyp
 //
 // Generated from index 'sqlite_autoindex_djmdColor_1'.
 func (c *Client) DjmdColorByID(ctx context.Context, id nulltype.NullString) (*DjmdColor, error) {
-	// func DjmdColorByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdColor, error) {
 	db := c.db
 
 	// query

@@ -188,7 +188,6 @@ func (c *Client) AllDjmdActiveCensor(ctx context.Context) ([]*DjmdActiveCensor, 
 //
 // Generated from index 'djmd_active_censor__content_i_d'.
 func (c *Client) DjmdActiveCensorByContentID(ctx context.Context, contentID nulltype.NullString) ([]*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -225,7 +224,6 @@ func (c *Client) DjmdActiveCensorByContentID(ctx context.Context, contentID null
 //
 // Generated from index 'djmd_active_censor__content_u_u_i_d'.
 func (c *Client) DjmdActiveCensorByContentUUID(ctx context.Context, contentUUID nulltype.NullString) ([]*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByContentUUID(ctx context.Context, db DB, contentUUID nulltype.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -262,7 +260,6 @@ func (c *Client) DjmdActiveCensorByContentUUID(ctx context.Context, contentUUID 
 //
 // Generated from index 'djmd_active_censor__u_u_i_d'.
 func (c *Client) DjmdActiveCensorByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -299,7 +296,6 @@ func (c *Client) DjmdActiveCensorByUUID(ctx context.Context, uuid nulltype.NullS
 //
 // Generated from index 'djmd_active_censor_rb_data_status'.
 func (c *Client) DjmdActiveCensorByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -336,7 +332,6 @@ func (c *Client) DjmdActiveCensorByRbDataStatus(ctx context.Context, rbDataStatu
 //
 // Generated from index 'djmd_active_censor_rb_local_data_status'.
 func (c *Client) DjmdActiveCensorByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -373,7 +368,6 @@ func (c *Client) DjmdActiveCensorByRbLocalDataStatus(ctx context.Context, rbLoca
 //
 // Generated from index 'djmd_active_censor_rb_local_deleted'.
 func (c *Client) DjmdActiveCensorByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -410,7 +404,6 @@ func (c *Client) DjmdActiveCensorByRbLocalDeleted(ctx context.Context, rbLocalDe
 //
 // Generated from index 'djmd_active_censor_rb_local_usn__i_d'.
 func (c *Client) DjmdActiveCensorByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query
@@ -447,7 +440,6 @@ func (c *Client) DjmdActiveCensorByRbLocalUsnID(ctx context.Context, rbLocalUsn 
 //
 // Generated from index 'sqlite_autoindex_djmdActiveCensor_1'.
 func (c *Client) DjmdActiveCensorByID(ctx context.Context, id nulltype.NullString) (*DjmdActiveCensor, error) {
-	// func DjmdActiveCensorByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdActiveCensor, error) {
 	db := c.db
 
 	// query

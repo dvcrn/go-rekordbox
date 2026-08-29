@@ -181,48 +181,10 @@ func (c *Client) AllDjmdSongHistory(ctx context.Context) ([]*DjmdSongHistory, er
 	return res, nil
 }
 
-// DjmdSongHistoryByContentID retrieves a row from 'djmdSongHistory' as a DjmdSongHistory.
-//
-// Generated from index 'djmd_song_history__content_i_d'.
-func (c *Client) DjmdSongHistoryByContentID(ctx context.Context, contentID nulltype.NullString) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*DjmdSongHistory, error) {
-	db := c.db
-
-	// query
-	const sqlstr = `SELECT ` +
-		`ID, HistoryID, ContentID, TrackNo, UUID, rb_data_status, rb_local_data_status, rb_local_deleted, rb_local_synced, usn, rb_local_usn, created_at, updated_at ` +
-		`FROM djmdSongHistory ` +
-		`WHERE ContentID = $1`
-	// run
-	logf(sqlstr, contentID)
-	rows, err := db.QueryContext(ctx, sqlstr, contentID)
-	if err != nil {
-		return nil, logerror(err)
-	}
-	defer rows.Close()
-	// process
-	var res []*DjmdSongHistory
-	for rows.Next() {
-		dsh := DjmdSongHistory{
-			_exists: true,
-		}
-		// scan
-		if err := rows.Scan(&dsh.ID, &dsh.HistoryID, &dsh.ContentID, &dsh.TrackNo, &dsh.UUID, &dsh.RbDataStatus, &dsh.RbLocalDataStatus, &dsh.RbLocalDeleted, &dsh.RbLocalSynced, &dsh.Usn, &dsh.RbLocalUsn, &dsh.CreatedAt, &dsh.UpdatedAt); err != nil {
-			return nil, logerror(err)
-		}
-		res = append(res, &dsh)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, logerror(err)
-	}
-	return res, nil
-}
-
 // DjmdSongHistoryByContentIDRbLocalDeleted retrieves a row from 'djmdSongHistory' as a DjmdSongHistory.
 //
 // Generated from index 'djmd_song_history__content_i_d_rb_local_deleted'.
 func (c *Client) DjmdSongHistoryByContentIDRbLocalDeleted(ctx context.Context, contentID nulltype.NullString, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByContentIDRbLocalDeleted(ctx context.Context, db DB, contentID nulltype.NullString, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
@@ -259,7 +221,6 @@ func (c *Client) DjmdSongHistoryByContentIDRbLocalDeleted(ctx context.Context, c
 //
 // Generated from index 'djmd_song_history__history_i_d'.
 func (c *Client) DjmdSongHistoryByHistoryID(ctx context.Context, historyID nulltype.NullString) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByHistoryID(ctx context.Context, db DB, historyID nulltype.NullString) ([]*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
@@ -296,7 +257,6 @@ func (c *Client) DjmdSongHistoryByHistoryID(ctx context.Context, historyID nullt
 //
 // Generated from index 'djmd_song_history__u_u_i_d'.
 func (c *Client) DjmdSongHistoryByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
@@ -333,7 +293,6 @@ func (c *Client) DjmdSongHistoryByUUID(ctx context.Context, uuid nulltype.NullSt
 //
 // Generated from index 'djmd_song_history_rb_data_status'.
 func (c *Client) DjmdSongHistoryByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
@@ -370,7 +329,6 @@ func (c *Client) DjmdSongHistoryByRbDataStatus(ctx context.Context, rbDataStatus
 //
 // Generated from index 'djmd_song_history_rb_local_data_status'.
 func (c *Client) DjmdSongHistoryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
@@ -407,7 +365,6 @@ func (c *Client) DjmdSongHistoryByRbLocalDataStatus(ctx context.Context, rbLocal
 //
 // Generated from index 'djmd_song_history_rb_local_deleted'.
 func (c *Client) DjmdSongHistoryByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
@@ -444,7 +401,6 @@ func (c *Client) DjmdSongHistoryByRbLocalDeleted(ctx context.Context, rbLocalDel
 //
 // Generated from index 'djmd_song_history_rb_local_usn__i_d'.
 func (c *Client) DjmdSongHistoryByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
@@ -481,7 +437,6 @@ func (c *Client) DjmdSongHistoryByRbLocalUsnID(ctx context.Context, rbLocalUsn n
 //
 // Generated from index 'sqlite_autoindex_djmdSongHistory_1'.
 func (c *Client) DjmdSongHistoryByID(ctx context.Context, id nulltype.NullString) (*DjmdSongHistory, error) {
-	// func DjmdSongHistoryByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdSongHistory, error) {
 	db := c.db
 
 	// query
