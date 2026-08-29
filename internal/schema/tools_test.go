@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestDecryptIncludesWAL(t *testing.T) {
@@ -23,7 +24,9 @@ func TestDecryptIncludesWAL(t *testing.T) {
 	}
 
 	database := filepath.Join(t.TempDir(), "master.db")
-	command := exec.Command(sqlcipher, "-batch", database)
+	processContext, cancelProcess := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancelProcess()
+	command := exec.CommandContext(processContext, sqlcipher, "-batch", database)
 	stdin, err := command.StdinPipe()
 	if err != nil {
 		t.Fatal(err)
@@ -82,6 +85,42 @@ SELECT 'ready';
 	}
 	if got, want := strings.TrimSpace(string(output)), "included"; got != want {
 		t.Fatalf("exported value = %q, want %q", got, want)
+	}
+}
+
+func TestCommittedSchemaIsReplayable(t *testing.T) {
+	t.Parallel()
+
+	sqlite, err := exec.LookPath("sqlite3")
+	if err != nil {
+		t.Skip("sqlite3 is not installed")
+	}
+	schema, err := os.Open(filepath.Join("..", "..", "db", "schema.sql"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer schema.Close()
+
+	database := filepath.Join(t.TempDir(), "replayed.db")
+	commandContext, cancelCommand := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancelCommand()
+	command := exec.CommandContext(commandContext, sqlite, database)
+	command.Stdin = schema
+	if output, err := command.CombinedOutput(); err != nil {
+		t.Fatalf("replay committed schema: %v: %s", err, output)
+	}
+
+	output, err := exec.CommandContext(
+		commandContext,
+		sqlite,
+		database,
+		"PRAGMA integrity_check; SELECT count(*) FROM sqlite_master WHERE type = 'table';",
+	).CombinedOutput()
+	if err != nil {
+		t.Fatalf("inspect replayed schema: %v: %s", err, output)
+	}
+	if got, want := strings.TrimSpace(string(output)), "ok\n47"; got != want {
+		t.Fatalf("replayed schema summary = %q, want %q", got, want)
 	}
 }
 
