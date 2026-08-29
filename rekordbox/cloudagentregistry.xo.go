@@ -190,7 +190,6 @@ func (c *Client) AllCloudAgentRegistry(ctx context.Context) ([]*CloudAgentRegist
 //
 // Generated from index 'cloud_agent_registry__u_u_i_d'.
 func (c *Client) CloudAgentRegistryByUUID(ctx context.Context, uuid nulltype.NullString) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -227,7 +226,6 @@ func (c *Client) CloudAgentRegistryByUUID(ctx context.Context, uuid nulltype.Nul
 //
 // Generated from index 'cloud_agent_registry_rb_data_status'.
 func (c *Client) CloudAgentRegistryByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -264,7 +262,6 @@ func (c *Client) CloudAgentRegistryByRbDataStatus(ctx context.Context, rbDataSta
 //
 // Generated from index 'cloud_agent_registry_rb_local_data_status'.
 func (c *Client) CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -301,7 +298,6 @@ func (c *Client) CloudAgentRegistryByRbLocalDataStatus(ctx context.Context, rbLo
 //
 // Generated from index 'cloud_agent_registry_rb_local_deleted'.
 func (c *Client) CloudAgentRegistryByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -338,7 +334,6 @@ func (c *Client) CloudAgentRegistryByRbLocalDeleted(ctx context.Context, rbLocal
 //
 // Generated from index 'cloud_agent_registry_rb_local_usn__i_d'.
 func (c *Client) CloudAgentRegistryByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query
@@ -375,7 +370,6 @@ func (c *Client) CloudAgentRegistryByRbLocalUsnID(ctx context.Context, rbLocalUs
 //
 // Generated from index 'sqlite_autoindex_cloudAgentRegistry_1'.
 func (c *Client) CloudAgentRegistryByID(ctx context.Context, id nulltype.NullString) (*CloudAgentRegistry, error) {
-	// func CloudAgentRegistryByID(ctx context.Context, db DB, id nulltype.NullString) (*CloudAgentRegistry, error) {
 	db := c.db
 
 	// query

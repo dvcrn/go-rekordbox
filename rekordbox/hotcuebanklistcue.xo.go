@@ -185,7 +185,6 @@ func (c *Client) AllHotCueBanklistCue(ctx context.Context) ([]*HotCueBanklistCue
 //
 // Generated from index 'hot_cue_banklist_cue__hot_cue_banklist_i_d'.
 func (c *Client) HotCueBanklistCueByHotCueBanklistID(ctx context.Context, hotCueBanklistID nulltype.NullString) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByHotCueBanklistID(ctx context.Context, db DB, hotCueBanklistID nulltype.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -222,7 +221,6 @@ func (c *Client) HotCueBanklistCueByHotCueBanklistID(ctx context.Context, hotCue
 //
 // Generated from index 'hot_cue_banklist_cue__u_u_i_d'.
 func (c *Client) HotCueBanklistCueByUUID(ctx context.Context, uuid nulltype.NullString) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -259,7 +257,6 @@ func (c *Client) HotCueBanklistCueByUUID(ctx context.Context, uuid nulltype.Null
 //
 // Generated from index 'hot_cue_banklist_cue_rb_cue_count'.
 func (c *Client) HotCueBanklistCueByRbCueCount(ctx context.Context, rbCueCount nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbCueCount(ctx context.Context, db DB, rbCueCount nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -296,7 +293,6 @@ func (c *Client) HotCueBanklistCueByRbCueCount(ctx context.Context, rbCueCount n
 //
 // Generated from index 'hot_cue_banklist_cue_rb_data_status'.
 func (c *Client) HotCueBanklistCueByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -333,7 +329,6 @@ func (c *Client) HotCueBanklistCueByRbDataStatus(ctx context.Context, rbDataStat
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_data_status'.
 func (c *Client) HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -370,7 +365,6 @@ func (c *Client) HotCueBanklistCueByRbLocalDataStatus(ctx context.Context, rbLoc
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_deleted'.
 func (c *Client) HotCueBanklistCueByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -407,7 +401,6 @@ func (c *Client) HotCueBanklistCueByRbLocalDeleted(ctx context.Context, rbLocalD
 //
 // Generated from index 'hot_cue_banklist_cue_rb_local_usn__i_d'.
 func (c *Client) HotCueBanklistCueByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query
@@ -444,7 +437,6 @@ func (c *Client) HotCueBanklistCueByRbLocalUsnID(ctx context.Context, rbLocalUsn
 //
 // Generated from index 'sqlite_autoindex_hotCueBanklistCue_1'.
 func (c *Client) HotCueBanklistCueByID(ctx context.Context, id nulltype.NullString) (*HotCueBanklistCue, error) {
-	// func HotCueBanklistCueByID(ctx context.Context, db DB, id nulltype.NullString) (*HotCueBanklistCue, error) {
 	db := c.db
 
 	// query

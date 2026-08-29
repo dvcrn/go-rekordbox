@@ -187,7 +187,6 @@ func (c *Client) AllDjmdHotCueBanklist(ctx context.Context) ([]*DjmdHotCueBankli
 //
 // Generated from index 'djmd_hot_cue_banklist__name'.
 func (c *Client) DjmdHotCueBanklistByName(ctx context.Context, name nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByName(ctx context.Context, db DB, name nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -224,7 +223,6 @@ func (c *Client) DjmdHotCueBanklistByName(ctx context.Context, name nulltype.Nul
 //
 // Generated from index 'djmd_hot_cue_banklist__parent_i_d'.
 func (c *Client) DjmdHotCueBanklistByParentID(ctx context.Context, parentID nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByParentID(ctx context.Context, db DB, parentID nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -261,7 +259,6 @@ func (c *Client) DjmdHotCueBanklistByParentID(ctx context.Context, parentID null
 //
 // Generated from index 'djmd_hot_cue_banklist__u_u_i_d'.
 func (c *Client) DjmdHotCueBanklistByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -298,7 +295,6 @@ func (c *Client) DjmdHotCueBanklistByUUID(ctx context.Context, uuid nulltype.Nul
 //
 // Generated from index 'djmd_hot_cue_banklist_rb_data_status'.
 func (c *Client) DjmdHotCueBanklistByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -335,7 +331,6 @@ func (c *Client) DjmdHotCueBanklistByRbDataStatus(ctx context.Context, rbDataSta
 //
 // Generated from index 'djmd_hot_cue_banklist_rb_local_data_status'.
 func (c *Client) DjmdHotCueBanklistByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -372,7 +367,6 @@ func (c *Client) DjmdHotCueBanklistByRbLocalDataStatus(ctx context.Context, rbLo
 //
 // Generated from index 'djmd_hot_cue_banklist_rb_local_deleted'.
 func (c *Client) DjmdHotCueBanklistByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -409,7 +403,6 @@ func (c *Client) DjmdHotCueBanklistByRbLocalDeleted(ctx context.Context, rbLocal
 //
 // Generated from index 'djmd_hot_cue_banklist_rb_local_usn__i_d'.
 func (c *Client) DjmdHotCueBanklistByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -446,7 +439,6 @@ func (c *Client) DjmdHotCueBanklistByRbLocalUsnID(ctx context.Context, rbLocalUs
 //
 // Generated from index 'sqlite_autoindex_djmdHotCueBanklist_1'.
 func (c *Client) DjmdHotCueBanklistByID(ctx context.Context, id nulltype.NullString) (*DjmdHotCueBanklist, error) {
-	// func DjmdHotCueBanklistByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdHotCueBanklist, error) {
 	db := c.db
 
 	// query

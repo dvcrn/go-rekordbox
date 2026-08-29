@@ -184,7 +184,6 @@ func (c *Client) AllDjmdArtist(ctx context.Context) ([]*DjmdArtist, error) {
 //
 // Generated from index 'djmd_artist__name'.
 func (c *Client) DjmdArtistByName(ctx context.Context, name nulltype.NullString) ([]*DjmdArtist, error) {
-	// func DjmdArtistByName(ctx context.Context, db DB, name nulltype.NullString) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -221,7 +220,6 @@ func (c *Client) DjmdArtistByName(ctx context.Context, name nulltype.NullString)
 //
 // Generated from index 'djmd_artist__u_u_i_d'.
 func (c *Client) DjmdArtistByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdArtist, error) {
-	// func DjmdArtistByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -258,7 +256,6 @@ func (c *Client) DjmdArtistByUUID(ctx context.Context, uuid nulltype.NullString)
 //
 // Generated from index 'djmd_artist_rb_data_status'.
 func (c *Client) DjmdArtistByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -295,7 +292,6 @@ func (c *Client) DjmdArtistByRbDataStatus(ctx context.Context, rbDataStatus null
 //
 // Generated from index 'djmd_artist_rb_local_data_status'.
 func (c *Client) DjmdArtistByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -332,7 +328,6 @@ func (c *Client) DjmdArtistByRbLocalDataStatus(ctx context.Context, rbLocalDataS
 //
 // Generated from index 'djmd_artist_rb_local_deleted'.
 func (c *Client) DjmdArtistByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -369,7 +364,6 @@ func (c *Client) DjmdArtistByRbLocalDeleted(ctx context.Context, rbLocalDeleted 
 //
 // Generated from index 'djmd_artist_rb_local_usn__i_d'.
 func (c *Client) DjmdArtistByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdArtist, error) {
-	// func DjmdArtistByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdArtist, error) {
 	db := c.db
 
 	// query
@@ -406,7 +400,6 @@ func (c *Client) DjmdArtistByRbLocalUsnID(ctx context.Context, rbLocalUsn nullty
 //
 // Generated from index 'sqlite_autoindex_djmdArtist_1'.
 func (c *Client) DjmdArtistByID(ctx context.Context, id nulltype.NullString) (*DjmdArtist, error) {
-	// func DjmdArtistByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdArtist, error) {
 	db := c.db
 
 	// query

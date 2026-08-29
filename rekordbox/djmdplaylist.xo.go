@@ -188,7 +188,6 @@ func (c *Client) AllDjmdPlaylist(ctx context.Context) ([]*DjmdPlaylist, error) {
 //
 // Generated from index 'djmd_playlist__attribute'.
 func (c *Client) DjmdPlaylistByAttribute(ctx context.Context, attribute nulltype.NullInt64) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByAttribute(ctx context.Context, db DB, attribute nulltype.NullInt64) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -225,7 +224,6 @@ func (c *Client) DjmdPlaylistByAttribute(ctx context.Context, attribute nulltype
 //
 // Generated from index 'djmd_playlist__name'.
 func (c *Client) DjmdPlaylistByName(ctx context.Context, name nulltype.NullString) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByName(ctx context.Context, db DB, name nulltype.NullString) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -262,7 +260,6 @@ func (c *Client) DjmdPlaylistByName(ctx context.Context, name nulltype.NullStrin
 //
 // Generated from index 'djmd_playlist__parent_i_d'.
 func (c *Client) DjmdPlaylistByParentID(ctx context.Context, parentID nulltype.NullString) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByParentID(ctx context.Context, db DB, parentID nulltype.NullString) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -299,7 +296,6 @@ func (c *Client) DjmdPlaylistByParentID(ctx context.Context, parentID nulltype.N
 //
 // Generated from index 'djmd_playlist__seq'.
 func (c *Client) DjmdPlaylistBySeq(ctx context.Context, seq nulltype.NullInt64) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistBySeq(ctx context.Context, db DB, seq nulltype.NullInt64) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -336,7 +332,6 @@ func (c *Client) DjmdPlaylistBySeq(ctx context.Context, seq nulltype.NullInt64) 
 //
 // Generated from index 'djmd_playlist__u_u_i_d'.
 func (c *Client) DjmdPlaylistByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -373,7 +368,6 @@ func (c *Client) DjmdPlaylistByUUID(ctx context.Context, uuid nulltype.NullStrin
 //
 // Generated from index 'djmd_playlist_rb_data_status'.
 func (c *Client) DjmdPlaylistByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -410,7 +404,6 @@ func (c *Client) DjmdPlaylistByRbDataStatus(ctx context.Context, rbDataStatus nu
 //
 // Generated from index 'djmd_playlist_rb_local_data_status'.
 func (c *Client) DjmdPlaylistByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -447,7 +440,6 @@ func (c *Client) DjmdPlaylistByRbLocalDataStatus(ctx context.Context, rbLocalDat
 //
 // Generated from index 'djmd_playlist_rb_local_deleted'.
 func (c *Client) DjmdPlaylistByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -484,7 +476,6 @@ func (c *Client) DjmdPlaylistByRbLocalDeleted(ctx context.Context, rbLocalDelete
 //
 // Generated from index 'djmd_playlist_rb_local_usn__i_d'.
 func (c *Client) DjmdPlaylistByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdPlaylist, error) {
-	// func DjmdPlaylistByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdPlaylist, error) {
 	db := c.db
 
 	// query
@@ -521,7 +512,6 @@ func (c *Client) DjmdPlaylistByRbLocalUsnID(ctx context.Context, rbLocalUsn null
 //
 // Generated from index 'sqlite_autoindex_djmdPlaylist_1'.
 func (c *Client) DjmdPlaylistByID(ctx context.Context, id nulltype.NullString) (*DjmdPlaylist, error) {
-	// func DjmdPlaylistByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdPlaylist, error) {
 	db := c.db
 
 	// query

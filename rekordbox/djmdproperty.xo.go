@@ -184,7 +184,6 @@ func (c *Client) AllDjmdProperty(ctx context.Context) ([]*DjmdProperty, error) {
 //
 // Generated from index 'sqlite_autoindex_djmdProperty_1'.
 func (c *Client) DjmdPropertyByDBID(ctx context.Context, dBID nulltype.NullString) (*DjmdProperty, error) {
-	// func DjmdPropertyByDBID(ctx context.Context, db DB, dBID nulltype.NullString) (*DjmdProperty, error) {
 	db := c.db
 
 	// query

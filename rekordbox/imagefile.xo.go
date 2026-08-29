@@ -198,7 +198,6 @@ func (c *Client) AllImageFile(ctx context.Context) ([]*ImageFile, error) {
 //
 // Generated from index 'image_file__table_name__target_i_d'.
 func (c *Client) ImageFileByTableNameTargetID(ctx context.Context, tableName, targetID nulltype.NullString) ([]*ImageFile, error) {
-	// func ImageFileByTableNameTargetID(ctx context.Context, db DB, tableName nulltype.NullString, targetID nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -231,48 +230,10 @@ func (c *Client) ImageFileByTableNameTargetID(ctx context.Context, tableName, ta
 	return res, nil
 }
 
-// ImageFileByTableNameTargetUUID retrieves a row from 'imageFile' as a ImageFile.
-//
-// Generated from index 'image_file__table_name__target_u_u_i_d'.
-func (c *Client) ImageFileByTableNameTargetUUID(ctx context.Context, tableName, targetUUID nulltype.NullString) ([]*ImageFile, error) {
-	// func ImageFileByTableNameTargetUUID(ctx context.Context, db DB, tableName nulltype.NullString, targetUUID nulltype.NullString) ([]*ImageFile, error) {
-	db := c.db
-
-	// query
-	const sqlstr = `SELECT ` +
-		`ID, TableName, TargetUUID, TargetID, Path, Hash, Size, rb_local_path, rb_insync_hash, rb_insync_local_usn, rb_file_hash_dirty, rb_local_file_status, rb_in_progress, rb_process_type, rb_temp_path, rb_priority, rb_file_size_dirty, UUID, rb_data_status, rb_local_data_status, rb_local_deleted, rb_local_synced, usn, rb_local_usn, created_at, updated_at ` +
-		`FROM imageFile ` +
-		`WHERE TableName = $1 AND TargetUUID = $2`
-	// run
-	logf(sqlstr, tableName, targetUUID)
-	rows, err := db.QueryContext(ctx, sqlstr, tableName, targetUUID)
-	if err != nil {
-		return nil, logerror(err)
-	}
-	defer rows.Close()
-	// process
-	var res []*ImageFile
-	for rows.Next() {
-		ifVal := ImageFile{
-			_exists: true,
-		}
-		// scan
-		if err := rows.Scan(&ifVal.ID, &ifVal.TableName, &ifVal.TargetUUID, &ifVal.TargetID, &ifVal.Path, &ifVal.Hash, &ifVal.Size, &ifVal.RbLocalPath, &ifVal.RbInsyncHash, &ifVal.RbInsyncLocalUsn, &ifVal.RbFileHashDirty, &ifVal.RbLocalFileStatus, &ifVal.RbInProgress, &ifVal.RbProcessType, &ifVal.RbTempPath, &ifVal.RbPriority, &ifVal.RbFileSizeDirty, &ifVal.UUID, &ifVal.RbDataStatus, &ifVal.RbLocalDataStatus, &ifVal.RbLocalDeleted, &ifVal.RbLocalSynced, &ifVal.Usn, &ifVal.RbLocalUsn, &ifVal.CreatedAt, &ifVal.UpdatedAt); err != nil {
-			return nil, logerror(err)
-		}
-		res = append(res, &ifVal)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, logerror(err)
-	}
-	return res, nil
-}
-
 // ImageFileByTableNameTargetUUIDID retrieves a row from 'imageFile' as a ImageFile.
 //
 // Generated from index 'image_file__table_name__target_u_u_i_d__i_d'.
 func (c *Client) ImageFileByTableNameTargetUUIDID(ctx context.Context, tableName, targetUUID, id nulltype.NullString) ([]*ImageFile, error) {
-	// func ImageFileByTableNameTargetUUIDID(ctx context.Context, db DB, tableName nulltype.NullString, targetUUID nulltype.NullString, id nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -309,7 +270,6 @@ func (c *Client) ImageFileByTableNameTargetUUIDID(ctx context.Context, tableName
 //
 // Generated from index 'image_file__u_u_i_d'.
 func (c *Client) ImageFileByUUID(ctx context.Context, uuid nulltype.NullString) ([]*ImageFile, error) {
-	// func ImageFileByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -346,7 +306,6 @@ func (c *Client) ImageFileByUUID(ctx context.Context, uuid nulltype.NullString) 
 //
 // Generated from index 'image_file_rb_data_status'.
 func (c *Client) ImageFileByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -383,7 +342,6 @@ func (c *Client) ImageFileByRbDataStatus(ctx context.Context, rbDataStatus nullt
 //
 // Generated from index 'image_file_rb_file_hash_dirty'.
 func (c *Client) ImageFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty nulltype.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbFileHashDirty(ctx context.Context, db DB, rbFileHashDirty nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -420,7 +378,6 @@ func (c *Client) ImageFileByRbFileHashDirty(ctx context.Context, rbFileHashDirty
 //
 // Generated from index 'image_file_rb_file_size_dirty'.
 func (c *Client) ImageFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty nulltype.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbFileSizeDirty(ctx context.Context, db DB, rbFileSizeDirty nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -457,7 +414,6 @@ func (c *Client) ImageFileByRbFileSizeDirty(ctx context.Context, rbFileSizeDirty
 //
 // Generated from index 'image_file_rb_local_data_status'.
 func (c *Client) ImageFileByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -494,7 +450,6 @@ func (c *Client) ImageFileByRbLocalDataStatus(ctx context.Context, rbLocalDataSt
 //
 // Generated from index 'image_file_rb_local_deleted'.
 func (c *Client) ImageFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -531,7 +486,6 @@ func (c *Client) ImageFileByRbLocalDeleted(ctx context.Context, rbLocalDeleted n
 //
 // Generated from index 'image_file_rb_local_deleted_rb_in_progress_rb_local_file_status_rb_process_type_rb_priority'.
 func (c *Client) ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, rbLocalDeleted, rbInProgress, rbLocalFileStatus, rbProcessType, rbPriority nulltype.NullInt64) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcessTypeRbPriority(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64, rbInProgress nulltype.NullInt64, rbLocalFileStatus nulltype.NullInt64, rbProcessType nulltype.NullInt64, rbPriority nulltype.NullInt64) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -568,7 +522,6 @@ func (c *Client) ImageFileByRbLocalDeletedRbInProgressRbLocalFileStatusRbProcess
 //
 // Generated from index 'image_file_rb_local_usn__i_d'.
 func (c *Client) ImageFileByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ImageFile, error) {
-	// func ImageFileByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*ImageFile, error) {
 	db := c.db
 
 	// query
@@ -605,7 +558,6 @@ func (c *Client) ImageFileByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltyp
 //
 // Generated from index 'sqlite_autoindex_imageFile_1'.
 func (c *Client) ImageFileByID(ctx context.Context, id nulltype.NullString) (*ImageFile, error) {
-	// func ImageFileByID(ctx context.Context, db DB, id nulltype.NullString) (*ImageFile, error) {
 	db := c.db
 
 	// query

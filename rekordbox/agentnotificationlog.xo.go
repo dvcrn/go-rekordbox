@@ -197,7 +197,6 @@ func (c *Client) AllAgentNotificationLog(ctx context.Context) ([]*AgentNotificat
 //
 // Generated from index 'agentNotificationLog_ID_pkey'.
 func (c *Client) AgentNotificationLogByID(ctx context.Context, id nulltype.NullInt64) (*AgentNotificationLog, error) {
-	// func AgentNotificationLogByID(ctx context.Context, db DB, id nulltype.NullInt64) (*AgentNotificationLog, error) {
 	db := c.db
 
 	// query
@@ -220,7 +219,6 @@ func (c *Client) AgentNotificationLogByID(ctx context.Context, id nulltype.NullI
 //
 // Generated from index 'agent_notification_log_gigya_uid_event_date_kind_notification_id'.
 func (c *Client) AgentNotificationLogByGigyaUIDEventDateKindNotificationID(ctx context.Context, gigyaUID nulltype.NullString, eventDate, kind, notificationID nulltype.NullInt64) ([]*AgentNotificationLog, error) {
-	// func AgentNotificationLogByGigyaUIDEventDateKindNotificationID(ctx context.Context, db DB, gigyaUID nulltype.NullString, eventDate nulltype.NullInt64, kind nulltype.NullInt64, notificationID nulltype.NullInt64) ([]*AgentNotificationLog, error) {
 	db := c.db
 
 	// query
@@ -257,7 +255,6 @@ func (c *Client) AgentNotificationLogByGigyaUIDEventDateKindNotificationID(ctx c
 //
 // Generated from index 'agent_notification_log_reported_datetime_event_date'.
 func (c *Client) AgentNotificationLogByReportedDatetimeEventDate(ctx context.Context, reportedDatetime *Time, eventDate nulltype.NullInt64) ([]*AgentNotificationLog, error) {
-	// func AgentNotificationLogByReportedDatetimeEventDate(ctx context.Context, db DB, reportedDatetime *Time, eventDate nulltype.NullInt64) ([]*AgentNotificationLog, error) {
 	db := c.db
 
 	// query

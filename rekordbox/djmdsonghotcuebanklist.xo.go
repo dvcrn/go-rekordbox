@@ -203,7 +203,6 @@ func (c *Client) AllDjmdSongHotCueBanklist(ctx context.Context) ([]*DjmdSongHotC
 //
 // Generated from index 'djmd_song_hot_cue_banklist__content_i_d'.
 func (c *Client) DjmdSongHotCueBanklistByContentID(ctx context.Context, contentID nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByContentID(ctx context.Context, db DB, contentID nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -240,7 +239,6 @@ func (c *Client) DjmdSongHotCueBanklistByContentID(ctx context.Context, contentI
 //
 // Generated from index 'djmd_song_hot_cue_banklist__hot_cue_banklist_i_d'.
 func (c *Client) DjmdSongHotCueBanklistByHotCueBanklistID(ctx context.Context, hotCueBanklistID nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByHotCueBanklistID(ctx context.Context, db DB, hotCueBanklistID nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -277,7 +275,6 @@ func (c *Client) DjmdSongHotCueBanklistByHotCueBanklistID(ctx context.Context, h
 //
 // Generated from index 'djmd_song_hot_cue_banklist__hot_cue_banklist_u_u_i_d'.
 func (c *Client) DjmdSongHotCueBanklistByHotCueBanklistUUID(ctx context.Context, hotCueBanklistUUID nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByHotCueBanklistUUID(ctx context.Context, db DB, hotCueBanklistUUID nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -314,7 +311,6 @@ func (c *Client) DjmdSongHotCueBanklistByHotCueBanklistUUID(ctx context.Context,
 //
 // Generated from index 'djmd_song_hot_cue_banklist__u_u_i_d'.
 func (c *Client) DjmdSongHotCueBanklistByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -351,7 +347,6 @@ func (c *Client) DjmdSongHotCueBanklistByUUID(ctx context.Context, uuid nulltype
 //
 // Generated from index 'djmd_song_hot_cue_banklist_rb_data_status'.
 func (c *Client) DjmdSongHotCueBanklistByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -388,7 +383,6 @@ func (c *Client) DjmdSongHotCueBanklistByRbDataStatus(ctx context.Context, rbDat
 //
 // Generated from index 'djmd_song_hot_cue_banklist_rb_local_data_status'.
 func (c *Client) DjmdSongHotCueBanklistByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -425,7 +419,6 @@ func (c *Client) DjmdSongHotCueBanklistByRbLocalDataStatus(ctx context.Context, 
 //
 // Generated from index 'djmd_song_hot_cue_banklist_rb_local_deleted'.
 func (c *Client) DjmdSongHotCueBanklistByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -462,7 +455,6 @@ func (c *Client) DjmdSongHotCueBanklistByRbLocalDeleted(ctx context.Context, rbL
 //
 // Generated from index 'djmd_song_hot_cue_banklist_rb_local_usn__i_d'.
 func (c *Client) DjmdSongHotCueBanklistByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query
@@ -499,7 +491,6 @@ func (c *Client) DjmdSongHotCueBanklistByRbLocalUsnID(ctx context.Context, rbLoc
 //
 // Generated from index 'sqlite_autoindex_djmdSongHotCueBanklist_1'.
 func (c *Client) DjmdSongHotCueBanklistByID(ctx context.Context, id nulltype.NullString) (*DjmdSongHotCueBanklist, error) {
-	// func DjmdSongHotCueBanklistByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdSongHotCueBanklist, error) {
 	db := c.db
 
 	// query

@@ -1,0 +1,15 @@
+[tools]
+go = "1.26.4"
+
+[tasks.install-tools]
+description = "Install the compatible xo schema generator"
+run = "go install github.com/xo/xo@v0.0.0-20230523111207-4f379944ff16"
+
+[tasks.generate]
+description = "Regenerate the Rekordbox schema and Go models"
+depends = ["install-tools"]
+run = "go run ./cmd/generate-schema"
+
+[tasks.test]
+description = "Run the Go test suite"
+run = "go test ./..."

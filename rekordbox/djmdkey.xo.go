@@ -184,7 +184,6 @@ func (c *Client) AllDjmdKey(ctx context.Context) ([]*DjmdKey, error) {
 //
 // Generated from index 'djmd_key__scale_name'.
 func (c *Client) DjmdKeyByScaleName(ctx context.Context, scaleName nulltype.NullString) ([]*DjmdKey, error) {
-	// func DjmdKeyByScaleName(ctx context.Context, db DB, scaleName nulltype.NullString) ([]*DjmdKey, error) {
 	db := c.db
 
 	// query
@@ -221,7 +220,6 @@ func (c *Client) DjmdKeyByScaleName(ctx context.Context, scaleName nulltype.Null
 //
 // Generated from index 'djmd_key__u_u_i_d'.
 func (c *Client) DjmdKeyByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdKey, error) {
-	// func DjmdKeyByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdKey, error) {
 	db := c.db
 
 	// query
@@ -258,7 +256,6 @@ func (c *Client) DjmdKeyByUUID(ctx context.Context, uuid nulltype.NullString) ([
 //
 // Generated from index 'djmd_key_rb_data_status'.
 func (c *Client) DjmdKeyByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdKey, error) {
-	// func DjmdKeyByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdKey, error) {
 	db := c.db
 
 	// query
@@ -295,7 +292,6 @@ func (c *Client) DjmdKeyByRbDataStatus(ctx context.Context, rbDataStatus nulltyp
 //
 // Generated from index 'djmd_key_rb_local_data_status'.
 func (c *Client) DjmdKeyByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdKey, error) {
-	// func DjmdKeyByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdKey, error) {
 	db := c.db
 
 	// query
@@ -332,7 +328,6 @@ func (c *Client) DjmdKeyByRbLocalDataStatus(ctx context.Context, rbLocalDataStat
 //
 // Generated from index 'djmd_key_rb_local_deleted'.
 func (c *Client) DjmdKeyByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdKey, error) {
-	// func DjmdKeyByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdKey, error) {
 	db := c.db
 
 	// query
@@ -369,7 +364,6 @@ func (c *Client) DjmdKeyByRbLocalDeleted(ctx context.Context, rbLocalDeleted nul
 //
 // Generated from index 'djmd_key_rb_local_usn__i_d'.
 func (c *Client) DjmdKeyByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdKey, error) {
-	// func DjmdKeyByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdKey, error) {
 	db := c.db
 
 	// query
@@ -406,7 +400,6 @@ func (c *Client) DjmdKeyByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.
 //
 // Generated from index 'sqlite_autoindex_djmdKey_1'.
 func (c *Client) DjmdKeyByID(ctx context.Context, id nulltype.NullString) (*DjmdKey, error) {
-	// func DjmdKeyByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdKey, error) {
 	db := c.db
 
 	// query

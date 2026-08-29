@@ -119,7 +119,6 @@ func (c *Client) {{ func_name $i }} (ctx context.Context, {{ params $i.Fields tr
 {{- else }}
 func (c *Client) {{ func_name $i }} (ctx context.Context, {{ params $i.Fields true }}) ([]*{{ $i.Table.GoName }}, error) {
 {{- end }}
-// {{ func_context $i }} {
 	db := c.db
 
 	// query

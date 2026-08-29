@@ -192,7 +192,6 @@ func (c *Client) AllAgentNotification(ctx context.Context) ([]*AgentNotification
 //
 // Generated from index 'agent_notification_start_datetime_end_datetime'.
 func (c *Client) AgentNotificationByStartDatetimeEndDatetime(ctx context.Context, startDatetime, endDatetime *Time) ([]*AgentNotification, error) {
-	// func AgentNotificationByStartDatetimeEndDatetime(ctx context.Context, db DB, startDatetime *Time, endDatetime *Time) ([]*AgentNotification, error) {
 	db := c.db
 
 	// query
@@ -229,7 +228,6 @@ func (c *Client) AgentNotificationByStartDatetimeEndDatetime(ctx context.Context
 //
 // Generated from index 'sqlite_autoindex_agentNotification_1'.
 func (c *Client) AgentNotificationByID(ctx context.Context, id nulltype.NullInt64) (*AgentNotification, error) {
-	// func AgentNotificationByID(ctx context.Context, db DB, id nulltype.NullInt64) (*AgentNotification, error) {
 	db := c.db
 
 	// query

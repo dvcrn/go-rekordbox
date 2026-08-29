@@ -187,7 +187,6 @@ func (c *Client) AllDjmdCloudProperty(ctx context.Context) ([]*DjmdCloudProperty
 //
 // Generated from index 'djmd_cloud_property__u_u_i_d'.
 func (c *Client) DjmdCloudPropertyByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -224,7 +223,6 @@ func (c *Client) DjmdCloudPropertyByUUID(ctx context.Context, uuid nulltype.Null
 //
 // Generated from index 'djmd_cloud_property_rb_data_status'.
 func (c *Client) DjmdCloudPropertyByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -261,7 +259,6 @@ func (c *Client) DjmdCloudPropertyByRbDataStatus(ctx context.Context, rbDataStat
 //
 // Generated from index 'djmd_cloud_property_rb_local_data_status'.
 func (c *Client) DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -298,7 +295,6 @@ func (c *Client) DjmdCloudPropertyByRbLocalDataStatus(ctx context.Context, rbLoc
 //
 // Generated from index 'djmd_cloud_property_rb_local_deleted'.
 func (c *Client) DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -335,7 +331,6 @@ func (c *Client) DjmdCloudPropertyByRbLocalDeleted(ctx context.Context, rbLocalD
 //
 // Generated from index 'djmd_cloud_property_rb_local_usn__i_d'.
 func (c *Client) DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query
@@ -372,7 +367,6 @@ func (c *Client) DjmdCloudPropertyByRbLocalUsnID(ctx context.Context, rbLocalUsn
 //
 // Generated from index 'sqlite_autoindex_djmdCloudProperty_1'.
 func (c *Client) DjmdCloudPropertyByID(ctx context.Context, id nulltype.NullString) (*DjmdCloudProperty, error) {
-	// func DjmdCloudPropertyByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdCloudProperty, error) {
 	db := c.db
 
 	// query

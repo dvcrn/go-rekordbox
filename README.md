@@ -4,13 +4,18 @@
 
 # Golang wrapper for rekordbox databases
 
-This is a wrapper to query and interact with the rekordbox 6 database
+This is a wrapper to query and interact with Rekordbox 6 and 7 master databases.
 
 Motivation behind this tool is to enable better automation and integration with rekordbox. In previous versions it was possible to just use the rekordbox XML to query data, but since rekordbox 6 this is no longer possible
 
-**Note**: This is a quickly hacked together project. Use at own risk, and make a backup of your database.
+Rekordbox's database format is undocumented. Back up your library before using this project.
+
+## Compatibility
+
+The generated schema and Go models target database schema 6000. Read access is tested with Rekordbox 7.2.4, and Rekordbox 7.2.13 uses the same schema version.
 
 - [Golang wrapper for rekordbox databases](#golang-wrapper-for-rekordbox-databases)
+	- [Compatibility](#compatibility)
 	- [What is this exactly?](#what-is-this-exactly)
 	- [Install](#install)
 	- [Usage](#usage)
@@ -250,13 +255,14 @@ You can also directly access the sqlx.DB object by calling `client.GetDB()`, and
 
 ### How to regenerate the models (after rekordbox upgrades)
 
-There's a handy Makefile command that does all of this for you (works only on Mac):
+Install SQLCipher, then run the generation task on macOS:
 
 ```
-make genmodels
+brew install sqlcipher
+mise run generate
 ```
 
-You need to have xo (run `make deps` and sqlcipher installed (through brew))
+Generation leaves the source database unchanged. Set `REKORDBOX_DATABASE` to use a database outside the default `~/Library/Pioneer/rekordbox/master.db` location.
 
 ### Extending the default generated code with custom code
 
@@ -266,7 +272,7 @@ For example, the recent song history implementation is done in `djmdsonghistory.
 
 ### Extending code generation
 
-Code generation is handled by [xo](https://github.com/xo/xo). To extend the generated code, update the xo template in `tpl/schema.xo.go.tpl`. Once you updated that, re-generate the models with `make genmodels` to see your changes
+Code generation is handled by [xo](https://github.com/xo/xo). To extend the generated code, update the xo template in `tpl/schema.xo.go.tpl`, then run `mise run generate`.
 
 ## Prior art
 

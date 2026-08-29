@@ -186,7 +186,6 @@ func (c *Client) AllDjmdCategory(ctx context.Context) ([]*DjmdCategory, error) {
 //
 // Generated from index 'djmd_category__u_u_i_d'.
 func (c *Client) DjmdCategoryByUUID(ctx context.Context, uuid nulltype.NullString) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByUUID(ctx context.Context, db DB, uuid nulltype.NullString) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -223,7 +222,6 @@ func (c *Client) DjmdCategoryByUUID(ctx context.Context, uuid nulltype.NullStrin
 //
 // Generated from index 'djmd_category_rb_data_status'.
 func (c *Client) DjmdCategoryByRbDataStatus(ctx context.Context, rbDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbDataStatus(ctx context.Context, db DB, rbDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -260,7 +258,6 @@ func (c *Client) DjmdCategoryByRbDataStatus(ctx context.Context, rbDataStatus nu
 //
 // Generated from index 'djmd_category_rb_local_data_status'.
 func (c *Client) DjmdCategoryByRbLocalDataStatus(ctx context.Context, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbLocalDataStatus(ctx context.Context, db DB, rbLocalDataStatus nulltype.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -297,7 +294,6 @@ func (c *Client) DjmdCategoryByRbLocalDataStatus(ctx context.Context, rbLocalDat
 //
 // Generated from index 'djmd_category_rb_local_deleted'.
 func (c *Client) DjmdCategoryByRbLocalDeleted(ctx context.Context, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbLocalDeleted(ctx context.Context, db DB, rbLocalDeleted nulltype.NullInt64) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -334,7 +330,6 @@ func (c *Client) DjmdCategoryByRbLocalDeleted(ctx context.Context, rbLocalDelete
 //
 // Generated from index 'djmd_category_rb_local_usn__i_d'.
 func (c *Client) DjmdCategoryByRbLocalUsnID(ctx context.Context, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCategory, error) {
-	// func DjmdCategoryByRbLocalUsnID(ctx context.Context, db DB, rbLocalUsn nulltype.NullInt64, id nulltype.NullString) ([]*DjmdCategory, error) {
 	db := c.db
 
 	// query
@@ -371,7 +366,6 @@ func (c *Client) DjmdCategoryByRbLocalUsnID(ctx context.Context, rbLocalUsn null
 //
 // Generated from index 'sqlite_autoindex_djmdCategory_1'.
 func (c *Client) DjmdCategoryByID(ctx context.Context, id nulltype.NullString) (*DjmdCategory, error) {
-	// func DjmdCategoryByID(ctx context.Context, db DB, id nulltype.NullString) (*DjmdCategory, error) {
 	db := c.db
 
 	// query
