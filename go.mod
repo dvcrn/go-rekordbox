@@ -1,6 +1,6 @@
 module github.com/dvcrn/go-rekordbox
 
-go 1.18
+go 1.25.0
 
 require (
 	github.com/andreburgaud/crypt2go v1.1.0
@@ -8,7 +8,7 @@ require (
 	github.com/mattn/go-nulltype v0.0.0-20200221160555-75ae8a76f2e9
 	github.com/nurcahyaari/sqlabst v0.0.0-20220902160139-0f2eb23feed8
 	github.com/xeodou/go-sqlcipher v0.0.0-20200727080346-d681773ef093
-	golang.org/x/crypto v0.17.0
+	golang.org/x/crypto v0.52.0
 	golang.org/x/tools v0.1.10
 	mvdan.cc/gofumpt v0.3.1
 )
@@ -20,7 +20,7 @@ require (
 	github.com/spf13/cobra v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220411194840-2f41105eb62f // indirect
 )
 
